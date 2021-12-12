@@ -3,9 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Cinema"
         mc:Ignorable="d"
-        Height="450" Width="800">
+        >
     <UserControl.Resources>
         <Style x:Key="placeHolder" TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
             <Setter Property="Template">
@@ -44,19 +43,31 @@
         </Style>
     </UserControl.Resources>
     <Grid>
-        <!--<TextBox Style="{StaticResource placeHolder}" Tag="Name of customer" Margin="22,19,463,370" />-->
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="239*" />
-            <ColumnDefinition Width="205*"/>
-            <ColumnDefinition Width="356*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        
-        <ListBox Grid.Column="0"  ItemsSource="{Binding View}"
-                 SelectedItem="{Binding SelectedMovie}" Grid.ColumnSpan="2">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Top Movies" Grid.Row="0" Grid.ColumnSpan="3" TextAlignment="Center" FontSize="24"/>
+
+        <ListBox Grid.ColumnSpan="2" Grid.Row="2"  ItemsSource="{Binding View}"
+                 SelectedItem="{Binding SelectedMovie}"  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel IsItemsHost="True" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Margin="5">
-                        <TextBlock FontSize="18" Text="{Binding Path=MovieName}" />
+                    <StackPanel Width="200">
+                        <TextBlock FontSize="18" Text="{Binding Path=MovieName}" TextWrapping="Wrap" />
                         <TextBlock Text="{Binding Path=Year}" />
                         <TextBlock Text="{Binding Path=Rating}" />
                     </StackPanel>
@@ -64,22 +75,17 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <StackPanel Grid.Column="1" DataContext="{Binding SelectedMovie}" Grid.ColumnSpan="2" Margin="205,0,0,0">
-            <TextBlock Text="Movie" />
-            <TextBox Text="{Binding MovieName, UpdateSourceTrigger=PropertyChanged}" />
-            <TextBlock Text="Year" />
-            <TextBox Text="{Binding Year, UpdateSourceTrigger=PropertyChanged}" />
-            <TextBlock Text="Rating" />
-            <TextBox Text="{Binding Rating, UpdateSourceTrigger=PropertyChanged}" />
+        <StackPanel Grid.Column="2" Grid.Row="2"   DataContext="{Binding SelectedMovie}">
+            <TextBlock Text="Genre" FontWeight="Bold" />
+            <TextBlock Text="{Binding Genre, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="Describe" FontWeight="Bold" />
+            <TextBlock Text="{Binding Describe, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" />
+            <TextBlock Text="Rating" FontWeight="Bold" />
+            <TextBlock Text="{Binding Rating, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
 
-        <!--<StackPanel Grid.Column="1"  Grid.ColumnSpan="2" Margin="205,0,0,0">
-            <TextBlock Height="23" HorizontalAlignment="Center" Margin="0,165,0,0" Name="textBlock1" Width="92" />
-            <TextBox Style="{StaticResource placeHolder}" Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="202" Tag="movie search" />
-        </StackPanel>-->
-
-        <StackPanel Grid.Column="1"  Grid.ColumnSpan="3" Margin="205,0,0,0">
-            <TextBox Style="{StaticResource placeHolder}" Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="202" Height="24" Tag="movie search"  Margin="10,150,0,0"
+        <StackPanel Grid.Column="0" Grid.Row="1">
+            <TextBox Style="{StaticResource placeHolder}" Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Tag="movie search"
                      FontSize="14" FontFamily="Montsserat"/>
         </StackPanel>
     </Grid>

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Ribbon;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -17,20 +18,23 @@ namespace Cinema.View
     /// <summary>
     /// Interaction logic for MovieLibrary.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : RibbonWindow
     {
         public MainWindow()
         {
             InitializeComponent();
-            var tabItem = new TabItem();
-            tabItem.Content = new MovieLibrary();
-            tabItem.Header = "MovieLibrary";
-            tabcont1.Items.Add(tabItem);
+        
+            tabController.Items.Add(new TabItem
+            {
+                Header = "Movie Library",
+                Content = new MovieLibrary()
+             }) ;
 
-            var tabItem1 = new TabItem();
-            tabItem1.Content = new Users();
-            tabItem1.Header = "Users";
-            tabcont1.Items.Add(tabItem1);
+            tabController.Items.Add(new TabItem
+            {
+                Header = "Users",
+                Content = new Users()
+            });
         }
     }
 }

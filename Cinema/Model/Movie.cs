@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Drawing;
 
 namespace Cinema
 {
@@ -13,6 +14,8 @@ namespace Cinema
         private string movieName;
         private int year;
         private float rating;
+        private string genre;
+        private string describe;
 
         public string MovieName
         {
@@ -39,6 +42,26 @@ namespace Cinema
             {
                 rating = value;
                 OnPropertyChanged("Rating");
+            }
+        }
+
+        public string Genre
+        {
+            get { return genre; }
+            set
+            {
+                genre = value;
+                OnPropertyChanged("Genre");
+            }
+        }
+
+        public string Describe
+        {
+            get { return describe; }
+            set
+            {
+                describe = value;
+                OnPropertyChanged("Describe");
             }
         }
 
