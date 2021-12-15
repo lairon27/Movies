@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data.Entity;
+using Cinema.Model;
 
 namespace Cinema
 {
@@ -20,10 +22,16 @@ namespace Cinema
     /// </summary>
     public partial class MovieLibrary : UserControl
     {
+        MovieContext db;
         public MovieLibrary()
         {
             InitializeComponent();
-            DataContext = new MovieLibraryViewModel();
+            DataContext = new MovieLibraryVM();
+
+            //db = new MovieContext();
+            //db.Movies.Load();
+            //moviesList.ItemsSource = db.Movies.Local.ToBindingList();
+
         }
     }
 }

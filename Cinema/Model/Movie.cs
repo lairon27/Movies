@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Drawing;
+﻿using Cinema.Model;
 
 namespace Cinema
 {
-    internal class Movie : INotifyPropertyChanged
+    internal class Movie : ModelBaseNotify
     {
         private string movieName;
         private int year;
         private float rating;
         private string genre;
         private string describe;
+        private string time;
 
         public string MovieName
         {
@@ -65,11 +59,14 @@ namespace Cinema
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
+        public string Time
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+            get { return time; }
+            set
+            {
+                time = value; ;
+                OnPropertyChanged("Time");
+            }
         }
     }
 }

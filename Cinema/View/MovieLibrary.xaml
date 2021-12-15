@@ -57,8 +57,8 @@
 
         <TextBlock Text="Top Movies" Grid.Row="0" Grid.ColumnSpan="3" TextAlignment="Center" FontSize="24"/>
 
-        <ListBox Grid.ColumnSpan="2" Grid.Row="2"  ItemsSource="{Binding View}"
-                 SelectedItem="{Binding SelectedMovie}"  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+        <ListBox x:Name="moviesList" Grid.ColumnSpan="2" Grid.Row="2"  ItemsSource="{Binding View}"
+                 SelectedItem="{Binding SelectedMovie}"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="5" >
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel IsItemsHost="True" />
@@ -75,18 +75,24 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <StackPanel Grid.Column="2" Grid.Row="2"   DataContext="{Binding SelectedMovie}">
+        <StackPanel Grid.Column="2" Grid.Row="2"   DataContext="{Binding SelectedMovie}" Margin="5">
             <TextBlock Text="Genre" FontWeight="Bold" />
             <TextBlock Text="{Binding Genre, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Text="Describe" FontWeight="Bold" />
             <TextBlock Text="{Binding Describe, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" />
             <TextBlock Text="Rating" FontWeight="Bold" />
             <TextBlock Text="{Binding Rating, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="Time" FontWeight="Bold" />
+            <TextBlock Text="{Binding Time, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
 
-        <StackPanel Grid.Column="0" Grid.Row="1">
+        <StackPanel Grid.Column="0" Grid.Row="1"  Margin="5">
             <TextBox Style="{StaticResource placeHolder}" Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Tag="movie search"
                      FontSize="14" FontFamily="Montsserat"/>
         </StackPanel>
+
+        <Button Grid.Column="1" Grid.Row="1" Content="Add" Command="{Binding AddWindow}" Width="50" Height="20"/>
+        <Button Grid.Column="2" Grid.Row="1" Content="Sort by name" Command="{Binding SortByName}" Width="50" Height="20"/>
+        <Button Grid.Column="2" Grid.Row="0" Content="Sort by year" Command="{Binding SortByRating}" Width="50" Height="20"/>
     </Grid>
 </UserControl>
