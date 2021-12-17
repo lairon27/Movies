@@ -1,0 +1,38 @@
+﻿<Window x:Class="Cinema.View.AddMovie"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Cinema.View" xmlns:vm="clr-namespace:Cinema.VM" 
+        mc:Ignorable="d"
+        Title="Add Movie" Height="400" Width="300">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel  DataContext="{Binding SelectedMovie}" Margin="5" Grid.ColumnSpan="3">
+            <TextBlock Text="Movie Title" FontWeight="Bold" />
+            <TextBox  Text="{Binding MovieName, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" />
+            <TextBlock Text="Year" FontWeight="Bold" />
+            <TextBox Text="{Binding Year, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="Rating" FontWeight="Bold" />
+            <TextBox Text="{Binding Rating, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="Genre" FontWeight="Bold" />
+            <TextBox Text="{Binding Genre, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="Description" FontWeight="Bold" />
+            <TextBox Text="{Binding Describe, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap"/>
+            <TextBlock Text="Time" FontWeight="Bold" />
+            <TextBox Text="{Binding Time, UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>
+
+        <Button Grid.Column="1" Grid.Row="1" Content="Add" Command="{Binding AddCommand}" Margin="0, 0, 0, 5"/>
+    </Grid>
+</Window>

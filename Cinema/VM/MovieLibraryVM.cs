@@ -89,20 +89,25 @@ namespace Cinema
             }
         }
 
-        //private RelayCommand addWindow;
-        //public RelayCommand AddWindow
-        //{
-        //    get
-        //    {
-        //        return addWindow ??
-        //          (addWindow = new RelayCommand(obj =>
-        //          {
-        //              AddMovie movie = new();
-        //              movie.Show();
+        public bool AddMovie_CanExecute()
+        {
+            return true;
+        }
 
-        //          }));
-        //    }
-        //}
+        private RelayCommand addNew;
+        public RelayCommand AddWindow
+        {
+            get
+            {
+                return addNew ??
+                  (addNew = new RelayCommand(obj =>
+                  {
+                      AddMovie movie = new();
+                      movie.Show();
+
+                  }));
+            }
+        }
 
         private RelayCommand addCommand;
         public RelayCommand AddCommand
@@ -119,6 +124,7 @@ namespace Cinema
                   }));
             }
         }
+        public RoutedCommand addNewWindow = new RoutedCommand("Open", typeof(MovieLibraryVM));
 
         public MovieLibraryVM()
         {
@@ -138,6 +144,34 @@ namespace Cinema
             };
 
             view = CollectionViewSource.GetDefaultView(Movies);
+
+            //CommandBindings.Add(new CommandBinding(BaseVM.Open,   // this is the command object
+            //                   XCutFooCommand,      // execute
+            //                   CanXCuteFooCommand));
+
+            //Open = new RoutedUICommand("Open", "Open", typeof(MovieLibraryVM));
+
+            //var exitBinding = new CommandBinding(MainVm.Exit, ExitExecuted, ExitCanExecute);
+
+            ////Register the binding to the class
+            //CommandManager.RegisterClassCommandBinding(typeof(MovieLibraryVM), exitBinding);
+            ////AssociatedObject.CommandBindings.Add(binding);
+            ////Adds the binding to the CommandBindingCollection
+            //CommandBindings.Add(deleteBinding);
         }
+
+        //public static RoutedUICommand Open { get; set; }
+
+        //public static readonly RoutedUICommand DoSomething = new RoutedUICommand("Do something", "DoSomething", typeof(MovieLibraryVM));
+
+        //private void ExitCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //private void ExitExecuted(object sender, ExecutedRoutedEventArgs e)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

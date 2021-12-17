@@ -1,11 +1,12 @@
-﻿<UserControl x:Class="Cinema.MovieLibrary"
+﻿<view:BaseView  xmlns:view="clr-namespace:Cinema.View"
+        x:Class="Cinema.View.MovieLibrary"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         >
-    <UserControl.Resources>
+    <view:BaseView.Resources>
         <Style x:Key="placeHolder" TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -41,7 +42,7 @@
         <Style TargetType="TextBox">
             <Setter Property="FontSize" Value="14" />
         </Style>
-    </UserControl.Resources>
+    </view:BaseView.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -87,7 +88,7 @@
         </StackPanel>
 
         <StackPanel Grid.Column="0" Grid.Row="1"  Margin="5">
-            <TextBox Style="{StaticResource placeHolder}" Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Tag="movie search"
+            <TextBox x:Name="searchTextBox" Style="{StaticResource placeHolder}" Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Tag="movie search"
                      FontSize="14" FontFamily="Montsserat"/>
         </StackPanel>
 
@@ -95,4 +96,4 @@
         <Button Grid.Column="2" Grid.Row="1" Content="Sort by name" Command="{Binding SortByName}" Width="50" Height="20"/>
         <Button Grid.Column="2" Grid.Row="0" Content="Sort by year" Command="{Binding SortByRating}" Width="50" Height="20"/>
     </Grid>
-</UserControl>
+</view:BaseView>

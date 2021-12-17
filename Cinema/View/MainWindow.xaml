@@ -4,9 +4,20 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
        
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Cinema.View"
+        xmlns:vm="clr-namespace:Cinema.VM" 
+              
+        xmlns:bs ="clr-namespace:Cinema.View"
+        xmlns:cinema="clr-namespace:Cinema" 
+        d:DataContext="{d:DesignInstance Type=cinema:MovieLibraryVM}"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+
+    <!--<RibbonWindow.CommandBindings>
+        <CommandBinding Command="bs:BaseView.AddMovie"
+                    CanExecute="AddMovie_CanExecute"
+                    Executed="AddMovie_Executed"/>
+    </RibbonWindow.CommandBindings>-->
+
     <Grid>
 
         <Grid.RowDefinitions>
@@ -14,10 +25,11 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Ribbon Grid.Row ="0">
-            <RibbonTab  Header="rib">
-                <RibbonButton Label="button" >
+            <RibbonTab Header="sort by">
+                <RibbonGroup Header="rib">
+                    <RibbonButton Label="Add movie" Width="100"  Command="{x:Static vm:Commands.AddMovie}"/>
                     
-                </RibbonButton>
+                </RibbonGroup>
             </RibbonTab>
         </Ribbon>
         <TabControl Name="tabController" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1">
