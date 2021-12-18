@@ -76,7 +76,8 @@
             </ListBox.ItemsPanel>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Width="200">
+                    <StackPanel Width="185" Margin="5">
+                        <Image Source="{Binding Path=Image}"/>
                         <TextBlock x:Name="titleTextBox" Style="{StaticResource changeColor}" FontSize="18" Text="{Binding Path=MovieName}" TextWrapping="Wrap" />
                         <TextBlock Text="{Binding Path=Year}" />
                         <TextBlock Text="{Binding Path=Rating}" />

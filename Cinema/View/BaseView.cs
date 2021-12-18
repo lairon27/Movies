@@ -27,15 +27,8 @@ namespace Cinema.View
 
         private void AddMovie_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            
+            AddMovie add = new AddMovie();
+            add.Show();
         }
-
-        //private static RoutedUICommand _AddCommand = new("Add Movie", "AddMovie", typeof(MainWindow));
-        //public static RoutedUICommand AddCommand
-        //{
-        //    get { return _AddCommand; }
-        //}
-
-        //public RoutedUICommand AddMovie = new("AddMovie", "AddMovie", typeof(BaseView));
     }
 }

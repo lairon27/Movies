@@ -10,6 +10,7 @@ namespace Cinema
         private string genre;
         private string describe;
         private string time;
+        private string image;
 
         public string MovieName
         {
@@ -66,6 +67,16 @@ namespace Cinema
             {
                 time = value; ;
                 OnPropertyChanged("Time");
+            }
+        }
+
+        public string Image
+        {
+            get { return image; }
+            set
+            {
+                image = value; ;
+                OnPropertyChanged("Image");
             }
         }
     }
