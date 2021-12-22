@@ -1,16 +1,18 @@
 ﻿using Cinema.Model;
+using System;
 
 namespace Cinema
 {
-    internal class Movie : ModelBaseNotify
+    [System.Xml.Serialization.XmlInclude(typeof(Movie))]
+    public class Movie : ModelBaseNotify
     {
-        private string movieName;
-        private int year;
-        private float rating;
-        private string genre;
-        private string describe;
-        private string time;
-        private string image;
+        public string movieName;
+        public int year;
+        public float rating;
+        public string genre;
+        public string describe;
+        public string time;
+        public string image;
 
         public string MovieName
         {

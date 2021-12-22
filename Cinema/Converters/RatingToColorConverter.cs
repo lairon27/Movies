@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
+using System.Windows.Media;
 
-namespace Cinema.VM
+namespace Cinema.Converters
 {
-    internal class RangeConverter : IValueConverter
+    internal class RatingToColorConverter : IValueConverter
     {
         public object Convert(
         object value, Type targetType,
@@ -17,12 +14,12 @@ namespace Cinema.VM
             double number = (double)System.Convert.ChangeType(value, typeof(double));
 
             if (number < 5)
-                return -1;
+                return new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ff6161"));
 
             if (number >= 5 && number < 7.5)
-                return 0;
+                return new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ffc052"));
 
-            return +1;
+            return new SolidColorBrush((Color)ColorConverter.ConvertFromString("#4287f5"));
         }
 
         public object ConvertBack(

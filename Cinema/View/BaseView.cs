@@ -12,23 +12,23 @@ namespace Cinema.View
     public  class BaseView : UserControl
     {
 
-        public BaseView()
-        {
-            var addBinding = new CommandBinding(Commands.AddMovie,  AddMovie_Executed, AddMovie_CanExecute);
-            CommandBindings.Add(addBinding);
+        //public BaseView()
+        //{
+        //    var addBinding = new CommandBinding(Commands.AddMovie,  AddMovie_Executed, AddMovie_CanExecute);
+        //    CommandBindings.Add(addBinding);
 
-            CommandManager.InvalidateRequerySuggested();
-        }
+        //    CommandManager.InvalidateRequerySuggested();
+        //}
 
-        private void AddMovie_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = ((MovieLibraryVM)DataContext).AddMovie_CanExecute();
-        }
+        //private void AddMovie_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        //{
+        //    e.CanExecute = ((MovieLibraryVM)DataContext).AddMovie_CanExecute();
+        //}
 
-        private void AddMovie_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            AddMovie add = new AddMovie();
-            add.Show();
-        }
+        //private void AddMovie_Executed(object sender, ExecutedRoutedEventArgs e)
+        //{
+        //    AddMovie add = new AddMovie();
+        //    add.Show();
+        //}
     }
 }

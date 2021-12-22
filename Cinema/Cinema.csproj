@@ -13,7 +13,6 @@
     <None Remove="Resources\dune.jpg" />
     <None Remove="Resources\ford_v_ferrari.jpg" />
     <None Remove="Resources\harry_potter.jpg" />
-    <None Remove="Resources\img.png" />
     <None Remove="Resources\joker.jpg" />
     <None Remove="Resources\no_time.png" />
     <None Remove="Resources\shang-chi.jpg" />
@@ -41,9 +40,6 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\harry_potter.jpg">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\img.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\joker.jpg">

@@ -5,12 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:cinema="clr-namespace:Cinema" d:DataContext="{d:DesignInstance Type=cinema:UsersVM}"
              mc:Ignorable="d">
     <Grid>
-        <!--<Label Content="Hello"/>-->
-        <!--<Image x:Name="img"   Height="200" Width="150"/>-->
-        <!--<Image Source="pack://application:,,,/Resources/img.png"/>-->
-        <!--<Image Source="pack://application:,,,/images/item0.jpg" Width="150" Height="200"/>-->
-        <!--<Image Source="../images/item0.jpg"  Height="200" Width="150"/>-->
-        <!--<Image Source="../Resources/sample_640×426.jpeg"/>-->
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="25" />

@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Cinema.View" xmlns:vm="clr-namespace:Cinema.VM" 
+        xmlns:local="clr-namespace:Cinema.View" xmlns:vm="clr-namespace:Cinema.VM" xmlns:cinema="clr-namespace:Cinema" d:DataContext="{d:DesignInstance Type=cinema:MovieLibraryVM}"
         mc:Ignorable="d"
         Title="Add Movie" Height="400" Width="300">
     <Grid>
@@ -18,7 +18,10 @@
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
 
-        <StackPanel  DataContext="{Binding SelectedMovie}" Margin="5" Grid.ColumnSpan="3">
+        <StackPanel Margin="5" Grid.ColumnSpan="3">
+            <TextBlock Text="Movie Poster" FontWeight="Bold" />
+            <TextBox x:Name="txb_FileName" Text="{Binding Image, UpdateSourceTrigger=PropertyChanged}"  />
+            <Button Content="chose image" Click="DowloadImage"/>
             <TextBlock Text="Movie Title" FontWeight="Bold" />
             <TextBox  Text="{Binding MovieName, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" />
             <TextBlock Text="Year" FontWeight="Bold" />
@@ -33,6 +36,8 @@
             <TextBox Text="{Binding Time, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
 
-        <Button Grid.Column="1" Grid.Row="1" Content="Add" Command="{Binding AddCommand}" Margin="0, 0, 0, 5"/>
+        <StackPanel  Grid.Column="1" Grid.Row="1">
+            <Button x:Name="save_Button" Content="Save" Click="save_Button_Click"/>
+        </StackPanel>
     </Grid>
 </Window>

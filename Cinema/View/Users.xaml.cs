@@ -27,18 +27,6 @@ namespace Cinema.View
         {
             InitializeComponent();
             DataContext = new UsersVM();
-
-            //var uri = new Uri("/images/item0.jpg", UriKind.Relative);
-            //img.Source =new  BitmapImage(uri);
-
-            //Image myImage3 = new Image();
-            //BitmapImage bi3 = new BitmapImage();
-            //bi3.BeginInit();
-            //bi3.UriSource = new Uri("/Resources / avengersInfinityWar.jpg", UriKind.Relative);
-            //bi3.EndInit();
-            //myImage3.Stretch = Stretch.Fill;
-            //myImage3.Source = bi3;
-
         }
     }
 }
