@@ -19,17 +19,17 @@ namespace Cinema.View
     /// <summary>
     /// Interaction logic for AddMovie.xaml
     /// </summary>
-    public partial class AddMovie : Window
+    public partial class AddMovieDialog : Window
     {
-        public AddMovie()
+        public AddMovieDialog()
         {
             InitializeComponent();
             DataContext = new Movie();
         }
 
-        private void save_Button_Click(object sender, RoutedEventArgs e)
+        public void add_Button_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            DialogResult = true;
         }
 
         private void DowloadImage(object sender, RoutedEventArgs e)
@@ -37,12 +37,15 @@ namespace Cinema.View
             OpenFileDialog myDialog = new();
             myDialog.Filter = "Images(*.JPG;*.PNG)|*.JPG;*.PNG" + "|All Files (*.*)|*.* ";
             myDialog.CheckFileExists = true;
-            myDialog.Multiselect = true;
-            myDialog.ShowDialog();
             if (myDialog.ShowDialog() == true)
             {
-                txb_FileName.Text = myDialog.FileName;
+                txb_ImageFileName.Text = myDialog.FileName;
             }
+        }
+
+        private void cancel_Button_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

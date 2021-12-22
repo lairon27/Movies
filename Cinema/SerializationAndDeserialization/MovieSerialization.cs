@@ -1,23 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 using System.Xml.Serialization;
 
 namespace Cinema.Commands
 {
-   class MovieSerialization
+   class Serialization
     {
-        public static void SerializeMovieItemToXML<Movie>(Movie item, string FilePath)
+        public static void SerializeToXML<T>(T obj, string FilePath)
         {
-            XmlSerializer xs = new(typeof(Movie));
-            using (StreamWriter wr = new StreamWriter(FilePath))
-            {
-                xs.Serialize(wr, item);
-            }
+            XmlSerializer xs = new(typeof(T));
+            using StreamWriter wr = new(FilePath);
+            xs.Serialize(wr, obj);
+        }
+
+        public static T Deserialize<T>(string FilePath) where T : class
+        {
+            XmlSerializer xs = new(typeof(T));
+            using StreamReader rd = new(FilePath);
+            var result = xs.Deserialize(rd) as T;
+            return result;
         }
     }
 }
