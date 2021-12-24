@@ -10,7 +10,7 @@
         xmlns:cinema="clr-namespace:Cinema" 
         d:DataContext="{d:DesignInstance Type=cinema:MovieLibraryVM}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Main Window" Height="450" Width="800">
 
     <!--<RibbonWindow.CommandBindings>
         <CommandBinding Command="bs:BaseView.AddMovie"

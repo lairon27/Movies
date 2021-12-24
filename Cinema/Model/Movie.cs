@@ -1,5 +1,4 @@
 ﻿using Cinema.Model;
-using System;
 
 namespace Cinema
 {

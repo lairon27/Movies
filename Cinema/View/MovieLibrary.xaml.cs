@@ -16,6 +16,7 @@ using System.Data.Entity;
 using Cinema.Model;
 using Cinema.VM;
 using Cinema.View;
+using Cinema.Dialog;
 
 namespace Cinema.View
 {

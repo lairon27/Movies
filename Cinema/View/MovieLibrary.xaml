@@ -59,7 +59,7 @@
         <TextBlock Text="Top Movies" Grid.Row="0" Grid.ColumnSpan="3" TextAlignment="Center" FontSize="24"/>
 
         <ListBox x:Name="moviesList" Grid.ColumnSpan="2" Grid.Row="2" Grid.RowSpan="2" ItemsSource="{Binding View}"
-                 SelectedItem="{Binding SelectedMovie}"  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                 SelectedItem="{Binding SelectedMovie}"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" IsSynchronizedWithCurrentItem="True">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel IsItemsHost="True" />
@@ -69,7 +69,13 @@
                 <DataTemplate>
                     <StackPanel Width="185" Margin="5">
                         <Image Source="{Binding Path=Image}"/>
-                        <TextBlock Foreground="{Binding Path=Rating, Converter={StaticResource rangeConv}}" FontSize="18" Text="{Binding Path=MovieName}" TextWrapping="Wrap" />
+                        <TextBlock Foreground="{Binding Path=Rating, Converter={StaticResource rangeConv}}" FontSize="18" Text="{Binding Path=MovieName}" TextWrapping="Wrap">
+                            <TextBlock.InputBindings>
+                                <MouseBinding MouseAction="LeftDoubleClick"
+                                  Command="{Binding DataContext.EditMovieDialogCmd, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+                                  CommandParameter="{Binding SelectedMovie}" />
+                            </TextBlock.InputBindings>
+                        </TextBlock>
                         <TextBlock Text="{Binding Path=Year}" />
                         <TextBlock Text="{Binding Path=Rating}" />
                     </StackPanel>
@@ -77,7 +83,7 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <StackPanel Grid.Column="2" Grid.Row="2"   DataContext="{Binding SelectedMovie}" Margin="5">
+        <StackPanel Grid.Column="2" Grid.Row="2" DataContext="{Binding SelectedMovie}" Margin="5">
             <TextBlock Text="Genre" FontWeight="Bold" />
             <TextBlock Text="{Binding Genre, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Text="Describe" FontWeight="Bold" />
@@ -97,5 +103,6 @@
         <!--<Button Grid.Column="2" Grid.Row="1" Content="Sort by name" Command="{Binding SortByName}" Width="50" Height="20"/>
         <Button Grid.Column="2" Grid.Row="0" Content="Sort by year" Command="{Binding SortByRating}" Width="50" Height="20"/>-->
         <Button Grid.Column="2" Grid.Row="3" Content="save changes" Command="{Binding SaveAllChanges}"/>
+        <!--<Button Grid.Column="2" Grid.Row="0" Content="Edit" Command="{Binding EditMovieDialogCmd}" Width="50" Height="20"/>-->
     </Grid>
 </view:BaseView>

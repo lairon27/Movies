@@ -4,12 +4,9 @@ using System.Collections.ObjectModel;
 using System.Windows.Data;
 using Cinema.VM;
 using Cinema.View;
-using System.Windows.Input;
 using Cinema.Commands;
-using System.Xml.Linq;
-using System.Xml.Serialization;
-using System.IO;
 using System.Windows;
+using Cinema.Dialog;
 
 namespace Cinema
 {
@@ -103,7 +100,6 @@ namespace Cinema
                   (addMovieDialog = new RelayCommand(obj =>
                   {
                       AddMovieDialog movieDialog = new();
-                      // movieDialog.ShowDialog();
 
                       if (movieDialog.ShowDialog() == true)
                       {
@@ -113,12 +109,24 @@ namespace Cinema
                       {
                           movieDialog.Close();
                       }
-                      //Movies.Insert(Movies.Count, (Movie)movieDialog.DataContext);
                   }));
             }
         }
 
-
+        private RelayCommand editMovieDialog;
+        public RelayCommand EditMovieDialogCmd
+        {
+            get
+            {
+                return editMovieDialog ??
+                  (editMovieDialog = new RelayCommand(obj =>
+                  {
+                      EditMovieDialog editDialog = new();
+                      editDialog.Show();
+                      editDialog.DataContext = SelectedMovie;
+                  }));
+            }
+        }
 
         private RelayCommand saveAllChanges;
 
@@ -129,7 +137,7 @@ namespace Cinema
                 return saveAllChanges ??
                   (saveAllChanges = new RelayCommand(obj =>
                   {
-                      Serialization.SerializeToXML(Movies, @"C:\Users\anna.moskalenko\Desktop\movies1.xml");
+                      Serialization.SerializeToXML(Movies, @"C:\Users\anna.moskalenko\Desktop\movies1.txt");
                       MessageBox.Show("Changes saved successfully", "Saved" , MessageBoxButton.OK);
                   }));
             }
@@ -138,7 +146,7 @@ namespace Cinema
         //public RoutedCommand addNewWindow = new RoutedCommand("Open", typeof(MovieLibraryVM));
         public MovieLibraryVM()
         {
-            Movies = Serialization.Deserialize<ObservableCollection<Movie>>(@"C:\Users\anna.moskalenko\Desktop\movies1.xml");
+            Movies = Serialization.Deserialize<ObservableCollection<Movie>>(@"C:\Users\anna.moskalenko\Desktop\movies1.txt");
             view = CollectionViewSource.GetDefaultView(Movies);
         }
     }
