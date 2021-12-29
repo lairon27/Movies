@@ -41,10 +41,54 @@
         <Style TargetType="TextBlock">
             <Setter Property="FontSize" Value="14"/>
         </Style>
+
+        <DataTemplate x:Key="normal">
+            <Grid Width="185" Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="300" />
+                    <RowDefinition Height="100"/>
+                </Grid.RowDefinitions>
+                <Grid.InputBindings>
+                    <MouseBinding MouseAction="LeftDoubleClick"
+                                  Command="{Binding DataContext.EditMovieDialogCmd, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+                                  CommandParameter="{Binding SelectedMovie}" />
+                </Grid.InputBindings>
+                <Image x:Name="images" Source="{Binding Path=Image}" Grid.Row="0"/>
+                <StackPanel Grid.Row="1">
+                    <TextBlock Foreground="{Binding Path=Rating, Converter={StaticResource rangeConv}}" Text="{Binding Path=MovieName}" FontSize="18" TextWrapping="Wrap"/>
+                    <TextBlock Text="{Binding Path=Year}" />
+                    <TextBlock Text="{Binding Path=Rating}" />
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="small">
+            <Grid Width="250" Height="180" Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="170" />
+                    <RowDefinition Height="100"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.InputBindings>
+                    <MouseBinding MouseAction="LeftDoubleClick"
+                                  Command="{Binding DataContext.EditMovieDialogCmd, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+                                  CommandParameter="{Binding SelectedMovie}" />
+                </Grid.InputBindings>
+                <Image x:Name="images" Source="{Binding Path=Image}" Grid.Row="0"  VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                <StackPanel Grid.Row="0" Grid.Column="1">
+                    <TextBlock Foreground="{Binding Path=Rating, Converter={StaticResource rangeConv}}" Text="{Binding Path=MovieName}" FontSize="18" TextWrapping="Wrap"/>
+                    <TextBlock Text="{Binding Path=Year}" />
+                    <TextBlock Text="{Binding Path=Rating}" />
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
     </view:BaseView.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -65,65 +109,16 @@
                     <WrapPanel IsItemsHost="True" />
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
-            <!--<ListBox.ItemContainerStyle>
-                <Style x:Name="movieListBox" TargetType="ListBoxItem">
+            <ListBox.Style>
+                <Style TargetType="ListBox">
+                    <Setter Property="ItemTemplate" Value="{StaticResource normal}" />
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding ElementName=imageSize, Path=SelectionBoxItem}" Value="Small image">
-                            <Setter Property="Height" Value="350" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding ElementName=imageSize, Path=SelectionBoxItem}" Value="Big Images">
-                            <Setter Property="Height" Value="400" />
+                            <Setter Property="ItemTemplate" Value="{StaticResource small}" />
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
-            </ListBox.ItemContainerStyle>-->
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Grid Width="185" Margin="5">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="300" />
-                            <RowDefinition Height="100"/>
-                        </Grid.RowDefinitions>
-                        <Grid.InputBindings>
-                            <MouseBinding MouseAction="LeftDoubleClick"
-                                  Command="{Binding DataContext.EditMovieDialogCmd, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
-                                  CommandParameter="{Binding SelectedMovie}" />
-                        </Grid.InputBindings>
-                        <Image x:Name="images" Source="{Binding Path=Image}" Grid.Row="0">
-                            <Image.Style>
-                                <Style TargetType="Image">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding ElementName=imageSize, Path=SelectionBoxItem}" Value="Small image">
-                                            <Setter Property="Height" Value="200" />
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding ElementName=imageSize, Path=SelectionBoxItem}" Value="Big Images">
-                                            <Setter Property="Height" Value="400" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Image.Style>
-                        </Image>
-                        <StackPanel Grid.Row="1">
-                            <StackPanel.Resources>
-                                <Style x:Key="movieTitle" TargetType="TextBlock">
-                                    <Setter Property="FontSize" Value="18"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding ElementName=imageSize, Path=SelectionBoxItem}" Value="Small image">
-                                            <Setter Property="FontSize" Value="10" />
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding ElementName=imageSize, Path=SelectionBoxItem}" Value="Big Images">
-                                            <Setter Property="FontSize" Value="14" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </StackPanel.Resources>
-                            <TextBlock Style="{StaticResource movieTitle}" Foreground="{Binding Path=Rating, Converter={StaticResource rangeConv}}" Text="{Binding Path=MovieName}" TextWrapping="Wrap"/>
-                            <TextBlock Text="{Binding Path=Year}" />
-                            <TextBlock Text="{Binding Path=Rating}" />
-                        </StackPanel>
-                    </Grid>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
+            </ListBox.Style>
         </ListBox>
 
         <StackPanel Grid.Column="2" Grid.Row="2" DataContext="{Binding SelectedMovie}" Margin="5">
@@ -146,7 +141,7 @@
             <ComboBoxItem>
                 Small image
             </ComboBoxItem>
-            <ComboBoxItem>
+            <ComboBoxItem IsSelected="True">
                 Big Images
             </ComboBoxItem>
         </ComboBox>

@@ -14,29 +14,21 @@ namespace Cinema.View
         public MainWindow()
         {
             InitializeComponent();
-            Closing += MainWindow_Closing;
 
             tabController.Items.Add(new TabItem
             {
                 Header = "Movie Library",
                 Content = new MovieLibrary()
-             }) ;
+                {
+                    DataContext = new MovieLibraryVM()
+                }
+            });
 
             tabController.Items.Add(new TabItem
             {
                 Header = "Users",
                 Content = new Users()
             });
-        }
-
-        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            //e.Cancel = true;
-
-            if (MessageBox.Show("Do you want to save all changes?", "Close app", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-            {
-                Environment.Exit(0);
-            }      
         }
     }
 }

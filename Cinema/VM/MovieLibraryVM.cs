@@ -6,7 +6,6 @@ using Cinema.VM;
 using Cinema.View;
 using Cinema.Commands;
 using System.Windows;
-using Cinema.Dialog;
 
 namespace Cinema
 {
@@ -105,10 +104,6 @@ namespace Cinema
                       {
                           Movies.Insert(Movies.Count, (Movie)movieDialog.DataContext);
                       }
-                      else
-                      {
-                          movieDialog.Close();
-                      }
                   }));
             }
         }
@@ -121,9 +116,12 @@ namespace Cinema
                 return editMovieDialog ??
                   (editMovieDialog = new RelayCommand(obj =>
                   {
-                      EditMovieDialog editDialog = new();
-                      editDialog.Show();
-                      editDialog.DataContext = SelectedMovie;
+                      AddMovieDialog movieDialog = new();
+                      movieDialog.Show();
+                      movieDialog.addBtn.Visibility = Visibility.Hidden;
+                      movieDialog.saveBtn.Visibility = Visibility.Visible;
+                      movieDialog.Title = "Movie Editor";
+                      movieDialog.DataContext = SelectedMovie;
                   }));
             }
         }
@@ -137,7 +135,7 @@ namespace Cinema
                 return saveAllChanges ??
                   (saveAllChanges = new RelayCommand(obj =>
                   {
-                      Serialization.SerializeToXML(Movies, @"C:\Users\anna.moskalenko\Desktop\movies1.txt");
+                      Serialization.SerializeToXML(Movies, @"C:\Users\anna.moskalenko\Desktop\movies3.txt");
                       MessageBox.Show("Changes saved successfully", "Saved" , MessageBoxButton.OK);
                   }));
             }
@@ -146,7 +144,7 @@ namespace Cinema
         //public RoutedCommand addNewWindow = new RoutedCommand("Open", typeof(MovieLibraryVM));
         public MovieLibraryVM()
         {
-            Movies = Serialization.Deserialize<ObservableCollection<Movie>>(@"C:\Users\anna.moskalenko\Desktop\movies1.txt");
+            Movies = Serialization.Deserialize<ObservableCollection<Movie>>(@"C:\Users\anna.moskalenko\Desktop\movies3.txt");
             view = CollectionViewSource.GetDefaultView(Movies);
         }
     }
