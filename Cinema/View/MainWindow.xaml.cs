@@ -1,4 +1,4 @@
-﻿using Cinema.Commands;
+﻿
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,7 +28,10 @@ namespace Cinema.View
             {
                 Header = "Users",
                 Content = new Users()
-            });
+                {
+                    DataContext = new UsersVM()
+                }
+            }) ;
         }
     }
 }

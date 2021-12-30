@@ -4,8 +4,9 @@ using System.Collections.ObjectModel;
 using System.Windows.Data;
 using Cinema.VM;
 using Cinema.View;
-using Cinema.Commands;
 using System.Windows;
+using Cinema.Utils;
+using System.IO;
 
 namespace Cinema
 {
@@ -136,6 +137,8 @@ namespace Cinema
                   (saveAllChanges = new RelayCommand(obj =>
                   {
                       Serialization.SerializeToXML(Movies, @"C:\Users\anna.moskalenko\Desktop\movies3.txt");
+                      StreamSave.SaveAsFile(@"C:\Users\anna.moskalenko\Desktop\movies5.txt", Movies);
+
                       MessageBox.Show("Changes saved successfully", "Saved" , MessageBoxButton.OK);
                   }));
             }

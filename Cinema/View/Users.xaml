@@ -7,8 +7,8 @@
     <Grid>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="25" />
-            <ColumnDefinition Width="160"/>
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="70"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
@@ -19,7 +19,7 @@
 
         <TextBlock Text="Users" Grid.ColumnSpan="3" Grid.Row="0" TextAlignment="Center" FontSize="24"/>
 
-        <ListBox SelectedItem="{Binding SelectedUsers}"  ItemsSource="{Binding user}" Grid.Column="0" Grid.Row="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+        <!--<ListBox SelectedItem="{Binding SelectedUsers}"  ItemsSource="{Binding user}" Grid.Column="0" Grid.Row="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Width="200">
@@ -27,12 +27,13 @@
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
-        </ListBox>
+        </ListBox>-->
 
-        <ListBox SelectedItem="{Binding SelectedUsers}"  ItemsSource="{Binding user}" Grid.Column="1" Grid.Row="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+        <ListBox SelectedItem="{Binding SelectedUsers}"  ItemsSource="{Binding user}" Grid.Column="0" Grid.Row="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Width="200">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock FontSize="14" Text="{Binding Path=UserNumber}" Margin="0, 0, 7, 0"/>
                         <TextBlock FontSize="14" Text="{Binding Path=UserName}" />
                     </StackPanel>
                 </DataTemplate>
