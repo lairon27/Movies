@@ -80,5 +80,11 @@ namespace Cinema
                 OnPropertyChanged("Image");
             }
         }
+
+        public override string ToString()
+        {
+            return movieName + '\n' + year + '\n' + rating + '\n' + genre + '\n' + time + '\n' + describe + '\n'
+                + image;
+        }
     }
 }

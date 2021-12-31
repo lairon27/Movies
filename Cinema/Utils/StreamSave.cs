@@ -1,27 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Cinema.Utils
 {
     class StreamSave
     {
-        public static void SaveAsFile(string filePath, ObservableCollection<Movie> obj)
-        {
-            using (StreamWriter sw = new StreamWriter(filePath))
-            {
-
-                foreach (var item in obj)
-                {
-                    sw.WriteLine(item);
-                }
-            }
-        }
-
         //public static void SaveStreamAsFile(string filePath, Stream inputStream, string fileName)
         //{
         //    DirectoryInfo info = new(filePath);
@@ -34,5 +17,15 @@ namespace Cinema.Utils
         //    using FileStream outputFileStream = new(path, FileMode.Create);
         //    inputStream.CopyTo(outputFileStream);
         //}
+
+        public static void SaveData<T>(ObservableCollection<T> obj)
+        {
+            using StreamWriter file = new(@"C:\Users\anna.moskalenko\Desktop\aaaaaa.txt");
+            foreach (var item in obj)
+            {
+                file.WriteLine(item.ToString());
+            }
+            file.Close();
+        }
     }
 }

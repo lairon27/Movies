@@ -26,7 +26,6 @@ namespace Cinema.View
         public Users()
         {
             InitializeComponent();
-            DataContext = new UsersVM();
         }
     }
 }

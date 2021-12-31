@@ -7,6 +7,7 @@ using Cinema.View;
 using System.Windows;
 using Cinema.Utils;
 using System.IO;
+using System.Linq;
 
 namespace Cinema
 {
@@ -128,6 +129,7 @@ namespace Cinema
         }
 
         private RelayCommand saveAllChanges;
+       // private FileStream fs;
 
         public RelayCommand SaveAllChanges
         {
@@ -137,7 +139,10 @@ namespace Cinema
                   (saveAllChanges = new RelayCommand(obj =>
                   {
                       Serialization.SerializeToXML(Movies, @"C:\Users\anna.moskalenko\Desktop\movies3.txt");
-                      StreamSave.SaveAsFile(@"C:\Users\anna.moskalenko\Desktop\movies5.txt", Movies);
+
+                      //StreamSave.SaveStreamAsFile(@"C:\Users\anna.moskalenko\Desktop", fs, "movie8.txt");
+
+                      StreamSave.SaveData(Movies);
 
                       MessageBox.Show("Changes saved successfully", "Saved" , MessageBoxButton.OK);
                   }));
@@ -149,6 +154,8 @@ namespace Cinema
         {
             Movies = Serialization.Deserialize<ObservableCollection<Movie>>(@"C:\Users\anna.moskalenko\Desktop\movies3.txt");
             view = CollectionViewSource.GetDefaultView(Movies);
+
+            //fs = new FileStream(@"C:\Users\anna.moskalenko\Desktop\movies7.txt", FileMode.OpenOrCreate);
         }
     }
 }
