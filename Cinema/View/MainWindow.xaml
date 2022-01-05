@@ -32,8 +32,6 @@
                 </RibbonGroup>
             </RibbonTab>
         </Ribbon>-->
-        <TabControl Name="tabController" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1">
-        </TabControl>
-
+        <TabControl Name="tabController" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1"/>
     </Grid>
 </Window>

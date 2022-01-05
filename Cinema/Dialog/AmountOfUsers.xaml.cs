@@ -1,9 +1,7 @@
 ﻿using Cinema.Generation;
+using Cinema.Model;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,19 +13,23 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Xml.Serialization;
-using Cinema.VM;
 
-namespace Cinema.View
+namespace Cinema.Dialog
 {
     /// <summary>
-    /// Interaction logic for Users.xaml
+    /// Interaction logic for AmountOfUsers.xaml
     /// </summary>
-    public partial class Users : UserControl
+    public partial class AmountOfUsers : Window
     {
-        public Users()
+        public AmountOfUsers()
         {
             InitializeComponent();
+            DataContext = new User();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

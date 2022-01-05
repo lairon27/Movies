@@ -1,10 +1,12 @@
 ﻿using Cinema.Model;
+using System;
 
 namespace Cinema
 {
     [System.Xml.Serialization.XmlInclude(typeof(Movie))]
     public class Movie : ModelBaseNotify
     {
+        private Guid movieId;
         public string movieName;
         public int year;
         public float rating;
@@ -12,6 +14,16 @@ namespace Cinema
         public string describe;
         public string time;
         public string image;
+
+        public Guid MovieId
+        {
+            get { return movieId; }
+            set
+            {
+                movieId = value;
+                OnPropertyChanged("UserId");
+            }
+        }
 
         public string MovieName
         {

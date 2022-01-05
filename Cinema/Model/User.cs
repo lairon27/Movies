@@ -1,19 +1,21 @@
-﻿namespace Cinema.Model
+﻿using System;
+
+namespace Cinema.Model
 {
-    internal class Users : ModelBaseNotify
+    internal class User : ModelBaseNotify
     {
-        private int userNumber;
+        private Guid userId;
         private string userName;
-        private string likedMovies;
+        //private string likedMovies;
         //private float userRating;
 
-        public int UserNumber
+        public Guid UserId
         {
-            get { return userNumber; }
+            get { return userId; }
             set
             {
-                userNumber = value;
-                OnPropertyChanged("UserNumber");
+                userId = value;
+                OnPropertyChanged("UserId");
             }
         }
 
@@ -27,15 +29,15 @@
             }
         }
 
-        public string LikedMovies
-        {
-            get { return likedMovies; }
-            set
-            {
-                likedMovies = value;
-                OnPropertyChanged("LikedMovies");
-            }
-        }
+        //public string LikedMovies
+        //{
+        //    get { return likedMovies; }
+        //    set
+        //    {
+        //        likedMovies = value;
+        //        OnPropertyChanged("LikedMovies");
+        //    }
+        //}
 
         //public float UserRating
         //{
