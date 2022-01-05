@@ -6,6 +6,7 @@ using Cinema.VM;
 using Cinema.View;
 using System.Windows;
 using Cinema.Utils;
+using System.Windows.Input;
 
 namespace Cinema
 {
@@ -14,6 +15,12 @@ namespace Cinema
         private Movie selectedMovie;
 
         public ObservableCollection<Movie> Movies { get; set; }
+        public static ICommand SortByYear { get; set; }
+        public static ICommand SortByRating { get; set; }
+        public static ICommand SortByName { get; set; }
+        public static ICommand AddMovieDialogCmd { get; set; }
+        public static ICommand EditMovieDialogCmd { get; set; }
+        public static ICommand SaveAllChanges { get; set; }
 
         public Movie SelectedMovie
         {
@@ -39,44 +46,6 @@ namespace Cinema
             }
         }
 
-        private RelayCommand sortByName;
-        public RelayCommand SortByName
-        {
-            get
-            {
-                return sortByName ??
-                  (sortByName = new RelayCommand(obj =>
-                  {
-                   
-                  }));
-            }
-        }
-
-        private RelayCommand sortByYear;
-        public RelayCommand SortByYear
-        {
-            get
-            {
-                return sortByYear ??= new RelayCommand(obj =>
-                  {
-                      view.SortDescriptions.Add(new SortDescription("Year", ListSortDirection.Descending));
-                  });
-            }
-        }
-
-        private RelayCommand sortByRating;
-        public RelayCommand SortByRating
-        {
-            get
-            {
-                return sortByRating ??
-                  (sortByRating = new RelayCommand(obj =>
-                  {
-                      view.SortDescriptions.Add(new SortDescription("Rating", ListSortDirection.Descending));
-                  }));
-            }
-        }
-
         private ICollectionView view;
         public ICollectionView View
         {
@@ -89,67 +58,74 @@ namespace Cinema
             }
         }
 
-        private RelayCommand addMovieDialog;
-
-        public RelayCommand AddMovieDialogCmd
-        {
-            get
-            {
-                return addMovieDialog ??
-                  (addMovieDialog = new RelayCommand(obj =>
-                  {
-                      AddMovieDialog movieDialog = new();
-
-                      if (movieDialog.ShowDialog() == true)
-                      {
-                          Movies.Insert(Movies.Count, (Movie)movieDialog.DataContext);
-                      }
-                  }));
-            }
-        }
-
-        private RelayCommand editMovieDialog;
-        public RelayCommand EditMovieDialogCmd
-        {
-            get
-            {
-                return editMovieDialog ??
-                  (editMovieDialog = new RelayCommand(obj =>
-                  {
-                      AddMovieDialog movieDialog = new();
-                      movieDialog.Show();
-                      movieDialog.addBtn.Visibility = Visibility.Hidden;
-                      movieDialog.saveBtn.Visibility = Visibility.Visible;
-                      movieDialog.Title = "Movie Editor";
-                      movieDialog.DataContext = SelectedMovie;
-                  }));
-            }
-        }
-
-        private RelayCommand saveAllChanges;
-
-        public RelayCommand SaveAllChanges
-        {
-            get
-            {
-                return saveAllChanges ??
-                  (saveAllChanges = new RelayCommand(obj =>
-                  {
-                      //Serialization.SerializeToXML(Movies, @"C:\Users\anna.moskalenko\Desktop\movies3.txt");
-
-                      FileManager.SaveData(Movies);
-                      MessageBox.Show("Changes saved successfully", "Saved" , MessageBoxButton.OK);
-                  }));
-            }
-        }
 
         //public RoutedCommand addNewWindow = new RoutedCommand("Open", typeof(MovieLibraryVM));
         public MovieLibraryVM()
         {
             //Movies = Serialization.Deserialize<ObservableCollection<Movie>>(@"C:\Users\anna.moskalenko\Desktop\movies3.txt");
 
-            Movies = FileManager.LoadData<ObservableCollection<Movie>>();
+            SortByYear = new RelayCommand(parameter =>
+             SortByYear_Command());
+
+            SortByRating = new RelayCommand(parameter =>
+             SortByRating_Command());
+
+            SortByName = new RelayCommand(parameter =>
+             SortByName_Command());
+
+            AddMovieDialogCmd = new RelayCommand(parameter =>
+             AddMovieDialog_Command());
+
+            EditMovieDialogCmd = new RelayCommand(parameter =>
+             EditMovieDialog_Command());
+
+            SaveAllChanges = new RelayCommand(parameter =>
+             SaveAllChanges_Command());
+
+
+            Movies = FileManager.LoadData<ObservableCollection<Movie>>(@"C:\Users\anna.moskalenko\Desktop\rrrre.txt");
             view = CollectionViewSource.GetDefaultView(Movies);
+        }
+
+        private void SortByYear_Command()
+        {
+            view.SortDescriptions.Add(new SortDescription("Year", ListSortDirection.Descending));
+        }
+
+        private void SortByRating_Command()
+        {
+            view.SortDescriptions.Add(new SortDescription("Rating", ListSortDirection.Descending));
+        }
+
+        private void SortByName_Command()
+        {
+            view.SortDescriptions.Add(new SortDescription("MovieName", ListSortDirection.Descending));
+        }
+
+        private void AddMovieDialog_Command()
+        {
+            AddMovieDialog movieDialog = new();
+
+            if (movieDialog.ShowDialog() == true)
+            {
+                Movies.Insert(Movies.Count, (Movie)movieDialog.DataContext);
+            }
+        }
+
+        private void EditMovieDialog_Command()
+        {
+            AddMovieDialog movieDialog = new();
+            movieDialog.Show();
+            movieDialog.addBtn.Visibility = Visibility.Hidden;
+            movieDialog.saveBtn.Visibility = Visibility.Visible;
+            movieDialog.Title = "Movie Editor";
+            movieDialog.DataContext = SelectedMovie;
+        }
+
+        private void SaveAllChanges_Command()
+        {
+            FileManager.SaveData(Movies, @"C:\Users\anna.moskalenko\Desktop\rrrre.txt");
+            MessageBox.Show("Changes saved successfully", "Saved", MessageBoxButton.OK);
         }
     }
 }
