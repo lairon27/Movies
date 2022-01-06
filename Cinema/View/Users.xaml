@@ -6,7 +6,6 @@
              d:DataContext="{d:DesignInstance Type=cinema:UserVM}"
              mc:Ignorable="d">
     <Grid>
-
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300" />
             <ColumnDefinition Width="70"/>
@@ -21,7 +20,7 @@
         <TextBlock Text="Users" Grid.ColumnSpan="3" Grid.Row="0" TextAlignment="Center" FontSize="24"/>
 
         <DataGrid SelectedItem="{Binding SelectedUsers}" ItemsSource="{Binding users}" Grid.Column="0" Grid.Row="1" 
-                  AutoGenerateColumns="False" HeadersVisibility="Column" ColumnWidth="*" CanUserAddRows="False">
+                  AutoGenerateColumns="False" HeadersVisibility="Column" ColumnWidth="*" CanUserAddRows="False" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="First Name" Binding="{Binding UserName}"/>
                 <DataGridTextColumn Header="Last Name" Binding="{Binding UserLastName}"/>
@@ -31,8 +30,7 @@
         <GridSplitter Grid.Column="0" Grid.Row="1" ShowsPreview="False" Width="1" VerticalAlignment="Stretch" />
 
         <StackPanel Grid.Row="1" Grid.Column="2">
-            <Button Width="150" Height="20" Content="Show Users" Margin="5" Command="{Binding UsersGenerator}" />
+            <Button Width="150" Height="20" Content="Generate Users" Margin="5" Command="{Binding UsersGenerator}" />
         </StackPanel>
-        
     </Grid>
 </UserControl>

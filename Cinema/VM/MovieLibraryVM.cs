@@ -7,6 +7,8 @@ using Cinema.View;
 using System.Windows;
 using Cinema.Utils;
 using System.Windows.Input;
+using Bogus;
+using System.Linq;
 
 namespace Cinema
 {
@@ -82,8 +84,26 @@ namespace Cinema
             SaveAllChanges = new RelayCommand(parameter =>
              SaveAllChanges_Command());
 
+            var generateMovieId = new Faker<Movie>()
+                .RuleFor(x => x.MovieId, f => Guid.NewGuid()).Generate(11);
 
             Movies = FileManager.LoadData<ObservableCollection<Movie>>(@"C:\Users\anna.moskalenko\Desktop\rrrre.txt");
+
+            foreach (var movie in Movies)
+            {
+                foreach(var id in generateMovieId)
+                {
+                    if(movie.MovieId == Guid.Empty)
+                    {
+                        movie.MovieId = id.MovieId;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+            }
+
             view = CollectionViewSource.GetDefaultView(Movies);
         }
 

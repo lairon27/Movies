@@ -46,7 +46,7 @@
             <Grid Width="185" Margin="5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="300" />
-                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="110"/>
                 </Grid.RowDefinitions>
                 <Grid.InputBindings>
                     <MouseBinding MouseAction="LeftDoubleClick"
@@ -148,8 +148,8 @@
 
         <Button Grid.Column="1" Grid.Row="1" Content="Add" Command="{Binding AddMovieDialogCmd}" Width="50" Height="20"/>
 
-        <!--<Button Grid.Column="2" Grid.Row="1" Content="Sort by name" Command="{Binding SortByName}" Width="50" Height="20"/>
-        <Button Grid.Column="2" Grid.Row="0" Content="Sort by year" Command="{Binding SortByRating}" Width="50" Height="20"/>-->
+        <Button Grid.Column="2" Grid.Row="0" Content="Sort by year" Command="{Binding SortByYear}" Width="50" Height="20"/>
+        <!--<Button Grid.Column="2" Grid.Row="0" Content="Sort by year" Command="{Binding SortByRating}" Width="50" Height="20"/>-->
         <Button Grid.Column="2" Grid.Row="3" Content="save changes" Command="{Binding SaveAllChanges}"/>
     </Grid>
 </view:BaseView>

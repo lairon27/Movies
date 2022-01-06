@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cinema.Dialog"
         mc:Ignorable="d"
-        Title="AmountOfUsers" Height="100" Width="250">
-    <StackPanel>
+        Title="AmountOfUsers" Height="150" Width="300"
+        WindowStartupLocation="CenterScreen">
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
         <TextBox x:Name="count" Width="100" Height="20"/>
         <Button Width="100" Height="20" Content="Show" Margin="5" Click="Button_Click" />
     </StackPanel>

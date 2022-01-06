@@ -5,10 +5,12 @@ namespace Cinema.Utils
 {
    class Serialization
     {
-        public static void SerializeToXML<T>(T obj, StreamWriter wr)
+        public static void SerializeToXML<T>(T obj, StreamWriter stream)
         {
+            //StreamWriter stream = new(FilePath);
             XmlSerializer xs = new(typeof(T));
-            xs.Serialize(wr, obj);
+            xs.Serialize(stream, obj);
+            //return stream;
         }
 
         public static T Deserialize<T>(StreamReader rd) where T : class

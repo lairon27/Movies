@@ -6,6 +6,7 @@ namespace Cinema.Model
     {
         private Guid userId;
         private string userName;
+        private string userLastName;
         //private string likedMovies;
         //private float userRating;
 
@@ -25,6 +26,16 @@ namespace Cinema.Model
             set
             {
                 userName= value;
+                OnPropertyChanged("UserName");
+            }
+        }
+
+        public string UserLastName
+        {
+            get { return userLastName; }
+            set
+            {
+                userLastName = value;
                 OnPropertyChanged("UserName");
             }
         }

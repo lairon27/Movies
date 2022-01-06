@@ -4,6 +4,7 @@ using Cinema.VM;
 using Cinema.Generation;
 using Cinema.Dialog;
 using System.Windows.Input;
+using System.Windows;
 
 namespace Cinema
 {
@@ -45,7 +46,8 @@ namespace Cinema
             }
             else
             {
-                amount = 1000;
+                MessageBox.Show("The input data must be a number!", "Incorect value", MessageBoxButton.OK);
+                amount = 0;
             }
 
             var people = Generator.UsersGenerator().Generate(amount);
@@ -54,6 +56,6 @@ namespace Cinema
             {
                 users.Add(user);
             }
-        }
+        } 
     } 
 }

@@ -1,10 +1,8 @@
 ﻿using Bogus;
+using Cinema.Dialog;
 using Cinema.Model;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 
 namespace Cinema.Generation
 {
@@ -12,11 +10,10 @@ namespace Cinema.Generation
     {
         public static Faker<User> UsersGenerator()
         {
-            var generatorPerson = new Faker<User>()
+            return new Faker<User>()
                 .RuleFor(x => x.UserId, f => Guid.NewGuid())
-                .RuleFor(x => x.UserName, f => f.Name.FullName());
-
-            return generatorPerson;
+                .RuleFor(x => x.UserName, f => f.Name.FirstName())
+                .RuleFor(x => x.UserLastName, f => f.Name.LastName());
         }
     }
 }

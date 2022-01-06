@@ -10,10 +10,10 @@ namespace Cinema.VM
 {
     public class MainVm
     {
-        static MainVm()
-        {
-            Exit = new RoutedUICommand("Exit", "Exit", typeof(MainWindow));
-        }
-        public static RoutedUICommand Exit { get; set; }
+        //static MainVm()
+        //{
+        //    Exit = new RoutedUICommand("Exit", "Exit", typeof(MainWindow));
+        //}
+        //public static RoutedUICommand Exit { get; set; }
     }
 }
