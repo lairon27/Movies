@@ -91,6 +91,9 @@ namespace Cinema
 
             Movies = Serialization.Deserialize<ObservableCollection<Movie>>(FileManager.LoadData());
 
+            //var stream = new FileStream(@"C:\Users\anna.moskalenko\Desktop\movie8.txt", FileMode.Open, FileAccess.Read);
+            //Movies = Serialization.Deserialize<ObservableCollection<Movie>>(stream);
+
             view = CollectionViewSource.GetDefaultView(Movies);
         }
 
@@ -122,11 +125,7 @@ namespace Cinema
                     if (movie.MovieId == Guid.Empty)
                     {
                         movie.MovieId = Guid.NewGuid();
-                    }
-                    else
-                    {
-                        continue;
-                    }
+                    }     
                 }
             }
         }

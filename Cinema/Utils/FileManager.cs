@@ -9,10 +9,10 @@ namespace Cinema.Utils
 
         public FileManager()
         {
-            FileName = @"C:\Users\anna.moskalenko\Desktop\moviesFile.txt";
+            FileName = "moviesFile.xml";
         }
 
-        public static void SaveData(MemoryStream stream)
+        public static void SaveData(Stream stream)
         {
            using(var filestream = new FileStream(FileName, FileMode.Create, FileAccess.Write))
             { 
@@ -23,15 +23,9 @@ namespace Cinema.Utils
             }
         }
 
-        public static MemoryStream LoadData()
+        public static Stream LoadData()
         {
-            MemoryStream stream = new();
-            using (var filestream = new FileStream(FileName, FileMode.Open, FileAccess.Read))
-            {
-                filestream.CopyTo(stream);
-            }
-
-            stream.Position = 0;
+            var stream = File.OpenRead(FileName);
             return stream;
         }
     }
