@@ -7,7 +7,7 @@
              mc:Ignorable="d">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="500" />
             <ColumnDefinition Width="70"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -24,6 +24,8 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="First Name" Binding="{Binding UserName}"/>
                 <DataGridTextColumn Header="Last Name" Binding="{Binding UserLastName}"/>
+                <DataGridTextColumn Header="Birth" Binding="{Binding BirthDate}"/>
+                <DataGridTextColumn Header="Rated Films" Binding="{Binding AmountOfRatedFilms}"/>
             </DataGrid.Columns>
         </DataGrid>
 

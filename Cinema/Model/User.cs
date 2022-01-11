@@ -7,8 +7,8 @@ namespace Cinema.Model
         private Guid userId;
         private string userName;
         private string userLastName;
-        //private string likedMovies;
-        //private float userRating;
+        private string birthDate;
+        private int amountOfRatedFilms;
 
         public Guid UserId
         {
@@ -40,24 +40,25 @@ namespace Cinema.Model
             }
         }
 
-        //public string LikedMovies
-        //{
-        //    get { return likedMovies; }
-        //    set
-        //    {
-        //        likedMovies = value;
-        //        OnPropertyChanged("LikedMovies");
-        //    }
-        //}
+        public string BirthDate
+        {
+            get { return birthDate; }
+            set
+            {
+                birthDate = value;
+                OnPropertyChanged("UserName");
+            }
+        }
 
-        //public float UserRating
-        //{
-        //    get { return userRating; }
-        //    set
-        //    {
-        //        userRating = value;
-        //        OnPropertyChanged("UserRating");
-        //    }
-        //}
+        public int AmountOfRatedFilms
+        {
+            get { return amountOfRatedFilms; }
+            set
+            {
+                amountOfRatedFilms = value;
+                OnPropertyChanged("LikedMovies");
+            }
+        }
+
     }
 }
