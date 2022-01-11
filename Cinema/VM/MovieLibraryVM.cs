@@ -9,6 +9,7 @@ using Cinema.Utils;
 using System.Windows.Input;
 using Bogus;
 using System.Linq;
+using System.IO;
 
 namespace Cinema
 {
@@ -64,6 +65,7 @@ namespace Cinema
         //public RoutedCommand addNewWindow = new RoutedCommand("Open", typeof(MovieLibraryVM));
         public MovieLibraryVM()
         {
+            //const string FileName = @"C:\Users\anna.moskalenko\Desktop\ko.txt";
             //Movies = Serialization.Deserialize<ObservableCollection<Movie>>(@"C:\Users\anna.moskalenko\Desktop\movies3.txt");
 
             SortByYear = new RelayCommand(parameter =>
@@ -84,25 +86,10 @@ namespace Cinema
             SaveAllChanges = new RelayCommand(parameter =>
              SaveAllChanges_Command());
 
-            var generateMovieId = new Faker<Movie>()
-                .RuleFor(x => x.MovieId, f => Guid.NewGuid()).Generate(11);
+            //Movies = FileManager.LoadData<ObservableCollection<Movie>>(@"C:\Users\anna.moskalenko\Desktop\movie55.txt");
+            FileManager fileManager = new();
 
-            Movies = FileManager.LoadData<ObservableCollection<Movie>>(@"C:\Users\anna.moskalenko\Desktop\rrrre.txt");
-
-            foreach (var movie in Movies)
-            {
-                foreach(var id in generateMovieId)
-                {
-                    if(movie.MovieId == Guid.Empty)
-                    {
-                        movie.MovieId = id.MovieId;
-                    }
-                    else
-                    {
-                        continue;
-                    }
-                }
-            }
+            Movies = Serialization.Deserialize<ObservableCollection<Movie>>(FileManager.LoadData());
 
             view = CollectionViewSource.GetDefaultView(Movies);
         }
@@ -129,6 +116,18 @@ namespace Cinema
             if (movieDialog.ShowDialog() == true)
             {
                 Movies.Insert(Movies.Count, (Movie)movieDialog.DataContext);
+
+                foreach (var movie in Movies)
+                {
+                    if (movie.MovieId == Guid.Empty)
+                    {
+                        movie.MovieId = Guid.NewGuid();
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
             }
         }
 
@@ -144,7 +143,12 @@ namespace Cinema
 
         private void SaveAllChanges_Command()
         {
-            FileManager.SaveData(Movies, @"C:\Users\anna.moskalenko\Desktop\rrrre.txt");
+            //FileManager.SaveData(Movies, @"C:\Users\anna.moskalenko\Desktop\rrrre.txt");
+
+            //var stream = Serialization.SerializeToXML(Movies);
+
+            FileManager.SaveData(Serialization.SerializeToXML(Movies));
+
             MessageBox.Show("Changes saved successfully", "Saved", MessageBoxButton.OK);
         }
     }

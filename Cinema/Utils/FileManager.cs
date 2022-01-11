@@ -5,35 +5,34 @@ namespace Cinema.Utils
 {
     class FileManager
     {
-        //public string FilePath;
-        //public FileManager()
-        //{
-        //    FilePath = @"C:\Users\anna.moskalenko\Desktop\123.txt";
-        //}
+        public static string FileName;
 
-        //public static void SaveData<T>(T obj)
-        //{
-        //    using StreamWriter wr = new(FilePath);
-
-        //    Serialization.SerializeToXML(obj, wr);
-
-        //    //using stream = new(FilePath);
-        //}
-
-        public static void SaveData<T>(T obj, string FilePath)
+        public FileManager()
         {
-            using StreamWriter wr = new(FilePath);
-
-            Serialization.SerializeToXML(obj, wr);
-
+            FileName = @"C:\Users\anna.moskalenko\Desktop\moviesFile.txt";
         }
 
-        public static T LoadData<T>(string FilePath) where T : class
+        public static void SaveData(MemoryStream stream)
         {
-            using StreamReader rd = new(FilePath);
+           using(var filestream = new FileStream(FileName, FileMode.Create, FileAccess.Write))
+            { 
+                stream.Position = 0;
+                stream.CopyTo(filestream);
+                filestream.Close();
+                stream.Close();
+            }
+        }
 
-            var result = Serialization.Deserialize<T>(rd) as T;
-            return result; 
+        public static MemoryStream LoadData()
+        {
+            MemoryStream stream = new();
+            using (var filestream = new FileStream(FileName, FileMode.Open, FileAccess.Read))
+            {
+                filestream.CopyTo(stream);
+            }
+
+            stream.Position = 0;
+            return stream;
         }
     }
 }
