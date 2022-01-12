@@ -89,7 +89,7 @@ namespace Cinema
             //Movies = FileManager.LoadData<ObservableCollection<Movie>>(@"C:\Users\anna.moskalenko\Desktop\movie55.txt");
             FileManager fileManager = new();
 
-            Movies = Serialization.Deserialize<ObservableCollection<Movie>>(FileManager.LoadData());
+            Movies = Serialization.Deserialize<ObservableCollection<Movie>>(FileManager.LoadData("moviesFile.xml"));
 
             //var stream = new FileStream(@"C:\Users\anna.moskalenko\Desktop\movie8.txt", FileMode.Open, FileAccess.Read);
             //Movies = Serialization.Deserialize<ObservableCollection<Movie>>(stream);
@@ -125,7 +125,7 @@ namespace Cinema
                     if (movie.MovieId == Guid.Empty)
                     {
                         movie.MovieId = Guid.NewGuid();
-                    }     
+                    }
                 }
             }
         }
@@ -142,12 +142,10 @@ namespace Cinema
 
         private void SaveAllChanges_Command()
         {
-            //FileManager.SaveData(Movies, @"C:\Users\anna.moskalenko\Desktop\rrrre.txt");
+            var stream = Serialization.SerializeToXML(Movies);
 
-            //var stream = Serialization.SerializeToXML(Movies);
-
-            FileManager.SaveData(Serialization.SerializeToXML(Movies));
-
+            FileManager.SaveData(stream, "moviesFile.xml");
+            stream.Close();
             MessageBox.Show("Changes saved successfully", "Saved", MessageBoxButton.OK);
         }
     }

@@ -5,6 +5,7 @@ using Cinema.Generation;
 using Cinema.Dialog;
 using System.Windows.Input;
 using System.Windows;
+using Cinema.Utils;
 
 namespace Cinema
 {
@@ -12,9 +13,10 @@ namespace Cinema
     {
         private User selectedUser;
 
-        public ObservableCollection<User> users { get; set; }
+        public ObservableCollection<User> Users { get; set; }
 
         public static ICommand UsersGenerator { get; set; }
+        public static ICommand SaveUsers { get; set; }
 
         public User SelectedUser
         {
@@ -28,10 +30,13 @@ namespace Cinema
 
         public UserVM()
         { 
-            users = new ObservableCollection<User>();
+            Users = new ObservableCollection<User>();
 
             UsersGenerator = new RelayCommand(parameter =>
              UsersGenerator_Command());
+
+            SaveUsers = new RelayCommand(parameter =>
+              SaveUsers_Command());
         }
 
         private void UsersGenerator_Command()
@@ -46,16 +51,26 @@ namespace Cinema
             }
             else
             {
-                MessageBox.Show("The input data must be a number!", "Incorect value", MessageBoxButton.OK);
+                MessageBox.Show("The input data must be a number!", "Incorrect value", MessageBoxButton.OK, MessageBoxImage.Warning);
                 amount = 0;
             }
 
-            var people = Generator.UsersGenerator().Generate(amount);
-
-            foreach (var user in people)
+            for (var i=0; i<amount; i++)
             {
-                users.Add(user);
+                Users.Add(Generator.GenerateUser());
             }
-        } 
-    } 
+        }
+
+        private void SaveUsers_Command()
+        {
+            //FileManager.SaveData(Movies, @"C:\Users\anna.moskalenko\Desktop\rrrre.txt");
+
+            //var stream = Serialization.SerializeToXML(Movies);
+
+            FileManager.SaveData(Serialization.SerializeToXML(Users), @"C:\Users\anna.moskalenko\Desktop\users.txt");
+
+            MessageBox.Show("Changes saved successfully", "Saved", MessageBoxButton.OK);
+        }
+
+    }
 }
