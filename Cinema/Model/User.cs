@@ -1,14 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Cinema.Model
 {
-    internal class User : ModelBaseNotify
+    [System.Xml.Serialization.XmlInclude(typeof(User))]
+    public class User : ModelBaseNotify
     {
-        private Guid userId;
-        private string userName;
-        private string userLastName;
-        private string birthDate;
-        private int amountOfRatedFilms;
+        public Guid userId;
+        public string userName;
+        public string userLastName;
+        public string birthDate;
+        public int amountOfRatedFilms;
+
+        public List<Rating> Ratings { get; set; }
 
         public Guid UserId
         {
@@ -36,7 +41,7 @@ namespace Cinema.Model
             set
             {
                 userLastName = value;
-                OnPropertyChanged("UserName");
+                OnPropertyChanged("UserLastName");
             }
         }
 
@@ -46,7 +51,7 @@ namespace Cinema.Model
             set
             {
                 birthDate = value;
-                OnPropertyChanged("UserName");
+                OnPropertyChanged("BirthDate");
             }
         }
 
@@ -56,9 +61,8 @@ namespace Cinema.Model
             set
             {
                 amountOfRatedFilms = value;
-                OnPropertyChanged("LikedMovies");
+                OnPropertyChanged("AmountOfRatedFilms");
             }
         }
-
     }
 }

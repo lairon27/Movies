@@ -13,6 +13,7 @@ namespace Cinema.Generation
         public static User GenerateUser()
         {
             User user = new();
+            Movie movie = new();
 
             var generatedUserFaker = new Faker<User>()
                .RuleFor(x => x.UserId, f => Guid.NewGuid())

@@ -58,6 +58,7 @@
                     <TextBlock Foreground="{Binding Path=Rating, Converter={StaticResource rangeConv}}" Text="{Binding Path=MovieName}" FontSize="18" TextWrapping="Wrap"/>
                     <TextBlock Text="{Binding Path=Year}" />
                     <TextBlock Text="{Binding Path=Rating}" />
+                    <TextBlock Text="{Binding Path=MovieId}" />
                 </StackPanel>
             </Grid>
         </DataTemplate>
@@ -148,7 +149,19 @@
 
         <Button Grid.Column="1" Grid.Row="1" Content="Add" Command="{Binding AddMovieDialogCmd}" Width="50" Height="20"/>
 
-        <Button Grid.Column="2" Grid.Row="0" Content="Sort by year" Command="{Binding SortByYear}" Width="50" Height="20"/>
+        <ComboBox Grid.Column="2" Grid.Row="0" Height="30">
+            <ComboBoxItem>
+                Sort by Name
+            </ComboBoxItem>
+            <ComboBoxItem>
+                Sort by Year
+            </ComboBoxItem>
+            <ComboBoxItem>
+                Sort by Rating
+            </ComboBoxItem>
+        </ComboBox>
+
+        <!--<Button Grid.Column="2" Grid.Row="0" Content="Sort by year" Command="{Binding SortByYear}" Width="50" Height="20"/>-->
         <!--<Button Grid.Column="2" Grid.Row="0" Content="Sort by year" Command="{Binding SortByRating}" Width="50" Height="20"/>-->
         <Button Grid.Column="2" Grid.Row="3" Content="save changes" Command="{Binding SaveAllChanges}"/>
     </Grid>

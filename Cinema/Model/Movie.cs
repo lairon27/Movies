@@ -1,12 +1,13 @@
 ﻿using Cinema.Model;
 using System;
+using System.Collections.Generic;
 
 namespace Cinema
 {
     [System.Xml.Serialization.XmlInclude(typeof(Movie))]
     public class Movie : ModelBaseNotify
     {
-        private Guid movieId;
+        public Guid movieId;
         public string movieName;
         public int year;
         public float rating;
@@ -14,6 +15,8 @@ namespace Cinema
         public string describe;
         public string time;
         public string image;
+
+        public List<Rating> Ratings { get; set; }
 
         public Guid MovieId
         {

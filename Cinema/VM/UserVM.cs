@@ -6,6 +6,7 @@ using Cinema.Dialog;
 using System.Windows.Input;
 using System.Windows;
 using Cinema.Utils;
+using System.Collections.Generic;
 
 namespace Cinema
 {
@@ -14,6 +15,8 @@ namespace Cinema
         private User selectedUser;
 
         public ObservableCollection<User> Users { get; set; }
+
+        //public List<Rating> Ratings { get; set; }
 
         public static ICommand UsersGenerator { get; set; }
         public static ICommand SaveUsers { get; set; }
@@ -31,6 +34,7 @@ namespace Cinema
         public UserVM()
         { 
             Users = new ObservableCollection<User>();
+            //Ratings = new List<Rating>();
 
             UsersGenerator = new RelayCommand(parameter =>
              UsersGenerator_Command());
@@ -59,6 +63,11 @@ namespace Cinema
             {
                 Users.Add(Generator.GenerateUser());
             }
+
+            //for (var i = 0; i < amount; i++)
+            //{
+            //    Ratings.Add(Generator.GenerateRating());
+            //}
         }
 
         private void SaveUsers_Command()
