@@ -16,9 +16,9 @@ namespace Cinema
 
         public ObservableCollection<User> Users { get; set; }
 
-        //public List<Rating> Ratings { get; set; }
+        public List<Rating> Ratings { get; set; }
 
-        public static ICommand UsersGenerator { get; set; }
+        public static ICommand UsersGeneratorCommand { get; set; }
         public static ICommand SaveUsers { get; set; }
 
         public User SelectedUser
@@ -34,40 +34,35 @@ namespace Cinema
         public UserVM()
         { 
             Users = new ObservableCollection<User>();
-            //Ratings = new List<Rating>();
+            Ratings = new List<Rating>();
 
-            UsersGenerator = new RelayCommand(parameter =>
-             UsersGenerator_Command());
+            UsersGeneratorCommand = new RelayCommand(parameter =>
+             UsersGenerator_CommandExecute());
 
             SaveUsers = new RelayCommand(parameter =>
               SaveUsers_Command());
         }
 
-        private void UsersGenerator_Command()
+        private void UsersGenerator_CommandExecute()
         {
-            AmountOfUsers amountOfUsers = new();
-            amountOfUsers.ShowDialog();
+            //User user = new();
+            //user.Ratings = new List<Rating>();
 
-            int amount;
-            if (int.TryParse(amountOfUsers.count.Text, out int count))
-            {
-                amount = count;
-            }
-            else
-            {
-                MessageBox.Show("The input data must be a number!", "Incorrect value", MessageBoxButton.OK, MessageBoxImage.Warning);
-                amount = 0;
-            }
+            AmountOfUsersDialog dialog = new();
+            dialog.ShowDialog();
+
+            var amount = dialog.NumberOfUsersForGenerating();
 
             for (var i=0; i<amount; i++)
             {
                 Users.Add(Generator.GenerateUser());
+                
             }
 
-            //for (var i = 0; i < amount; i++)
-            //{
-            //    Ratings.Add(Generator.GenerateRating());
-            //}
+            for (var i = 0; i < amount; i++)
+            {
+                Ratings.Add(Generator.GenerateRating());
+            }
         }
 
         private void SaveUsers_Command()

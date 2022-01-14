@@ -134,9 +134,7 @@ namespace Cinema
         {
             AddMovieDialog movieDialog = new();
             movieDialog.Show();
-            movieDialog.addBtn.Visibility = Visibility.Hidden;
-            movieDialog.saveBtn.Visibility = Visibility.Visible;
-            movieDialog.Title = "Movie Editor";
+            movieDialog.Editor();
             movieDialog.DataContext = SelectedMovie;
         }
 

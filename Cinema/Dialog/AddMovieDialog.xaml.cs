@@ -46,5 +46,12 @@ namespace Cinema.View
                 DialogResult = true;
             }
         }
+
+        public void Editor()
+        {
+            addBtn.Visibility = Visibility.Hidden;
+            saveBtn.Visibility = Visibility.Visible;
+            Title = "Movie Editor";
+        }
     }
 }
