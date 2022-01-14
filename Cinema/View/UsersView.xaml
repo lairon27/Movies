@@ -19,7 +19,7 @@
 
         <TextBlock Text="Users" Grid.ColumnSpan="3" Grid.Row="0" TextAlignment="Center" FontSize="24"/>
 
-        <DataGrid SelectedItem="{Binding SelectedUsers}" ItemsSource="{Binding Users}" Grid.Column="0" Grid.Row="1" 
+        <DataGrid x:Name="usersDataGrid" SelectedItem="{Binding SelectedUsers}" ItemsSource="{Binding Users}" Grid.Column="0" Grid.Row="1" 
                   AutoGenerateColumns="False" HeadersVisibility="Column" ColumnWidth="*" CanUserAddRows="False" IsReadOnly="True"
                   IsSynchronizedWithCurrentItem="True">
             <DataGrid.Columns>
@@ -36,14 +36,13 @@
                   AutoGenerateColumns="False" HeadersVisibility="Column" ColumnWidth="*" CanUserAddRows="False" IsReadOnly="True"
                   IsSynchronizedWithCurrentItem="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Movie Title" Binding="{Binding Rating.MovieId}"/>
-                <DataGridTextColumn Header="Movie Title" Binding="{Binding Rating.UserId}"/>
-                <DataGridTextColumn Header="Rating" Binding="{Binding Rating.UserRating}"/>
+                <DataGridTextColumn Header="Movie Title" Binding="{Binding MovieId}"/>
+                <DataGridTextColumn Header="Rating" Binding="{Binding UserRating}"/>
             </DataGrid.Columns>
         </DataGrid>
 
         <StackPanel Grid.Row="1" Grid.Column="1">
-            <Button Height="20" Content="Generate Users" Margin="5" Command="{Binding UsersGenerator}" />
+            <Button Height="20" Content="Generate Users" Margin="5" Command="{Binding UsersGeneratorCommand}" />
             <Button Height="20" Content="Save Users" Margin="5" Command="{Binding SaveUsers}" />
         </StackPanel>
     </Grid>
