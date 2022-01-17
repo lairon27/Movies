@@ -95,15 +95,38 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="40"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Top Movies" Grid.Row="0" Grid.ColumnSpan="3" TextAlignment="Center" FontSize="24"/>
+        <Menu Grid.ColumnSpan="3" Background="#E0EBE5">
+            <MenuItem Header="Sort by">
+                <MenuItem Header="name" Command="{Binding SortByName}"/>
+                <MenuItem Header="year" Command="{Binding SortByYear}"/>
+                <MenuItem Header="rating" Command="{Binding SortByRating}"/>
+            </MenuItem>
+            <Separator/>
+            <MenuItem Header="Add new movie" Command="{Binding AddMovieDialogCmd}" ></MenuItem>
+            <Separator/>
+            <ComboBox x:Name="listAppearance" Grid.Column="0" Grid.Row="1" Height="23" Width="120" Focusable="False">
+                <ComboBoxItem IsSelected="True" IsEnabled="False">
+                    View
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    Small image
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    Big Images
+                </ComboBoxItem>
+            </ComboBox>
+        </Menu>
 
-        <ListBox x:Name="moviesList" Grid.ColumnSpan="2" Grid.Row="2" Grid.RowSpan="2" ItemsSource="{Binding View}"
+        <TextBlock Text="Top Movies" Grid.Row="1" Grid.ColumnSpan="3" TextAlignment="Center" FontSize="24"/>
+
+        <ListBox x:Name="moviesList" Grid.ColumnSpan="2" Grid.Row="3" Grid.RowSpan="2" ItemsSource="{Binding View}"
                  SelectedItem="{Binding SelectedMovie}"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" IsSynchronizedWithCurrentItem="True">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -113,16 +136,18 @@
             <ListBox.Style>
                 <Style TargetType="ListBox">
                     <Setter Property="ItemTemplate" Value="{StaticResource normal}" />
+                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding ElementName=listAppearance, Path=SelectionBoxItem}" Value="Small image">
                             <Setter Property="ItemTemplate" Value="{StaticResource small}" />
+                            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </ListBox.Style>
         </ListBox>
 
-        <StackPanel Grid.Column="2" Grid.Row="2" DataContext="{Binding SelectedMovie}" Margin="5">
+        <StackPanel x:Name="selectedMovieInfo" Grid.Column="2" Grid.Row="3" DataContext="{Binding SelectedMovie}" Margin="5">
             <TextBlock Text="Genre" FontWeight="Bold" />
             <TextBlock Text="{Binding Genre, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Text="Describe" FontWeight="Bold" />
@@ -133,23 +158,26 @@
             <TextBlock Text="{Binding Time, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
 
-        <StackPanel Grid.Column="0" Grid.Row="1"  Margin="5">
+        <StackPanel Grid.Column="0" Grid.Row="2"  Margin="5">
             <TextBox x:Name="searchTextBox" Style="{StaticResource placeHolder}" Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Tag="movie search"
                      FontSize="14" FontFamily="Montsserat"/>
         </StackPanel>
 
-        <ComboBox x:Name="listAppearance" Grid.Column="2" Grid.Row="1" Height="30">
+        <!--<ComboBox x:Name="listAppearance" Grid.Column="0" Grid.Row="1" Height="23" Width="120" HorizontalAlignment="Center" >
+            <ComboBoxItem IsSelected="True" IsEnabled="False"> 
+                View
+            </ComboBoxItem>
             <ComboBoxItem>
                 Small image
             </ComboBoxItem>
-            <ComboBoxItem IsSelected="True">
+            <ComboBoxItem>
                 Big Images
             </ComboBoxItem>
-        </ComboBox>
+        </ComboBox>-->
 
-        <Button Grid.Column="1" Grid.Row="1" Content="Add" Command="{Binding AddMovieDialogCmd}" Width="50" Height="20"/>
+        <!--<Button Grid.Column="0" Grid.Row="1" Content="Add" Command="{Binding AddMovieDialogCmd}" Width="100" Height="20" HorizontalAlignment="Left" Margin="5"/>-->
 
-        <ComboBox Grid.Column="2" Grid.Row="0" Height="30">
+        <!--<ComboBox Grid.Column="2" Grid.Row="0" Height="30">
             <ComboBoxItem>
                 Sort by Name
             </ComboBoxItem>
@@ -159,10 +187,10 @@
             <ComboBoxItem>
                 Sort by Rating
             </ComboBoxItem>
-        </ComboBox>
+        </ComboBox>-->
 
         <!--<Button Grid.Column="2" Grid.Row="0" Content="Sort by year" Command="{Binding SortByYear}" Width="50" Height="20"/>-->
         <!--<Button Grid.Column="2" Grid.Row="0" Content="Sort by year" Command="{Binding SortByRating}" Width="50" Height="20"/>-->
-        <Button Grid.Column="2" Grid.Row="3" Content="save changes" Command="{Binding SaveAllChanges}"/>
+        <Button Grid.Column="2" Grid.Row="4" Content="Save changes" Command="{Binding SaveAllChanges}" Width="100" Height="30" HorizontalAlignment="Right" Margin="5"/>
     </Grid>
 </view:BaseView>

@@ -65,17 +65,14 @@ namespace Cinema
         //public RoutedCommand addNewWindow = new RoutedCommand("Open", typeof(MovieLibraryVM));
         public MovieLibraryVM()
         {
-            //const string FileName = @"C:\Users\anna.moskalenko\Desktop\ko.txt";
-            //Movies = Serialization.Deserialize<ObservableCollection<Movie>>(@"C:\Users\anna.moskalenko\Desktop\movies3.txt");
-
             SortByYear = new RelayCommand(parameter =>
-             SortByYear_Command());
+             SortBy_Command("Year"));
 
             SortByRating = new RelayCommand(parameter =>
-             SortByRating_Command());
+             SortBy_Command("Rating"));
 
             SortByName = new RelayCommand(parameter =>
-             SortByName_Command());
+             SortBy_Command("MovieName"));
 
             AddMovieDialogCmd = new RelayCommand(parameter =>
              AddMovieDialog_Command());
@@ -86,30 +83,16 @@ namespace Cinema
             SaveAllChanges = new RelayCommand(parameter =>
              SaveAllChanges_Command());
 
-            //Movies = FileManager.LoadData<ObservableCollection<Movie>>(@"C:\Users\anna.moskalenko\Desktop\movie55.txt");
-            FileManager fileManager = new();
-
             Movies = Serialization.Deserialize<ObservableCollection<Movie>>(FileManager.LoadData("moviesFile.xml"));
-
-            //var stream = new FileStream(@"C:\Users\anna.moskalenko\Desktop\movie8.txt", FileMode.Open, FileAccess.Read);
-            //Movies = Serialization.Deserialize<ObservableCollection<Movie>>(stream);
 
             view = CollectionViewSource.GetDefaultView(Movies);
         }
 
-        private void SortByYear_Command()
+        private void SortBy_Command(object parameter)
         {
-            view.SortDescriptions.Add(new SortDescription("Year", ListSortDirection.Descending));
-        }
 
-        private void SortByRating_Command()
-        {
-            view.SortDescriptions.Add(new SortDescription("Rating", ListSortDirection.Descending));
-        }
-
-        private void SortByName_Command()
-        {
-            view.SortDescriptions.Add(new SortDescription("MovieName", ListSortDirection.Descending));
+            view.SortDescriptions.Clear();
+            view.SortDescriptions.Add(new SortDescription(parameter.ToString(), ListSortDirection.Descending));
         }
 
         private void AddMovieDialog_Command()
@@ -118,7 +101,7 @@ namespace Cinema
 
             if (movieDialog.ShowDialog() == true)
             {
-                Movies.Insert(Movies.Count, (Movie)movieDialog.DataContext);
+                Movies.Add((Movie)movieDialog.DataContext);
 
                 foreach (var movie in Movies)
                 {
@@ -133,17 +116,33 @@ namespace Cinema
         private void EditMovieDialog_Command()
         {
             AddMovieDialog movieDialog = new();
-            movieDialog.Show();
+
             movieDialog.Editor();
             movieDialog.DataContext = SelectedMovie;
+            movieDialog.ShowDialog();
+
+            //if(movieDialog.ShowDialog() == true)
+            //{
+            //    movieDialog.DataContext = SelectedMovie;
+            //    //SelectedMovie = (Movie)movieDialog.DataContext;
+            //}
+
+
+            //movieDialog.Show();
+            //movieDialog.Editor();
+            //movieDialog.DataContext = SelectedMovie;
         }
 
         private void SaveAllChanges_Command()
         {
-            var stream = Serialization.SerializeToXML(Movies);
+            using (var stream = Serialization.SerializeToXML(Movies))
+            {
+                FileManager.SaveData(stream, "moviesFile.xml");
+                stream.Close();
+            }
 
-            FileManager.SaveData(stream, "moviesFile.xml");
-            stream.Close();
+            //FileManager.SaveData(stream, "moviesFile.xml");
+            //stream.Close();
             MessageBox.Show("Changes saved successfully", "Saved", MessageBoxButton.OK);
         }
     }
