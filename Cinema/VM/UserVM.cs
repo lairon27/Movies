@@ -16,10 +16,8 @@ namespace Cinema
 
         public ObservableCollection<User> Users { get; set; }
 
-        public List<Rating> Ratings { get; set; }
-
         public static ICommand UsersGeneratorCommand { get; set; }
-        public static ICommand SaveUsers { get; set; }
+        public static ICommand SaveUsersCommand { get; set; }
 
         public User SelectedUser
         {
@@ -34,42 +32,31 @@ namespace Cinema
         public UserVM()
         { 
             Users = new ObservableCollection<User>();
-            Ratings = new List<Rating>();
 
             UsersGeneratorCommand = new RelayCommand(parameter =>
              UsersGenerator_CommandExecute());
 
-            SaveUsers = new RelayCommand(parameter =>
-              SaveUsers_Command());
+            SaveUsersCommand = new RelayCommand(parameter =>
+              SaveUsers_CommandExecute());
         }
 
         private void UsersGenerator_CommandExecute()
         {
-            //User user = new();
-            //user.Ratings = new List<Rating>();
-
-            AmountOfUsersDialog dialog = new();
-            dialog.ShowDialog();
-
-            var amount = dialog.NumberOfUsersForGenerating();
-
-            for (var i=0; i<amount; i++)
+            InputIntDialog dialog = new();
+           
+            if(dialog.ShowDialog() == true)
             {
-                Users.Add(Generator.GenerateUser());
-                
-            }
+                var amount = dialog.NumberOfUsersForGenerating();
 
-            for (var i = 0; i < amount; i++)
-            {
-                Ratings.Add(Generator.GenerateRating());
+                for (var i = 0; i < amount; i++)
+                {
+                    Users.Add(Generator.GenerateUser());
+                }
             }
         }
 
-        private void SaveUsers_Command()
+        private void SaveUsers_CommandExecute()
         {
-            //FileManager.SaveData(Movies, @"C:\Users\anna.moskalenko\Desktop\rrrre.txt");
-
-            //var stream = Serialization.SerializeToXML(Movies);
 
             FileManager.SaveData(Serialization.SerializeToXML(Users), @"C:\Users\anna.moskalenko\Desktop\users.txt");
 
