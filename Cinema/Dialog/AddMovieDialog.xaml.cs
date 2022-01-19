@@ -14,6 +14,7 @@ namespace Cinema.View
             InitializeComponent();
             DataContext = new Movie();
             Closing += AddWindow_Closing;
+            //saveBtn += cancel_Button_Click;
         }
 
         public void add_Button_Click(object sender, RoutedEventArgs e)
@@ -36,7 +37,9 @@ namespace Cinema.View
         private void cancel_Button_Click(object sender, RoutedEventArgs e)
         {
             Closing -= AddWindow_Closing;
+            //DialogResult = false;
             Close();
+            //e.Cancel = true;
         }
 
         private void AddWindow_Closing(object sender, CancelEventArgs e)
@@ -52,6 +55,13 @@ namespace Cinema.View
             addBtn.Visibility = Visibility.Hidden;
             saveBtn.Visibility = Visibility.Visible;
             Title = "Movie Editor";
+        }
+
+        private void saveBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Closing -= AddWindow_Closing;
+            DialogResult = true;
+            //Close();
         }
     }
 }

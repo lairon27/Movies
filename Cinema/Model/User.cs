@@ -12,7 +12,6 @@ namespace Cinema.Model
         public string userLastName;
         public string birthDate;
         public int amountOfRatedFilms;
-
         public List<Rating> Ratings { get; set; }
 
         public Guid UserId

@@ -58,7 +58,7 @@
                     <TextBlock Foreground="{Binding Path=Rating, Converter={StaticResource rangeConv}}" Text="{Binding Path=MovieName}" FontSize="18" TextWrapping="Wrap"/>
                     <TextBlock Text="{Binding Path=Year}" />
                     <TextBlock Text="{Binding Path=Rating}" />
-                    <TextBlock Text="{Binding Path=MovieId}" />
+                    <!--<TextBlock Text="{Binding Path=MovieId}" />-->
                 </StackPanel>
             </Grid>
         </DataTemplate>
@@ -104,9 +104,9 @@
 
         <Menu Grid.ColumnSpan="3" Background="#E0EBE5">
             <MenuItem Header="Sort by">
-                <MenuItem Header="name" Command="{Binding SortByName}"/>
-                <MenuItem Header="year" Command="{Binding SortByYear}"/>
-                <MenuItem Header="rating" Command="{Binding SortByRating}"/>
+                <MenuItem Header="name" Command="{Binding SortByName}" Tag="MovieName"/>
+                <MenuItem Header="year" Command="{Binding SortByYear}" Tag="Year"/>
+                <MenuItem Header="rating" Command="{Binding SortByRating}" Tag="Rating"/>
             </MenuItem>
             <Separator/>
             <MenuItem Header="Add new movie" Command="{Binding AddMovieDialogCmd}" ></MenuItem>

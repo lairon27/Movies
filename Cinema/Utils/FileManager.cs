@@ -1,18 +1,17 @@
-﻿using System.Collections.ObjectModel;
-using System.IO;
+﻿using System.IO;
 
 namespace Cinema.Utils
 {
     class FileManager
     {
-        //public static string FileName;
+        public static string FileName;
 
-        //public FileManager()
-        //{
-        //    FileName = "moviesFile.xml";
-        //}
+        public FileManager()
+        {
+            FileName = "moviesFile.xml";
+        }
 
-        public static void SaveData(Stream stream, string FileName)
+        public static void SaveData(Stream stream)
         {
            using(var filestream = new FileStream(FileName, FileMode.Create, FileAccess.Write))
             { 
@@ -22,7 +21,7 @@ namespace Cinema.Utils
             }
         }
 
-        public static Stream LoadData(string FileName)
+        public static Stream LoadData()
         {
             var stream = File.OpenRead(FileName);
             return stream;

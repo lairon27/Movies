@@ -7,9 +7,6 @@ using Cinema.View;
 using System.Windows;
 using Cinema.Utils;
 using System.Windows.Input;
-using Bogus;
-using System.Linq;
-using System.IO;
 
 namespace Cinema
 {
@@ -21,6 +18,8 @@ namespace Cinema
         public static ICommand SortByYear { get; set; }
         public static ICommand SortByRating { get; set; }
         public static ICommand SortByName { get; set; }
+        // public static ICommand SortByCommand { get; set; }
+
         public static ICommand AddMovieDialogCmd { get; set; }
         public static ICommand EditMovieDialogCmd { get; set; }
         public static ICommand SaveAllChanges { get; set; }
@@ -43,7 +42,7 @@ namespace Cinema
             {
                 _searchText = value;
 
-                view.Filter = (movie) => { return ((Movie)movie).MovieName.Contains(_searchText, StringComparison.InvariantCultureIgnoreCase); };
+                view.Filter = (movie) => { return ((Movie)movie).MovieName.ToUpper().Contains(_searchText.ToUpper()); };
 
                 OnPropertyChanged("SearchText");
             }
@@ -66,13 +65,13 @@ namespace Cinema
         public MovieLibraryVM()
         {
             SortByYear = new RelayCommand(parameter =>
-             SortBy_Command("Year"));
+             SortBy_CommandExecute("Year"));
 
             SortByRating = new RelayCommand(parameter =>
-             SortBy_Command("Rating"));
+             SortBy_CommandExecute("Rating"));
 
             SortByName = new RelayCommand(parameter =>
-             SortBy_Command("MovieName"));
+             SortBy_CommandExecute("MovieName"));
 
             AddMovieDialogCmd = new RelayCommand(parameter =>
              AddMovieDialog_Command());
@@ -83,16 +82,17 @@ namespace Cinema
             SaveAllChanges = new RelayCommand(parameter =>
              SaveAllChanges_Command());
 
-            Movies = Serialization.Deserialize<ObservableCollection<Movie>>(FileManager.LoadData("moviesFile.xml"));
+            FileManager fileManager = new();
+
+            Movies = Serialization.Deserialize<ObservableCollection<Movie>>(FileManager.LoadData());
 
             view = CollectionViewSource.GetDefaultView(Movies);
         }
 
-        private void SortBy_Command(object parameter)
-        {
-
+        private void SortBy_CommandExecute(string parameter)
+        {  
             view.SortDescriptions.Clear();
-            view.SortDescriptions.Add(new SortDescription(parameter.ToString(), ListSortDirection.Descending));
+            view.SortDescriptions.Add(new SortDescription(parameter, ListSortDirection.Descending));
         }
 
         private void AddMovieDialog_Command()
@@ -137,12 +137,9 @@ namespace Cinema
         {
             using (var stream = Serialization.SerializeToXML(Movies))
             {
-                FileManager.SaveData(stream, "moviesFile.xml");
-                stream.Close();
+                FileManager.SaveData(stream);
             }
 
-            //FileManager.SaveData(stream, "moviesFile.xml");
-            //stream.Close();
             MessageBox.Show("Changes saved successfully", "Saved", MessageBoxButton.OK);
         }
     }
