@@ -1,6 +1,4 @@
-﻿using Cinema.Model;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows;
 
 namespace Cinema.Dialog
 {
@@ -9,12 +7,12 @@ namespace Cinema.Dialog
     /// </summary>
     public partial class InputIntDialog : Window
     {
-        //public TextBox count;
+        private int _number;
 
         public InputIntDialog()
         {
             InitializeComponent();
-            DataContext = new User();
+            DataContext = this;
         }
 
         private void Generate_Click(object sender, RoutedEventArgs e)
@@ -22,25 +20,10 @@ namespace Cinema.Dialog
             DialogResult = true;
         }
 
-        public int NumberOfUsersForGenerating()
+        public int Number
         {
-            int amount;
-            if (int.TryParse(number.Text, out int count))
-            {
-                amount = count;
-            }
-            else
-            {
-                MessageBox.Show("The input data must be a number!", "Incorrect value", MessageBoxButton.OK, MessageBoxImage.Warning);
-                amount = 0;
-            }
-
-            return amount;
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-          
+            get { return _number; }
+            set { _number = value; }
         }
     }
 }

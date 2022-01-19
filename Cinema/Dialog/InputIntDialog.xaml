@@ -5,15 +5,43 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cinema.Dialog"
         mc:Ignorable="d"
-        Title="AmountOfUsers" Height="150" Width="300"
+        Title="Amount" Height="150" Width="300"
         WindowStartupLocation="CenterScreen">
+
+    <!--<Window.Resources>
+        <ControlTemplate x:Key="validationErrorTemplate">
+            <DockPanel>
+                <TextBlock Foreground="Red" DockPanel.Dock="Top">!</TextBlock>
+                <AdornedElementPlaceholder x:Name="ErrorAdorner"></AdornedElementPlaceholder>
+            </DockPanel>
+        </ControlTemplate>
+    </Window.Resources>-->
     
-    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-        <TextBox x:Name="number" Width="150" Height="20"/>
-        <StackPanel Orientation="Horizontal" Margin="10">
-            <Button Width="50" Height="20" Content="OK" Margin="5" Click="Generate_Click" />
-            <Button Width="50" Height="20" Content="Cancel" Margin="5" IsCancel="True" Click="Button_Click" />
-        </StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         
-    </StackPanel>
+        
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock x:Name="numberOf" Text="Input number" Margin="0, 0, 0, 5"/>
+            <TextBox Width="150" Height="20" Text="{Binding Number, UpdateSourceTrigger=PropertyChanged}">
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <!-- Placeholder for the TextBox itself -->
+                            <AdornedElementPlaceholder x:Name="textBox"/>
+                            <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Width="150" >
+            <Button Width="50" Height="20" Content="OK" Margin="5" Click="Generate_Click" />
+            <Button Width="50" Height="20" Content="Cancel" IsCancel="True" Margin="35, 0, 0, 0"/>
+        </StackPanel>
+    </Grid>
 </Window>
