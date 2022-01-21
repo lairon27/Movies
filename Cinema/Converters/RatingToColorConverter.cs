@@ -11,13 +11,13 @@ namespace Cinema.Converters
         {
             double number = (double)System.Convert.ChangeType(value, typeof(double));
 
-            SolidColorBrush color = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#4287f5"));
+            SolidColorBrush color = ColorBrush("#4287f5");
 
             if (number < 5)
-                color = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ff6161"));
+                color = ColorBrush("#ff6161");
 
             if (number >= 5 && number < 7.5)
-                color = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ffc052"));
+                color = ColorBrush("#ffc052");
 
             return color;
         }
@@ -25,6 +25,11 @@ namespace Cinema.Converters
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotSupportedException("ConvertBack not supported");
+        }
+
+        public SolidColorBrush ColorBrush(string value)
+        {
+            return new((Color)ColorConverter.ConvertFromString(value));
         }
     }
 }
