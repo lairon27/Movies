@@ -41,9 +41,7 @@ namespace Cinema
 
         private void UsersGenerator_CommandExecute()
         {
-            InputIntDialog dialog = new();
-            dialog.Title += " of users";
-            dialog.numberOf.Text += " of users:";
+            InputIntDialog dialog = new("Amount of users", "Input number of users:");
 
             Generator generator = Generator.GetInstance;
 
@@ -59,7 +57,7 @@ namespace Cinema
         private void SaveUsers_CommandExecute()
         {
 
-            FileManager.SaveData(Serialization.SerializeToXML(Users));
+            //FileManager.SaveData(Serialization.SerializeToXML(Users));
 
             MessageBox.Show("Changes saved successfully", "Saved", MessageBoxButton.OK);
         }

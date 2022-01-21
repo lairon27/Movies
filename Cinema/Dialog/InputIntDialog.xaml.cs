@@ -9,10 +9,12 @@ namespace Cinema.Dialog
     {
         private int _number;
 
-        public InputIntDialog()
+        public InputIntDialog(string title, string text)
         {
             InitializeComponent();
             DataContext = this;
+            Title = title;
+            numberOf.Text = text;
         }
 
         private void Generate_Click(object sender, RoutedEventArgs e)

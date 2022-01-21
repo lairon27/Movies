@@ -40,7 +40,7 @@
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Grid.Row="1" Width="150" >
-            <Button Width="50" Height="20" Content="OK" Margin="5" Click="Generate_Click" />
+            <Button Width="50" Height="20" Content="OK" Margin="5" Click="Generate_Click" IsDefault="True"/>
             <Button Width="50" Height="20" Content="Cancel" IsCancel="True" Margin="35, 0, 0, 0"/>
         </StackPanel>
     </Grid>
