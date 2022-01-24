@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using System.Windows.Data;
 using System.Windows.Media;
 
@@ -11,25 +12,24 @@ namespace Cinema.Converters
         {
             double number = (double)System.Convert.ChangeType(value, typeof(double));
 
-            SolidColorBrush color = ColorBrush("#4287f5");
+            var color = "#4287f5";
 
             if (number < 5)
-                color = ColorBrush("#ff6161");
+            {
+                color = "#ff6161";
+            }
 
             if (number >= 5 && number < 7.5)
-                color = ColorBrush("#ffc052");
+            {
+                color = "#ffc052";
+            }
 
-            return color;
+            return new SolidColorBrush((Color)ColorConverter.ConvertFromString(color));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotSupportedException("ConvertBack not supported");
-        }
-
-        public SolidColorBrush ColorBrush(string value)
-        {
-            return new((Color)ColorConverter.ConvertFromString(value));
         }
     }
 }
