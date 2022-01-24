@@ -4,7 +4,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-                xmlns:cef1="clr-namespace:Cinema.Converters"
+                xmlns:cef1="clr-namespace:Cinema.Converters" 
+                xmlns:cinema="clr-namespace:Cinema"
+                d:DataContext="{d:DesignInstance Type=cinema:MovieLibraryVM}"
                 mc:Ignorable="d"
         >
     <view:BaseView.Resources>
@@ -104,9 +106,9 @@
 
         <Menu Grid.ColumnSpan="3" Background="#E0EBE5">
             <MenuItem Header="Sort by">
-                <MenuItem Header="name" Command="{Binding SortByName}" Tag="MovieName"/>
-                <MenuItem Header="year" Command="{Binding SortByYear}" Tag="Year"/>
-                <MenuItem Header="rating" Command="{Binding SortByRating}" Tag="Rating"/>
+                <MenuItem Header="name" Command="{Binding SortByCommand}" CommandParameter="MovieName"/>
+                <MenuItem Header="year" Command="{Binding SortByCommand}" CommandParameter="Year"/>
+                <MenuItem Header="rating" Command="{Binding SortByCommand}" CommandParameter="Rating"/>
             </MenuItem>
             <Separator/>
             <MenuItem Header="Add new movie" Command="{Binding AddMovieDialogCmd}" ></MenuItem>
@@ -163,34 +165,6 @@
                      FontSize="14" FontFamily="Montsserat"/>
         </StackPanel>
 
-        <!--<ComboBox x:Name="listAppearance" Grid.Column="0" Grid.Row="1" Height="23" Width="120" HorizontalAlignment="Center" >
-            <ComboBoxItem IsSelected="True" IsEnabled="False"> 
-                View
-            </ComboBoxItem>
-            <ComboBoxItem>
-                Small image
-            </ComboBoxItem>
-            <ComboBoxItem>
-                Big Images
-            </ComboBoxItem>
-        </ComboBox>-->
-
-        <!--<Button Grid.Column="0" Grid.Row="1" Content="Add" Command="{Binding AddMovieDialogCmd}" Width="100" Height="20" HorizontalAlignment="Left" Margin="5"/>-->
-
-        <!--<ComboBox Grid.Column="2" Grid.Row="0" Height="30">
-            <ComboBoxItem>
-                Sort by Name
-            </ComboBoxItem>
-            <ComboBoxItem>
-                Sort by Year
-            </ComboBoxItem>
-            <ComboBoxItem>
-                Sort by Rating
-            </ComboBoxItem>
-        </ComboBox>-->
-
-        <!--<Button Grid.Column="2" Grid.Row="0" Content="Sort by year" Command="{Binding SortByYear}" Width="50" Height="20"/>-->
-        <!--<Button Grid.Column="2" Grid.Row="0" Content="Sort by year" Command="{Binding SortByRating}" Width="50" Height="20"/>-->
         <Button Grid.Column="2" Grid.Row="4" Content="Save changes" Command="{Binding SaveAllChanges}" Width="100" Height="30" HorizontalAlignment="Right" Margin="5"/>
     </Grid>
 </view:BaseView>
