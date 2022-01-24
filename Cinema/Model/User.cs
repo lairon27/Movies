@@ -63,5 +63,10 @@ namespace Cinema.Model
                 OnPropertyChanged("AmountOfRatedFilms");
             }
         }
+
+        public User()
+        {
+            Ratings = new List<Rating>();
+        }
     }
 }

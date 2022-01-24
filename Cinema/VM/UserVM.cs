@@ -6,6 +6,8 @@ using Cinema.Dialog;
 using System.Windows.Input;
 using System.Windows;
 using Cinema.Utils;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Cinema
 {
@@ -37,19 +39,25 @@ namespace Cinema
 
             SaveUsersCommand = new RelayCommand(parameter =>
               SaveUsers_CommandExecute());
+
         }
 
         private void UsersGenerator_CommandExecute()
         {
             InputIntDialog dialog = new("Amount of users", "Input number of users:");
 
-            Generator generator = Generator.GetInstance;
-
-            if(dialog.ShowDialog() == true)
+            if (dialog.ShowDialog() == true)
             {
+                var generator = new Generator();
+
                 for (var i = 0; i < dialog.Number; i++)
                 {
                     Users.Add(generator.GenerateUser());
+
+                    for(var j = 0; j < Users[i].AmountOfRatedFilms; j++)
+                    {
+                        Users[i].Ratings.Add(generator.GenerateRating());
+                    }
                 }
             }
         }
@@ -57,7 +65,7 @@ namespace Cinema
         private void SaveUsers_CommandExecute()
         {
 
-            //FileManager.SaveData(Serialization.SerializeToXML(Users));
+            FileManager.SaveData(Serialization.SerializeToXML(Users), "users.xml");
 
             MessageBox.Show("Changes saved successfully", "Saved", MessageBoxButton.OK);
         }
