@@ -6,7 +6,6 @@ using Cinema.Dialog;
 using System.Windows.Input;
 using System.Windows;
 using Cinema.Utils;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Cinema
@@ -15,7 +14,7 @@ namespace Cinema
     {
         private User selectedUser;
 
-        public ObservableCollection<User> Users { get; set; }
+        public static ObservableCollection<User> Users { get; set; }
 
         public static ICommand UsersGeneratorCommand { get; set; }
         public static ICommand SaveUsersCommand { get; set; }
@@ -30,6 +29,8 @@ namespace Cinema
             }
         }
 
+        public FileManager fileManager = new FileManager(@"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\users.xml");
+
         public UserVM()
         { 
             Users = new ObservableCollection<User>();
@@ -40,6 +41,13 @@ namespace Cinema
             SaveUsersCommand = new RelayCommand(parameter =>
               SaveUsers_CommandExecute());
 
+            //var data = fileManager.LoadData();
+
+            //if (data != null)
+            //{
+            //    Users = Serialization.Deserialize<ObservableCollection<User>>(data);
+            //}
+            //Users = Serialization.Deserialize<ObservableCollection<User>>(fileManager.LoadData());
         }
 
         private void UsersGenerator_CommandExecute()
@@ -54,21 +62,30 @@ namespace Cinema
                 {
                     Users.Add(generator.GenerateUser());
 
-                    for(var j = 0; j < Users[i].AmountOfRatedFilms; j++)
+                    //for(var j = 0; j < Users[i].AmountOfRatedFilms; j++)
+                    //{
+                    //    Users[i].Ratings.Add(generator.GenerateRating());                         
+                    //}
+
+                    foreach(var item in generator.GenerateRating())
                     {
-                        Users[i].Ratings.Add(generator.GenerateRating());
+                        Users[i].Ratings.Add(item);
                     }
+
                 }
             }
         }
 
         private void SaveUsers_CommandExecute()
         {
+           
 
-            FileManager.SaveData(Serialization.SerializeToXML(Users), "users.xml");
+            using (var stream = Serialization.SerializeToXML(Users))
+            {
+                fileManager.SaveData(stream);
+            }
 
             MessageBox.Show("Changes saved successfully", "Saved", MessageBoxButton.OK);
         }
-
     }
 }

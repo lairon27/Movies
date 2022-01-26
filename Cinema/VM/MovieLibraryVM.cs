@@ -15,7 +15,7 @@ namespace Cinema
     {
         private Movie selectedMovie;
 
-        public ObservableCollection<Movie> Movies { get; set; }
+        public static ObservableCollection<Movie> Movies { get; set; }
         
         public static ICommand SortByCommand { get; set; }
         public static ICommand AddMovieDialogCmd { get; set; }
@@ -58,6 +58,7 @@ namespace Cinema
             }
         }
 
+        public FileManager fileManager = new FileManager(@"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\moviesFile.xml");
 
         //public RoutedCommand addNewWindow = new RoutedCommand("Open", typeof(MovieLibraryVM));
         public MovieLibraryVM()
@@ -74,13 +75,14 @@ namespace Cinema
             SaveAllChanges = new RelayCommand(parameter =>
              SaveAllChanges_Command());
 
-            FileManager fileManager = new();
+            var data = fileManager.LoadData();
 
-            Movies = Serialization.Deserialize<ObservableCollection<Movie>>(FileManager.LoadData("myTextFile.xml"));
+            if (data != null)
+            {
+                Movies = Serialization.Deserialize<ObservableCollection<Movie>>(data);
+            }
 
-            view = CollectionViewSource.GetDefaultView(Movies);
-
-           
+            view = CollectionViewSource.GetDefaultView(Movies); 
         }
 
         private void SortBy_CommandExecute(string parameter)
@@ -129,9 +131,12 @@ namespace Cinema
 
         private void SaveAllChanges_Command()
         {
+            //var fileManager = new FileManager(@"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\moviesFile.xml");
+            
+
             using (var stream = Serialization.SerializeToXML(Movies))
             {
-                FileManager.SaveData(stream, "myTextFile.xml");
+                fileManager.SaveData(stream);
             }
 
             MessageBox.Show("Changes saved successfully", "Saved", MessageBoxButton.OK);
