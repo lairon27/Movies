@@ -16,6 +16,8 @@ namespace Cinema
 
         public static ObservableCollection<User> Users { get; set; }
 
+        public FileManager fileManager = new FileManager(@"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\users.xml");
+
         public static ICommand UsersGeneratorCommand { get; set; }
         public static ICommand SaveUsersCommand { get; set; }
 
@@ -28,8 +30,6 @@ namespace Cinema
                 OnPropertyChanged("SelectedUser");
             }
         }
-
-        public FileManager fileManager = new FileManager(@"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\users.xml");
 
         public UserVM()
         { 
@@ -56,22 +56,32 @@ namespace Cinema
 
             if (dialog.ShowDialog() == true)
             {
+                int k;
+
+                if (Users.Count == 0)
+                {
+                    k = 0;
+                }
+                else
+                {
+                    k = Users.Count;
+                    dialog.Number += Users.Count;
+                }
+
                 var generator = new Generator();
 
-                for (var i = 0; i < dialog.Number; i++)
+                for (var i = k; i < dialog.Number; i++)
                 {
                     Users.Add(generator.GenerateUser());
 
-                    //for(var j = 0; j < Users[i].AmountOfRatedFilms; j++)
-                    //{
-                    //    Users[i].Ratings.Add(generator.GenerateRating());                         
-                    //}
+                    var amount = Users[i].AmountOfRatedFilms;
+                    var selectedId = MovieLibraryVM.Movies.Select(i => i.MovieId).ToList();
+                    var listOfRatings = generator.GenerateRating(amount, selectedId);
 
-                    foreach(var item in generator.GenerateRating())
+                    foreach (var element in listOfRatings)
                     {
-                        Users[i].Ratings.Add(item);
+                        Users[i].Ratings.Add(element);
                     }
-
                 }
             }
         }
