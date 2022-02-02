@@ -128,16 +128,25 @@ namespace Cinema
 
             //movieDialog.Editor();
 
-            //var copy = (Movie)SelectedMovie.Clone();
+            //var movie = SelectedMovie;
+
+            //var copy = (Movie)movie.Clone();
 
             //movieDialog.DataContext = copy;
 
             //if (movieDialog.ShowDialog() == true)
             //{
-            //    SelectedMovie = copy;
-            //    // movieDialog.DataContext = SelectedMovie;
+            //    movie.MovieId = copy.MovieId;
+            //    movie.MovieName = copy.MovieName;
+            //    movie.Year = copy.Year;
+            //    movie.Genre = copy.Genre;
+            //    movie.Rating = copy.Rating;
+            //    movie.Describe = copy.Describe;
+            //    movie.Time = copy.Time;
+            //    movie.Image = copy.Image;
             //}
 
+            //movieDialog.DataContext = SelectedMovie;
             dataManager.UpdateMovie((Movie)SelectedMovie.Clone(), SelectedMovie);
         }
 
@@ -148,10 +157,7 @@ namespace Cinema
                 fileManager.SaveData(stream);
             }
 
-            //using (dataManager.loadedMovies = Serialization.SerializeToXML(Movies))
-            //{
-            //    dataManager.Save();
-            //}
+            //dataManager.Save();
 
             MessageBox.Show("Changes saved successfully", "Saved", MessageBoxButton.OK);
         }

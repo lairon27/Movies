@@ -2,7 +2,6 @@
 using Cinema.Utils;
 using Cinema.View;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 
@@ -15,7 +14,7 @@ namespace Cinema.Service
         public Stream loadedUsers;
 
         public FileManager UsersFilePath = new FileManager(@"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\users.xml");
-        public FileManager MoviesFilePath = new FileManager(@"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\moviesFile.xml");
+        public FileManager MoviesFilePath = new FileManager(@"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\moviesFile.xml"); 
 
         public ObservableCollection<Movie> movies;
         public ObservableCollection<User> users;
@@ -82,8 +81,14 @@ namespace Cinema.Service
 
             if (movieDialog.ShowDialog() == true)
             {
-                source = target;
-                //movieDialog.DataContext = source;
+                source.MovieId = target.MovieId;
+                source.MovieName = target.MovieName;
+                source.Year = target.Year;
+                source.Genre = target.Genre;
+                source.Rating = target.Rating;
+                source.Describe = target.Describe;
+                source.Time = target.Time;
+                source.Image = target.Image;
             }
         }
 
