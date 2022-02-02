@@ -7,6 +7,7 @@ using System.Windows.Input;
 using System.Windows;
 using Cinema.Utils;
 using System.Linq;
+using Cinema.Service;
 
 namespace Cinema
 {
@@ -17,6 +18,8 @@ namespace Cinema
         public static ObservableCollection<User> Users { get; set; }
 
         public FileManager fileManager = new FileManager(@"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\users.xml");
+
+        private IDataManager dataManager;
 
         public static ICommand UsersGeneratorCommand { get; set; }
         public static ICommand SaveUsersCommand { get; set; }
@@ -31,8 +34,10 @@ namespace Cinema
             }
         }
 
-        public UserVM()
+        public UserVM(IDataManager _dataManager)
         { 
+            dataManager = _dataManager;
+
             Users = new ObservableCollection<User>();
 
             UsersGeneratorCommand = new RelayCommand(parameter =>
@@ -40,6 +45,15 @@ namespace Cinema
 
             SaveUsersCommand = new RelayCommand(parameter =>
               SaveUsers_CommandExecute());
+
+            dataManager = new DataManager();
+
+            //dataManager.Load();
+
+            //if (dataManager.loadedUsers != null)
+            //{
+            //    Users = Serialization.Deserialize<ObservableCollection<User>>(dataManager.loadedUsers);
+            //}
 
             //var data = fileManager.LoadData();
 
@@ -56,40 +70,27 @@ namespace Cinema
 
             if (dialog.ShowDialog() == true)
             {
-                int k;
-
-                if (Users.Count == 0)
-                {
-                    k = 0;
-                }
-                else
-                {
-                    k = Users.Count;
-                    dialog.Number += Users.Count;
-                }
-
                 var generator = new Generator();
 
-                for (var i = k; i < dialog.Number; i++)
+                for (var i = 0; i < dialog.Number; i++)
                 {
-                    Users.Add(generator.GenerateUser());
+                    var user = generator.GenerateUser();
+                    Users.Add(user);
 
-                    var amount = Users[i].AmountOfRatedFilms;
+                    var amount = user.AmountOfRatedFilms;
                     var selectedId = MovieLibraryVM.Movies.Select(i => i.MovieId).ToList();
                     var listOfRatings = generator.GenerateRating(amount, selectedId);
 
                     foreach (var element in listOfRatings)
                     {
-                        Users[i].Ratings.Add(element);
+                        user.Ratings.Add(element);
                     }
                 }
             }
         }
 
         private void SaveUsers_CommandExecute()
-        {
-           
-
+        {          
             using (var stream = Serialization.SerializeToXML(Users))
             {
                 fileManager.SaveData(stream);

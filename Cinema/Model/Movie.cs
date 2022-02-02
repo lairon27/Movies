@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace Cinema
 {
     [System.Xml.Serialization.XmlInclude(typeof(Movie))]
-    public class Movie : ModelBaseNotify
+    public class Movie : ModelBaseNotify, ICloneable
     {
         public Guid movieId;
         public string movieName;
@@ -24,7 +24,7 @@ namespace Cinema
             set
             {
                 movieId = value;
-                OnPropertyChanged("UserId");
+                OnPropertyChanged("MovieId");
             }
         }
 
@@ -94,6 +94,35 @@ namespace Cinema
                 image = value; ;
                 OnPropertyChanged("Image");
             }
+        }
+
+
+        //public Movie(Guid id, string title, int _year, float _rating, string _genre, string _describe, string _time, string _image)
+        //{
+        //    movieId = id;
+        //    movieName = title;
+        //    year = _year;
+        //    rating = _rating;
+        //    genre = _genre;
+        //    describe = _describe;
+        //    time = _time;
+        //    image = _image;
+        //}
+
+        public object Clone()
+        {
+            //return this.MemberwiseClone();
+            return new Movie
+            {
+                movieId = movieId,
+                movieName = movieName,
+                year = year,
+                rating = rating,
+                genre = genre,
+                describe = describe,
+                time = time,
+                image = image
+            };
         }
     }
 }

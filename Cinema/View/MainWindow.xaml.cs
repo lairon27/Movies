@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Cinema.Service;
+using System.Windows;
 using System.Windows.Controls;
 
 
@@ -13,21 +14,23 @@ namespace Cinema.View
         {
             InitializeComponent();
 
-            tabController.Items.Add(new TabItem
-            {
-                Header = "Movie Library",
-                Content = new MovieLibrary()
-                {
-                    DataContext = new MovieLibraryVM()
-                }
-            });
+            IDataManager dataManager = new DataManager();
 
             tabController.Items.Add(new TabItem
             {
                 Header = "Users",
                 Content = new Users()
                 {
-                    DataContext = new UserVM()
+                    DataContext = new UserVM(dataManager)
+                }
+            });
+
+            tabController.Items.Add(new TabItem
+            {
+                Header = "Movie Library",
+                Content = new MovieLibrary()
+                {
+                    DataContext = new MovieLibraryVM(dataManager)
                 }
             });
         }

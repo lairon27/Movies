@@ -8,6 +8,7 @@ using System.Windows;
 using Cinema.Utils;
 using System.Windows.Input;
 using System.Windows.Controls;
+using Cinema.Service;
 
 namespace Cinema
 {
@@ -21,6 +22,10 @@ namespace Cinema
         public static ICommand AddMovieDialogCmd { get; set; }
         public static ICommand EditMovieDialogCmd { get; set; }
         public static ICommand SaveAllChanges { get; set; }
+
+        //private DataManager dataManager;
+
+        private IDataManager dataManager;
 
         public Movie SelectedMovie
         {
@@ -61,8 +66,11 @@ namespace Cinema
         public FileManager fileManager = new FileManager(@"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\moviesFile.xml");
 
         //public RoutedCommand addNewWindow = new RoutedCommand("Open", typeof(MovieLibraryVM));
-        public MovieLibraryVM()
+        public MovieLibraryVM(IDataManager _dataManager)
         {
+
+            dataManager = _dataManager;
+
             SortByCommand = new RelayCommand(parameter =>
               SortBy_CommandExecute(parameter.ToString()));
 
@@ -75,14 +83,17 @@ namespace Cinema
             SaveAllChanges = new RelayCommand(parameter =>
              SaveAllChanges_Command());
 
-            var data = fileManager.LoadData();
 
-            if (data != null)
-            {
-                Movies = Serialization.Deserialize<ObservableCollection<Movie>>(data);
-            }
+            dataManager.Load();
+            //var data = fileManager.LoadData();
 
-            view = CollectionViewSource.GetDefaultView(Movies); 
+            //if (data != null)
+            //{
+            //    Movies = Serialization.Deserialize<ObservableCollection<Movie>>(data);
+            //}
+
+            Movies = dataManager.GetMovies();
+            view = CollectionViewSource.GetDefaultView(Movies);
         }
 
         private void SortBy_CommandExecute(string parameter)
@@ -97,7 +108,9 @@ namespace Cinema
 
             if (movieDialog.ShowDialog() == true)
             {
-                Movies.Add((Movie)movieDialog.DataContext);
+                // Movies.Add((Movie)movieDialog.DataContext);
+
+                dataManager.AddMovie((Movie)movieDialog.DataContext);
 
                 foreach (var movie in Movies)
                 {
@@ -111,33 +124,34 @@ namespace Cinema
 
         private void EditMovieDialog_Command()
         {
-            AddMovieDialog movieDialog = new();
+            //AddMovieDialog movieDialog = new();
 
-            movieDialog.Editor();
-            movieDialog.DataContext = SelectedMovie;
-            movieDialog.ShowDialog();
+            //movieDialog.Editor();
 
-            //if(movieDialog.ShowDialog() == true)
+            //var copy = (Movie)SelectedMovie.Clone();
+
+            //movieDialog.DataContext = copy;
+
+            //if (movieDialog.ShowDialog() == true)
             //{
-            //    movieDialog.DataContext = SelectedMovie;
-            //    //SelectedMovie = (Movie)movieDialog.DataContext;
+            //    SelectedMovie = copy;
+            //    // movieDialog.DataContext = SelectedMovie;
             //}
 
-
-            //movieDialog.Show();
-            //movieDialog.Editor();
-            //movieDialog.DataContext = SelectedMovie;
+            dataManager.UpdateMovie((Movie)SelectedMovie.Clone(), SelectedMovie);
         }
 
         private void SaveAllChanges_Command()
         {
-            //var fileManager = new FileManager(@"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\moviesFile.xml");
-            
-
             using (var stream = Serialization.SerializeToXML(Movies))
             {
                 fileManager.SaveData(stream);
             }
+
+            //using (dataManager.loadedMovies = Serialization.SerializeToXML(Movies))
+            //{
+            //    dataManager.Save();
+            //}
 
             MessageBox.Show("Changes saved successfully", "Saved", MessageBoxButton.OK);
         }
