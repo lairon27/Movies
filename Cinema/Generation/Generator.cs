@@ -44,11 +44,13 @@ namespace Cinema.Generation
         public List<Guid> GetRangomItems(int amount, List<Guid> guids)
         {
             var idCollection = new List<Guid>(amount);
+            var guidsCopy = new List<Guid>(guids);
+
             for (var i = 0; i < amount; i++)
             {
-                int index = random.Next(guids.Count);
-                idCollection.Add(guids[index]);
-                guids.RemoveAt(index);
+                int index = random.Next(guidsCopy.Count);
+                idCollection.Add(guidsCopy[index]);
+                guidsCopy.RemoveAt(index);
             }
 
             return idCollection;
