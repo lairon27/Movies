@@ -20,7 +20,7 @@
 
         <TextBlock Text="Users" Grid.ColumnSpan="3" Grid.Row="0" TextAlignment="Center" FontSize="24"/>
 
-        <igDP:XamDataGrid SelectedDataItem="{Binding SelectedUser}" DataSource="{Binding Path=Users}"  Grid.Column="0" Grid.Row="1">
+        <!--<igDP:XamDataGrid SelectedDataItem="{Binding SelectedUser}" DataSource="{Binding Path=Users}"  Grid.Column="0" Grid.Row="1">
             <igDP:XamDataGrid.FieldLayoutSettings>
                 <igDP:FieldLayoutSettings RecordSelectorNumberType="VisibleIndex" AutoGenerateFields="False" />
             </igDP:XamDataGrid.FieldLayoutSettings>
@@ -37,7 +37,7 @@
                     </igDP:FieldLayout.Fields>
                 </igDP:FieldLayout>
             </igDP:XamDataGrid.FieldLayouts>
-        </igDP:XamDataGrid>
+        </igDP:XamDataGrid>-->
 
         <!--<DataGrid x:Name="usersDataGrid" SelectedItem="{Binding SelectedUser}" ItemsSource="{Binding Users}" Grid.Column="0" Grid.Row="1" 
                   AutoGenerateColumns="False" HeadersVisibility="Column" ColumnWidth="*" CanUserAddRows="False" IsReadOnly="True"

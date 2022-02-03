@@ -25,7 +25,7 @@ namespace Cinema.View
 
         private void DowloadImage(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog myDialog = new();
+            OpenFileDialog myDialog = new OpenFileDialog();
             myDialog.Filter = "Images(*.JPG;*.PNG;*.JPEG)|*.JPG;*.PNG;*.JPEG" + "|All Files (*.*)|*.* ";
             myDialog.CheckFileExists = true;
             if (myDialog.ShowDialog() == true && DataContext is Movie)

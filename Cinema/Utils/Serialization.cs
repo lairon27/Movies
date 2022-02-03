@@ -9,8 +9,8 @@ namespace Cinema.Utils
     {
         public static Stream SerializeToXML<T>(T obj)
         {
-            MemoryStream stream = new();
-            XmlSerializer xs = new(typeof(T));
+            MemoryStream stream = new MemoryStream();
+            XmlSerializer xs = new XmlSerializer(typeof(T));
             xs.Serialize(stream, obj);
 
             return stream;
@@ -18,7 +18,7 @@ namespace Cinema.Utils
 
         public static T Deserialize<T>(Stream stream) where T : class
         {
-            XmlSerializer xs = new(typeof(T));
+            XmlSerializer xs = new XmlSerializer(typeof(T));
 
             try
             {

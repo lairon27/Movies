@@ -7,14 +7,14 @@ namespace Cinema.Service
 {
     internal interface IDataManager
     {
-        public void Load();
-        public void Save();
-        public ObservableCollection<User> GetUsers();
-        public ObservableCollection<Movie> GetMovies();
-        public void SetRating(Guid userId, Guid movieId, int amount);
-        public void AddMovie(Movie movie);
-        public void UpdateMovie(Movie target, Movie source);
-        public void AddUser(User user);
-        public void UpdateUser(User target, User source);
+        void Load();
+        void Save();
+        ObservableCollection<User> GetUsers();
+        ObservableCollection<Movie> GetMovies();
+        void SetRating(Guid userId, Guid movieId, int amount);
+        void AddMovie(Movie movie);
+        void UpdateMovie(Movie target, Movie source);
+        void AddUser(User user);
+        void UpdateUser(User target, User source);
     }
 }

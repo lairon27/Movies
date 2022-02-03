@@ -1,67 +1,163 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F0411E77-E937-4791-B480-28B3062D1CA3}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net452</TargetFramework>
-	<LangVersion>preview</LangVersion>
-    <Nullable>enable</Nullable>
-    <UseWPF>true</UseWPF>
+    <RootNamespace>Cinema</RootNamespace>
+    <AssemblyName>Cinema</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
-
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
   <ItemGroup>
-    <None Remove="Resources\avengers1.png" />
-    <None Remove="Resources\dark_knight.jpg" />
-    <None Remove="Resources\dune.jpg" />
-    <None Remove="Resources\ford_v_ferrari.jpg" />
-    <None Remove="Resources\harry_potter.jpg" />
-    <None Remove="Resources\joker.jpg" />
-    <None Remove="Resources\no_time.png" />
-    <None Remove="Resources\shang-chi.jpg" />
-    <None Remove="Resources\shang-chi.png" />
-    <None Remove="Resources\shawshank.jpeg" />
-    <None Remove="Resources\spotlight.jpg" />
-    <None Remove="Resources\terminator2.jpg" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
   </ItemGroup>
-
   <ItemGroup>
-    <PackageReference Include="Bogus" Version="34.0.1" />
-    <PackageReference Include="EntityFramework" Version="6.4.4" />
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Commands\Commands.cs" />
+    <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Converters\RatingToColorConverter.cs" />
+    <Compile Include="Dialog\AddMovieDialog.xaml.cs">
+      <DependentUpon>AddMovieDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\InputIntDialog.xaml.cs">
+      <DependentUpon>InputIntDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ModelBaseNotify.cs" />
+    <Compile Include="Model\Movie.cs" />
+    <Compile Include="Model\Rating.cs" />
+    <Compile Include="Model\User.cs" />
+    <Compile Include="Service\DataManager.cs" />
+    <Compile Include="Service\IDataManager.cs" />
+    <Compile Include="Utils\FileManager.cs" />
+    <Compile Include="Utils\Serialization.cs" />
+    <Compile Include="View\BaseView.cs" />
+    <Compile Include="View\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MovieLibrary.xaml.cs">
+      <DependentUpon>MovieLibrary.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UsersView.xaml.cs">
+      <DependentUpon>UsersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VM\MainVm.cs" />
+    <Compile Include="VM\MovieLibraryVM.cs" />
+    <Compile Include="VM\UserVM.cs" />
+    <Compile Include="VM\VMBaseNotify.cs" />
+    <Page Include="Dialog\AddMovieDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialog\InputIntDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Generation\Generator.cs" />
+    <Page Include="View\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\MovieLibrary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\UsersView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
-
   <ItemGroup>
-    <Resource Include="Resources\avengers1.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\dark_knight.jpg">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\dune.jpg">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\ford_v_ferrari.jpg">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\harry_potter.jpg">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\joker.jpg">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\no_time.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\shang-chi.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\shawshank.jpeg">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\spotlight.jpg">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\terminator2.jpg">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
-
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\avengers1.jpg" />
+    <Resource Include="Resources\avengers1.png" />
+    <Resource Include="Resources\dark_knight.jpg" />
+    <Resource Include="Resources\dune.jpg" />
+    <Resource Include="Resources\faa7995301fcctn10c46k.jpeg" />
+    <Resource Include="Resources\ford_v_ferrari.jpg" />
+    <Resource Include="Resources\harry_potter.jpg" />
+    <Resource Include="Resources\joker.jpg" />
+    <Resource Include="Resources\no_time.png" />
+    <Resource Include="Resources\shang-chi.png" />
+    <Resource Include="Resources\shawshank.jpeg" />
+    <Resource Include="Resources\shawshank.jpg" />
+    <Resource Include="Resources\spotlight.jpg" />
+    <Resource Include="Resources\terminator2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Bogus">
+      <Version>34.0.1</Version>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

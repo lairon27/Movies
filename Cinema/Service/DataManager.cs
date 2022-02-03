@@ -73,7 +73,7 @@ namespace Cinema.Service
 
         public void UpdateMovie(Movie target, Movie source)
         {
-            AddMovieDialog movieDialog = new();
+            AddMovieDialog movieDialog = new AddMovieDialog();
 
             movieDialog.Editor();
 

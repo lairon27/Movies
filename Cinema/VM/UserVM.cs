@@ -66,7 +66,7 @@ namespace Cinema
 
         private void UsersGenerator_CommandExecute()
         {
-            InputIntDialog dialog = new("Amount of users", "Input number of users:");
+            InputIntDialog dialog = new InputIntDialog("Amount of users", "Input number of users:");
 
             if (dialog.ShowDialog() == true)
             {
@@ -78,7 +78,7 @@ namespace Cinema
                     Users.Add(user);
 
                     var amount = user.AmountOfRatedFilms;
-                    var selectedId = MovieLibraryVM.Movies.Select(i => i.MovieId).ToList();
+                    var selectedId = MovieLibraryVM.Movies.Select(j => j.MovieId).ToList();
                     var listOfRatings = generator.GenerateRating(amount, selectedId);
 
                     foreach (var element in listOfRatings)

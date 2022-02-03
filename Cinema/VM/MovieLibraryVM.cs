@@ -104,7 +104,7 @@ namespace Cinema
 
         private void AddMovieDialog_Command()
         {
-            AddMovieDialog movieDialog = new();
+            AddMovieDialog movieDialog = new AddMovieDialog();
 
             if (movieDialog.ShowDialog() == true)
             {
