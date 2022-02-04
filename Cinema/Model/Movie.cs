@@ -5,7 +5,31 @@ using System.Xml.Serialization;
 
 namespace Cinema
 {
-    [System.Xml.Serialization.XmlInclude(typeof(Movie))]
+    [Flags]
+    public enum Genres
+    {
+        None = 0,
+        Action = 1,
+        Comedy = 2,
+        Drama = 4,
+        Fantasy = 8,
+        Horror = 16,
+        Mystery = 32,
+        Romance = 64,
+        Thriller = 128,
+        Western = 256,
+        Fiction = 512,
+        Adventure = 1024,
+        Crime = 2048,
+        Detective = 4096,
+        Biographical = 8192,
+        Historical = 16384,
+        Sports = 32768,
+        Science = 65536
+    }
+
+
+    //[System.Xml.Serialization.XmlInclude(typeof(Movie))]
     [Serializable]
     public class Movie : ModelBaseNotify
     {
@@ -13,7 +37,7 @@ namespace Cinema
         private string movieName;
         private int year;
         private float rating;
-        private string genre;
+        private Genres genre;
         private string describe;
         private string time;
         private string image;
@@ -65,7 +89,7 @@ namespace Cinema
         }
 
         [XmlAttribute("Genre")]
-        public string Genre
+        public Genres Genre
         {
             get { return genre; }
             set
