@@ -8,7 +8,7 @@
                 xmlns:cinema="clr-namespace:Cinema"
                 d:DataContext="{d:DesignInstance Type=cinema:MovieLibraryVM}"
                 mc:Ignorable="d"
-        >
+               >
     <view:BaseView.Resources>
         <cef1:RatingToColorConverter x:Key="rangeConv"></cef1:RatingToColorConverter>
         <Style x:Key="placeHolder" TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
@@ -60,7 +60,7 @@
                     <TextBlock Foreground="{Binding Path=Rating, Converter={StaticResource rangeConv}}" Text="{Binding Path=MovieName}" FontSize="18" TextWrapping="Wrap"/>
                     <TextBlock Text="{Binding Path=Year}" />
                     <TextBlock Text="{Binding Path=Rating}" />
-                    <!--<TextBlock Text="{Binding Path=MovieId}" />-->
+                    <TextBlock Text="{Binding Path=MovieId}" />
                 </StackPanel>
             </Grid>
         </DataTemplate>
@@ -97,7 +97,7 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="30" />
+            <RowDefinition Height="140" />
             <RowDefinition Height="40"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
@@ -126,10 +126,45 @@
             </ComboBox>
         </Menu>
 
+        <!--<ribbon:Ribbon Grid.ColumnSpan="3" Background="White">
+            <ribbon:RibbonTab>
+                <ribbon:RibbonGroup Header="Add movie" Height="70">
+                    <ribbon:RibbonButton LargeImageSource="C:\Users\anna.moskalenko\Downloads\theater_cinema_film_movie_clapper_icon_209580.ico"
+                                  Width="70" Height="50" Command="{Binding AddMovieDialogCmd}"/>
+                </ribbon:RibbonGroup>
+                <ribbon:RibbonGroup Header="View" Height="70">
+                    <ribbon:RibbonComboBox x:Name="listAppearance" Height="23" Width="120" Focusable="False" Margin="15, 13, 0, 0">
+                        <ribbon:RibbonGallery SelectedValue="Select">
+                            <ribbon:RibbonGalleryCategory >
+                                <ribbon:RibbonGalleryItem Content="Small image" />
+                                <ribbon:RibbonGalleryItem Content="Big Images" IsSelected="True"/>
+                            </ribbon:RibbonGalleryCategory>
+                        </ribbon:RibbonGallery>
+                    </ribbon:RibbonComboBox>
+                </ribbon:RibbonGroup>
+                <ribbon:RibbonGroup Header="Sorting" Height="70">
+                    <StackPanel Orientation="Horizontal">
+                        <RadioButton Content="Ascending"/>
+                        <RadioButton Content="Descending" Margin="7,0,0,0"/>
+                    </StackPanel>
+                    --><!--<RadioButton Content="Ascending"/>
+                    <RadioButton Content="Descending" Margin="0,7,0,0"/>--><!--
+                    <ribbon:RibbonMenuItem Header="Sort by" Margin="10,5,5,5">
+                        <ribbon:RibbonMenuItem Header="name" Command="{Binding SortByCommand}" CommandParameter="MovieName"/>
+                        <ribbon:RibbonMenuItem Header="year" Command="{Binding SortByCommand}" CommandParameter="Year"/>
+                        <ribbon:RibbonMenuItem Header="rating" Command="{Binding SortByCommand}" CommandParameter="Rating"/>
+                    </ribbon:RibbonMenuItem>
+                </ribbon:RibbonGroup>
+                <ribbon:RibbonGroup Header="Save changes" Height="70">
+                    <ribbon:RibbonButton LargeImageSource="C:\Users\anna.moskalenko\Downloads\save-file-option_icon-icons.com_73423.png" Command="{Binding SaveAllChanges}" Height="50" Margin="12, 0, 0, 0"/>
+                </ribbon:RibbonGroup>
+            </ribbon:RibbonTab>
+        </ribbon:Ribbon>-->
+
         <TextBlock Text="Top Movies" Grid.Row="1" Grid.ColumnSpan="3" TextAlignment="Center" FontSize="24"/>
 
         <ListBox x:Name="moviesList" Grid.ColumnSpan="2" Grid.Row="3" Grid.RowSpan="2" ItemsSource="{Binding View}"
-                 SelectedItem="{Binding SelectedMovie}"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" IsSynchronizedWithCurrentItem="True">
+                 SelectedItem="{Binding SelectedMovie}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" IsSynchronizedWithCurrentItem="True">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel IsItemsHost="True" />

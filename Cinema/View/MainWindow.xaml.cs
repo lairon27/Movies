@@ -15,6 +15,7 @@ namespace Cinema.View
             InitializeComponent();
 
             IDataManager dataManager = new DataManager();
+            dataManager.Load();
 
             tabController.Items.Add(new TabItem
             {

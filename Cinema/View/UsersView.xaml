@@ -3,12 +3,25 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:cinema="clr-namespace:Cinema" 
-             xmlns:igDP="http://infragistics.com/DataPresenter"
-             d:DataContext="{d:DesignInstance Type=cinema:UserVM}"
-             mc:Ignorable="d">
+        xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+        xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+        d:DataContext="{d:DesignInstance Type=cinema:UserVM}"
+        mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <xcdg:DataGridCollectionViewSource x:Key="users" Source="{Binding Path=Users}">
+            <xcdg:DataGridCollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="UserName" Direction="Ascending"/>
+                <scm:SortDescription PropertyName="UserLastName" Direction="Ascending"/>
+                <scm:SortDescription PropertyName="BirthDate" Direction="Ascending"/>
+                <scm:SortDescription PropertyName="AmountOfRatedFilms" Direction="Ascending"/>
+            </xcdg:DataGridCollectionViewSource.SortDescriptions>
+        </xcdg:DataGridCollectionViewSource>
+    </UserControl.Resources>
+    
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="510" />
+            <ColumnDefinition Width="546" />
             <ColumnDefinition Width="100"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -20,37 +33,41 @@
 
         <TextBlock Text="Users" Grid.ColumnSpan="3" Grid.Row="0" TextAlignment="Center" FontSize="24"/>
 
-        <!--<igDP:XamDataGrid SelectedDataItem="{Binding SelectedUser}" DataSource="{Binding Path=Users}"  Grid.Column="0" Grid.Row="1">
-            <igDP:XamDataGrid.FieldLayoutSettings>
-                <igDP:FieldLayoutSettings RecordSelectorNumberType="VisibleIndex" AutoGenerateFields="False" />
-            </igDP:XamDataGrid.FieldLayoutSettings>
-            <igDP:XamDataGrid.FieldSettings>
-                <igDP:FieldSettings AllowEdit="False"/>
-            </igDP:XamDataGrid.FieldSettings>
-            <igDP:XamDataGrid.FieldLayouts>
-                <igDP:FieldLayout>
-                    <igDP:FieldLayout.Fields>
-                        <igDP:Field Label="First Name" BindingType="UseAlternateBinding" AlternateBinding="{Binding Path=UserName}" Width="*"/>
-                        <igDP:Field Label="Last Name" BindingType="UseAlternateBinding" AlternateBinding="{Binding Path=UserLastName}" Width="*"/>
-                        <igDP:Field Label="Birth" BindingType="UseAlternateBinding" AlternateBinding="{Binding Path=BirthDate}" Width="*"/>
-                        <igDP:Field Label="Statistics" BindingType="UseAlternateBinding" AlternateBinding="{Binding Path=AmountOfRatedFilms}" Width="*"/>
-                    </igDP:FieldLayout.Fields>
-                </igDP:FieldLayout>
-            </igDP:XamDataGrid.FieldLayouts>
-        </igDP:XamDataGrid>-->
+        <xcdg:DataGridControl SelectedItem="{Binding SelectedUser}" ItemsSource="{Binding Source={StaticResource users}}" AutoCreateColumns="False" Grid.Column="0" Grid.Row="1">
+            <xcdg:DataGridControl.View>
+                <xcdg:TableflowView UseDefaultHeadersFooters="False">
+                    <xcdg:TableflowView.FixedHeaders>
+                        <DataTemplate>
+                            <xcdg:ColumnManagerRow />
+                        </DataTemplate>
+                    </xcdg:TableflowView.FixedHeaders>
+                </xcdg:TableflowView>
+            </xcdg:DataGridControl.View>
+            <xcdg:DataGridControl.Columns>
+                <xcdg:Column FieldName="UserName" Title="First Name">
+                    <xcdg:Column.DisplayMemberBindingInfo>
+                        <xcdg:DataGridBindingInfo Path="UserName"/>
+                    </xcdg:Column.DisplayMemberBindingInfo>
+                </xcdg:Column>
+                <xcdg:Column FieldName="UserLastName" Title="Last Name">
+                    <xcdg:Column.DisplayMemberBindingInfo>
+                        <xcdg:DataGridBindingInfo Path="UserLastName"/>
+                    </xcdg:Column.DisplayMemberBindingInfo>
+                </xcdg:Column>
+                <xcdg:Column FieldName="BirthDate" Title="Birth">
+                    <xcdg:Column.DisplayMemberBindingInfo>
+                        <xcdg:DataGridBindingInfo Path="BirthDate"/>
+                    </xcdg:Column.DisplayMemberBindingInfo>
+                </xcdg:Column>
+                <xcdg:Column FieldName="AmountOfRatedFilms" Title="Statistics">
+                    <xcdg:Column.DisplayMemberBindingInfo>
+                        <xcdg:DataGridBindingInfo ReadOnly="True" Path="AmountOfRatedFilms"/>
+                    </xcdg:Column.DisplayMemberBindingInfo>
+                </xcdg:Column>
+            </xcdg:DataGridControl.Columns>
+        </xcdg:DataGridControl>
 
-        <!--<DataGrid x:Name="usersDataGrid" SelectedItem="{Binding SelectedUser}" ItemsSource="{Binding Users}" Grid.Column="0" Grid.Row="1" 
-                  AutoGenerateColumns="False" HeadersVisibility="Column" ColumnWidth="*" CanUserAddRows="False" IsReadOnly="True"
-                  IsSynchronizedWithCurrentItem="True">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="First Name" Binding="{Binding UserName}"/>
-                <DataGridTextColumn Header="Last Name" Binding="{Binding UserLastName}"/>
-                <DataGridTextColumn Header="Birth" Binding="{Binding BirthDate}"/>
-                <DataGridTextColumn Header="Amount of rated films" Binding="{Binding AmountOfRatedFilms}"/>
-            </DataGrid.Columns>
-        </DataGrid>-->
-
-        <GridSplitter Grid.Column="0" Grid.Row="1" ShowsPreview="False" Width="2" VerticalAlignment="Stretch" />
+        <GridSplitter Grid.Column="0" Grid.Row="1" ShowsPreview="False" Width="3" VerticalAlignment="Stretch" Background="#e0e0e0"/>
 
         <StackPanel DataContext="{Binding SelectedUser}" Grid.Column="2" Grid.Row="1" >
             <DataGrid ItemsSource="{Binding Ratings}" AutoGenerateColumns="False" HeadersVisibility="Column" ColumnWidth="*" CanUserAddRows="False" IsReadOnly="True" >
@@ -64,7 +81,6 @@
         <StackPanel Grid.Row="1" Grid.Column="1">
             <Button Height="20" Content="Generate Users" Margin="5" Command="{Binding UsersGeneratorCommand}" />
             <Button Height="20" Content="Save Users" Margin="5" Command="{Binding SaveUsersCommand}" />
-            <!--<Button Height="20" Content="Generate Ratings" Margin="5" Command="{Binding RatingsGeneratorCommand}" />-->
         </StackPanel>
     </Grid>
 </UserControl>

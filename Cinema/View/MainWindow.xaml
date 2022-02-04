@@ -24,6 +24,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        
         <!--<Ribbon Grid.Row ="0">
             <RibbonTab Header="sort by">
                 <RibbonGroup Header="rib">
