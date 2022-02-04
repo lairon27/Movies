@@ -4,23 +4,25 @@ using Cinema.View;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 
 namespace Cinema.Service
 {
     internal class DataManager : IDataManager
     {
-        public Stream loadedMovies;
-
-        public Stream loadedUsers;
-
-        public FileManager UsersFilePath = new FileManager(@"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\users.xml");
-        public FileManager MoviesFilePath = new FileManager(@"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\moviesFile.xml"); 
+        public const string moviesPath = @"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\moviesFileAttribute2.xml";
+        public const string userPath = @"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\usersFileAttribute4.xml";
+        public FileManager MoviesFileManager;
+        public FileManager UsersFileManager;
 
         public ObservableCollection<Movie> movies;
         public ObservableCollection<User> users;
 
         public DataManager()
         {
+            MoviesFileManager = new FileManager(moviesPath);
+            UsersFileManager = new FileManager(userPath);
+
             movies = new ObservableCollection<Movie>();
             users = new ObservableCollection<User>();
         }
@@ -35,66 +37,74 @@ namespace Cinema.Service
             users.Add(user);
         }
 
-        public ObservableCollection<Movie> GetMovies()
+        public ObservableCollection<Movie> GetMovies
         {
-            if (loadedMovies != null)
-            {
-                movies = Serialization.Deserialize<ObservableCollection<Movie>>(loadedMovies);
-            }
-
-            return movies;
+            get{ return movies; }
+            set{ movies = value; }
         }
 
-        public ObservableCollection<User> GetUsers()
+        public ObservableCollection<User> GetUsers
         {
-            if (loadedUsers != null)
-            {
-                users = Serialization.Deserialize<ObservableCollection<User>>(loadedUsers);
-            }
-
-            return users;
+            get { return users; }
+            set { users = value; }
         }
 
         public void Load()
         {
-            loadedMovies = MoviesFilePath.LoadData();
-            loadedUsers = UsersFilePath.LoadData();
+            Stream movieStream = null;
+            Stream usersStream = null;
+            MoviesFileManager.LoadData(ref movieStream);
+            UsersFileManager.LoadData(ref usersStream);
+
+            movies = Serialization.Deserialize<ObservableCollection<Movie>>(movieStream);
+            users = Serialization.Deserialize<ObservableCollection<User>>(usersStream);
         }
 
         public void Save()
         {
-            
+            using (var stream = Serialization.SerializeToXML(movies))
+            {
+                MoviesFileManager.SaveData(stream);
+            }
+
+            using (var stream = Serialization.SerializeToXML(users))
+            {
+                UsersFileManager.SaveData(stream);
+            }
         }
 
-        public void SetRating(Guid userId, Guid movieId, int amount)
+        public void SetRating(User user, Movie movie, int rate)
         {
-            throw new NotImplementedException();
+            var rating = new Rating(user.UserId, movie.MovieId, rate);
+            user.Ratings.Add(rating);
+            movie.Ratings.Add(rating);
         }
+
 
         public void UpdateMovie(Movie target, Movie source)
         {
-            AddMovieDialog movieDialog = new AddMovieDialog();
-
-            movieDialog.Editor();
-
-            movieDialog.DataContext = target;
-
-            if (movieDialog.ShowDialog() == true)
-            {
-                source.MovieId = target.MovieId;
-                source.MovieName = target.MovieName;
-                source.Year = target.Year;
-                source.Genre = target.Genre;
-                source.Rating = target.Rating;
-                source.Describe = target.Describe;
-                source.Time = target.Time;
-                source.Image = target.Image;
-            }
+            source.MovieName = target.MovieName;
+            source.Year = target.Year;
+            source.Genre = target.Genre;
+            source.Rating = target.Rating;
+            source.Describe = target.Describe;
+            source.Time = target.Time;
+            source.Image = target.Image;
         }
 
         public void UpdateUser(User target, User source)
         {
             throw new NotImplementedException();
+        }
+
+        public User GetUserById(Guid userId)
+        {
+            return users.Single(i => i.UserId == userId);
+        }
+
+        public Movie GetMovieById(Guid movieId)
+        {
+            return movies.Single(i => i.MovieId == movieId); 
         }
     }
 }
