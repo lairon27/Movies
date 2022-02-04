@@ -139,20 +139,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\avengers1.jpg" />
-    <Resource Include="Resources\avengers1.png" />
-    <Resource Include="Resources\dark_knight.jpg" />
-    <Resource Include="Resources\dune.jpg" />
-    <Resource Include="Resources\faa7995301fcctn10c46k.jpeg" />
-    <Resource Include="Resources\ford_v_ferrari.jpg" />
-    <Resource Include="Resources\harry_potter.jpg" />
-    <Resource Include="Resources\joker.jpg" />
-    <Resource Include="Resources\no_time.png" />
-    <Resource Include="Resources\shang-chi.png" />
-    <Resource Include="Resources\shawshank.jpeg" />
-    <Resource Include="Resources\shawshank.jpg" />
-    <Resource Include="Resources\spotlight.jpg" />
-    <Resource Include="Resources\terminator2.jpg" />
+    <PackageReference Include="Bogus" Version="34.0.1" />
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
+    <PackageReference Include="Infragistics.WPF.DataGrids.Trial" Version="21.1.49" />
+    <PackageReference Include="Infragistics.WPF.Editors.Trial" Version="21.1.49" />
+    <PackageReference Include="Infragistics.WPF.Trial" Version="21.1.49" />
+    <PackageReference Include="Xceed.Products.Wpf.DataGrid.Full" Version="7.0.20452.1321" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Bogus">

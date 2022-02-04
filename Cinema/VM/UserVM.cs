@@ -17,7 +17,7 @@ namespace Cinema
 
         public static ObservableCollection<User> Users { get; set; }
 
-        public FileManager fileManager = new FileManager(@"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\users.xml");
+        public FileManager fileManager = new FileManager(@"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\usersFileAttribute4.xml");
 
         private IDataManager dataManager;
 
@@ -46,7 +46,11 @@ namespace Cinema
             SaveUsersCommand = new RelayCommand(parameter =>
               SaveUsers_CommandExecute());
 
-            dataManager = new DataManager();
+            //dataManager = new DataManager();
+
+            //dataManager.Load();
+
+            Users = dataManager.GetUsers;
 
             //dataManager.Load();
 

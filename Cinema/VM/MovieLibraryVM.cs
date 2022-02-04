@@ -23,8 +23,6 @@ namespace Cinema
         public static ICommand EditMovieDialogCmd { get; set; }
         public static ICommand SaveAllChanges { get; set; }
 
-        //private DataManager dataManager;
-
         private IDataManager dataManager;
 
         public Movie SelectedMovie
@@ -63,12 +61,11 @@ namespace Cinema
             }
         }
 
-        public FileManager fileManager = new FileManager(@"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\moviesFile.xml");
+        public FileManager fileManager = new FileManager(@"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\moviesFileAttribute2.xml");
 
         //public RoutedCommand addNewWindow = new RoutedCommand("Open", typeof(MovieLibraryVM));
         public MovieLibraryVM(IDataManager _dataManager)
         {
-
             dataManager = _dataManager;
 
             SortByCommand = new RelayCommand(parameter =>
@@ -84,7 +81,7 @@ namespace Cinema
              SaveAllChanges_Command());
 
 
-            dataManager.Load();
+            //dataManager.Load();
             //var data = fileManager.LoadData();
 
             //if (data != null)
@@ -92,7 +89,7 @@ namespace Cinema
             //    Movies = Serialization.Deserialize<ObservableCollection<Movie>>(data);
             //}
 
-            Movies = dataManager.GetMovies();
+            Movies = dataManager.GetMovies;
             view = CollectionViewSource.GetDefaultView(Movies);
         }
 
@@ -108,56 +105,37 @@ namespace Cinema
 
             if (movieDialog.ShowDialog() == true)
             {
-                // Movies.Add((Movie)movieDialog.DataContext);
+                var newMovie = (Movie)movieDialog.DataContext;
+                newMovie.MovieId = Guid.NewGuid();
 
-                dataManager.AddMovie((Movie)movieDialog.DataContext);
-
-                foreach (var movie in Movies)
-                {
-                    if (movie.MovieId == Guid.Empty)
-                    {
-                        movie.MovieId = Guid.NewGuid();
-                    }
-                }
+                dataManager.AddMovie(newMovie);
             }
         }
 
         private void EditMovieDialog_Command()
         {
-            //AddMovieDialog movieDialog = new();
+            var movieDialog = new AddMovieDialog();
 
-            //movieDialog.Editor();
+            movieDialog.Editor();
 
-            //var movie = SelectedMovie;
+            var copy = (Movie)SelectedMovie.Clone();
 
-            //var copy = (Movie)movie.Clone();
+            movieDialog.DataContext = copy;
 
-            //movieDialog.DataContext = copy;
-
-            //if (movieDialog.ShowDialog() == true)
-            //{
-            //    movie.MovieId = copy.MovieId;
-            //    movie.MovieName = copy.MovieName;
-            //    movie.Year = copy.Year;
-            //    movie.Genre = copy.Genre;
-            //    movie.Rating = copy.Rating;
-            //    movie.Describe = copy.Describe;
-            //    movie.Time = copy.Time;
-            //    movie.Image = copy.Image;
-            //}
-
-            //movieDialog.DataContext = SelectedMovie;
-            dataManager.UpdateMovie((Movie)SelectedMovie.Clone(), SelectedMovie);
+            if (movieDialog.ShowDialog() == true)
+            {
+                dataManager.UpdateMovie(copy, SelectedMovie);
+            }
         }
 
         private void SaveAllChanges_Command()
         {
-            using (var stream = Serialization.SerializeToXML(Movies))
-            {
-                fileManager.SaveData(stream);
-            }
+            //using (var stream = Serialization.SerializeToXML(Movies))
+            //{
+            //    fileManager.SaveData(stream);
+            //}
 
-            //dataManager.Save();
+            dataManager.Save();
 
             MessageBox.Show("Changes saved successfully", "Saved", MessageBoxButton.OK);
         }
