@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Xml.Serialization;
 
 namespace Cinema.Model
 {
-    [System.Xml.Serialization.XmlInclude(typeof(User))]
+    //[System.Xml.Serialization.XmlInclude(typeof(User))]
+    [Serializable]
     public class User : ModelBaseNotify
     {
-        public Guid userId;
-        public string userName;
-        public string userLastName;
-        public string birthDate;
-        public int amountOfRatedFilms;
+        private Guid userId;
+        private string userName;
+        private string userLastName;
+        private string birthDate;
+        private int amountOfRatedFilms;
         public List<Rating> Ratings { get; set; }
 
+        [XmlAttribute("UserId")]
         public Guid UserId
         {
             get { return userId; }
@@ -24,6 +26,7 @@ namespace Cinema.Model
             }
         }
 
+        [XmlAttribute("UserName")]
         public string UserName
         {
             get { return userName; }
@@ -34,6 +37,7 @@ namespace Cinema.Model
             }
         }
 
+        [XmlAttribute("UserLastName")]
         public string UserLastName
         {
             get { return userLastName; }
@@ -44,6 +48,7 @@ namespace Cinema.Model
             }
         }
 
+        [XmlAttribute("BirthDate")]
         public string BirthDate
         {
             get { return birthDate; }
@@ -54,6 +59,7 @@ namespace Cinema.Model
             }
         }
 
+        [XmlAttribute("AmountOfRatedFilms")]
         public int AmountOfRatedFilms
         {
             get { return amountOfRatedFilms; }

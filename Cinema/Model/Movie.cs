@@ -1,23 +1,26 @@
 ﻿using Cinema.Model;
 using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace Cinema
 {
     [System.Xml.Serialization.XmlInclude(typeof(Movie))]
-    public class Movie : ModelBaseNotify, ICloneable
+    [Serializable]
+    public class Movie : ModelBaseNotify
     {
-        public Guid movieId;
-        public string movieName;
-        public int year;
-        public float rating;
-        public string genre;
-        public string describe;
-        public string time;
-        public string image;
+        private Guid movieId;
+        private string movieName;
+        private int year;
+        private float rating;
+        private string genre;
+        private string describe;
+        private string time;
+        private string image;
 
         public List<Rating> Ratings { get; set; }
 
+        [XmlAttribute("MovieId")]
         public Guid MovieId
         {
             get { return movieId; }
@@ -28,6 +31,7 @@ namespace Cinema
             }
         }
 
+        [XmlAttribute("MovieName")]
         public string MovieName
         {
             get { return movieName; }
@@ -37,6 +41,8 @@ namespace Cinema
                 OnPropertyChanged("MovieName");
             }
         }
+
+        [XmlAttribute("Year")]
         public int Year
         {
             get { return year; }
@@ -46,6 +52,8 @@ namespace Cinema
                 OnPropertyChanged("Year");
             }
         }
+
+        [XmlAttribute("Rating")]
         public float Rating
         {
             get { return rating; }
@@ -56,6 +64,7 @@ namespace Cinema
             }
         }
 
+        [XmlAttribute("Genre")]
         public string Genre
         {
             get { return genre; }
@@ -66,6 +75,7 @@ namespace Cinema
             }
         }
 
+        [XmlAttribute("Describe")]
         public string Describe
         {
             get { return describe; }
@@ -76,6 +86,7 @@ namespace Cinema
             }
         }
 
+        [XmlAttribute("Time")]
         public string Time
         {
             get { return time; }
@@ -86,6 +97,7 @@ namespace Cinema
             }
         }
 
+        [XmlAttribute("Image")]
         public string Image
         {
             get { return image; }
@@ -96,33 +108,9 @@ namespace Cinema
             }
         }
 
-
-        //public Movie(Guid id, string title, int _year, float _rating, string _genre, string _describe, string _time, string _image)
-        //{
-        //    movieId = id;
-        //    movieName = title;
-        //    year = _year;
-        //    rating = _rating;
-        //    genre = _genre;
-        //    describe = _describe;
-        //    time = _time;
-        //    image = _image;
-        //}
-
         public object Clone()
         {
-            //return this.MemberwiseClone();
-            return new Movie
-            {
-                movieId = movieId,
-                movieName = movieName,
-                year = year,
-                rating = rating,
-                genre = genre,
-                describe = describe,
-                time = time,
-                image = image
-            };
+            return MemberwiseClone();
         }
     }
 }

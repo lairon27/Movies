@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Cinema.Model
 {
     public class Rating : ModelBaseNotify
     {
-        public Guid movieId;
-        public Guid userId;
-        public int userRating;
+        private Guid movieId;
+        private Guid userId;
+        private int userRating;
 
         public Guid MovieId
         {
@@ -41,6 +36,18 @@ namespace Cinema.Model
                 userRating = value;
                 OnPropertyChanged("Rating");
             }
+        }
+
+        public Rating()
+        {
+            
+        }
+
+        public Rating(Guid movieId, Guid userId, int rating)
+        {
+            MovieId = movieId;
+            UserId = userId;
+            UserRating = rating;
         }
     }
 }
