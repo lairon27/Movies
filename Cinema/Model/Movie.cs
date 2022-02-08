@@ -1,6 +1,8 @@
 ﻿using Cinema.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Xml.Serialization;
 
 namespace Cinema
@@ -41,8 +43,9 @@ namespace Cinema
         private string describe;
         private string time;
         private string image;
+        private float avgRatingByUsers;
 
-        public List<Rating> Ratings { get; set; }
+        public ObservableCollection<Rating> Ratings { get; set; }
 
         [XmlAttribute("MovieId")]
         public Guid MovieId
@@ -88,7 +91,7 @@ namespace Cinema
             }
         }
 
-        [XmlAttribute("Genre")]
+        [XmlElement("Genre")]
         public Genres Genre
         {
             get { return genre; }
@@ -99,7 +102,7 @@ namespace Cinema
             }
         }
 
-        [XmlAttribute("Describe")]
+        [XmlElement("Describe")]
         public string Describe
         {
             get { return describe; }
@@ -132,9 +135,32 @@ namespace Cinema
             }
         }
 
+        [XmlAttribute("Avarage Rating")]
+        public float AvgRatingByUsers
+        {
+            get { return CalcRatingByUsers(); }
+        }
+
+        private float CalcRatingByUsers()
+        {
+            return 0;
+        }
+
         public object Clone()
         {
             return MemberwiseClone();
+        }
+
+        public Movie()
+        {
+           MovieId=Guid.NewGuid();
+           Ratings = new ObservableCollection<Rating>();
+           Ratings.CollectionChanged += Ratings_CollectionChanged;
+        }
+
+        private void Ratings_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            OnPropertyChanged("AvgRatingByUsers");
         }
     }
 }

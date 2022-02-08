@@ -8,16 +8,17 @@ using System.Windows;
 using Cinema.Utils;
 using System.Linq;
 using Cinema.Service;
+using System;
 
 namespace Cinema
 {
-    internal class UserVM : VMBaseNotify
+    public class UserVM : VMBaseNotify
     {
         private User selectedUser;
 
         public static ObservableCollection<User> Users { get; set; }
 
-        public FileManager fileManager = new FileManager(@"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\usersFileAttribute4.xml");
+        public FileManager fileManager = new FileManager(@"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\usersFileAttribute5.xml");
 
         private IDataManager dataManager;
 
@@ -50,7 +51,7 @@ namespace Cinema
 
             //dataManager.Load();
 
-            Users = dataManager.GetUsers;
+            //Users = dataManager.GetUsers;
 
             //dataManager.Load();
 
@@ -82,23 +83,26 @@ namespace Cinema
                     Users.Add(user);
 
                     var amount = user.AmountOfRatedFilms;
-                    var selectedId = MovieLibraryVM.Movies.Select(j => j.MovieId).ToList();
+                    var selectedId = dataManager.GetMovies.Select(j => j.MovieId).ToList();
                     var listOfRatings = generator.GenerateRating(amount, selectedId);
 
                     foreach (var element in listOfRatings)
                     {
-                        user.Ratings.Add(element);
+                        var movieById = dataManager.GetMovieById(element.MovieId);
+                        dataManager.SetRating(movieById, user, element.UserRating);
                     }
                 }
             }
         }
 
         private void SaveUsers_CommandExecute()
-        {          
+        {
             using (var stream = Serialization.SerializeToXML(Users))
             {
                 fileManager.SaveData(stream);
             }
+
+            // dataManager.Save();
 
             MessageBox.Show("Changes saved successfully", "Saved", MessageBoxButton.OK);
         }

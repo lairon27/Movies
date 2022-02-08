@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace Cinema.VM
 {
-    internal class VMBaseNotify : INotifyPropertyChanged
+    public class VMBaseNotify : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")

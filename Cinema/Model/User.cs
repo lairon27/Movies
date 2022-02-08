@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Xml.Serialization;
 
 namespace Cinema.Model
@@ -13,7 +14,7 @@ namespace Cinema.Model
         private string userLastName;
         private string birthDate;
         private int amountOfRatedFilms;
-        public List<Rating> Ratings { get; set; }
+        public ObservableCollection<Rating> Ratings { get; set; }
 
         [XmlAttribute("UserId")]
         public Guid UserId
@@ -72,7 +73,7 @@ namespace Cinema.Model
 
         public User()
         {
-            Ratings = new List<Rating>();
+            Ratings = new ObservableCollection<Rating>();
         }
     }
 }
