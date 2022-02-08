@@ -10,7 +10,7 @@ namespace Cinema.Service
 {
     internal class DataManager : IDataManager
     {
-        public const string moviesPath = @"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\moviesFileAttribute2.xml";
+        public const string moviesPath = @"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\moviesFileAttribute3.xml";
         public const string userPath = @"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\usersFileAttribute4.xml";
         public FileManager MoviesFileManager;
         public FileManager UsersFileManager;
@@ -51,10 +51,10 @@ namespace Cinema.Service
 
         public void Load()
         {
-            Stream movieStream = null;
-            Stream usersStream = null;
-            MoviesFileManager.LoadData(ref movieStream);
-            UsersFileManager.LoadData(ref usersStream);
+            Stream movieStream = new MemoryStream();
+            Stream usersStream = new MemoryStream();
+            MoviesFileManager.LoadData(movieStream);
+            UsersFileManager.LoadData(usersStream);
 
             movies = Serialization.Deserialize<ObservableCollection<Movie>>(movieStream);
             users = Serialization.Deserialize<ObservableCollection<User>>(usersStream);
@@ -73,9 +73,9 @@ namespace Cinema.Service
             }
         }
 
-        public void SetRating(User user, Movie movie, int rate)
+        public void SetRating(Movie movie, User user, int rate)
         {
-            var rating = new Rating(user.UserId, movie.MovieId, rate);
+            var rating = new Rating(movie.MovieId, user.UserId, rate);
             user.Ratings.Add(rating);
             movie.Ratings.Add(rating);
         }

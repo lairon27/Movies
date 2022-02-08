@@ -3,7 +3,7 @@ using System.IO;
 
 namespace Cinema.Utils
 {
-    class FileManager
+    public class FileManager
     {
         public string FilePath;
         public FileManager(string path)
@@ -18,11 +18,15 @@ namespace Cinema.Utils
                 stream.CopyTo(filestream);
             }
         }
-        public void LoadData(ref Stream stream)
+        public void LoadData(Stream stream)
         {
-            if (File.Exists(FilePath))
+            if (File.Exists(FilePath) && stream != null)
             {
-                stream = File.OpenRead(FilePath);
+                using(var fileStream = new FileStream(FilePath, FileMode.Open, FileAccess.Read))
+                {
+                    fileStream.CopyTo(stream);
+                    stream.Position = 0;
+                }
             }
         }
     }
