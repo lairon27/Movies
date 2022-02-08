@@ -55,6 +55,18 @@
                                   Command="{Binding DataContext.EditMovieDialogCmd, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
                                   CommandParameter="{Binding SelectedMovie}" />
                 </Grid.InputBindings>
+                <Grid.ToolTip>
+                    <ToolTip>
+                        <StackPanel Width="150">
+                            <DataGrid ItemsSource="{Binding Ratings}" AutoGenerateColumns="False" HeadersVisibility="Column" ColumnWidth="*" CanUserAddRows="False" IsReadOnly="True" >
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Binding="{Binding UserId}" Header="User"/>
+                                    <DataGridTextColumn Binding="{Binding UserRating}" Header="Rating"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </ToolTip>
+                </Grid.ToolTip>
                 <Image x:Name="images" Source="{Binding Path=Image}" Grid.Row="0"/>
                 <StackPanel Grid.Row="1">
                     <TextBlock Foreground="{Binding Path=Rating, Converter={StaticResource rangeConv}}" Text="{Binding Path=MovieName}" FontSize="18" TextWrapping="Wrap"/>
@@ -80,6 +92,18 @@
                                   Command="{Binding DataContext.EditMovieDialogCmd, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
                                   CommandParameter="{Binding SelectedMovie}" />
                 </Grid.InputBindings>
+                <Grid.ToolTip>
+                    <ToolTip>
+                        <StackPanel Width="150">
+                            <DataGrid ItemsSource="{Binding Ratings}" AutoGenerateColumns="False" HeadersVisibility="Column" ColumnWidth="*" CanUserAddRows="False" IsReadOnly="True" >
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Binding="{Binding UserId}" Header="User"/>
+                                    <DataGridTextColumn Binding="{Binding UserRating}" Header="Rating"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </ToolTip>
+                </Grid.ToolTip>
                 <Image x:Name="images" Source="{Binding Path=Image}" Grid.Row="0"  VerticalAlignment="Top" HorizontalAlignment="Left"/>
                 <StackPanel Grid.Row="0" Grid.Column="1">
                     <TextBlock Foreground="{Binding Path=Rating, Converter={StaticResource rangeConv}}" Text="{Binding Path=MovieName}" FontSize="18" TextWrapping="Wrap"/>
@@ -193,6 +217,8 @@
             <TextBlock Text="{Binding Rating, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Text="Time" FontWeight="Bold" />
             <TextBlock Text="{Binding Time, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="Avarage Rating" FontWeight="Bold" />
+            <TextBlock Text="{Binding AvgRatingByUsers, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
 
         <StackPanel Grid.Column="0" Grid.Row="2"  Margin="5">

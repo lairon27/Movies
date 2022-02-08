@@ -4,16 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
        
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:vm="clr-namespace:Cinema.VM" 
-              
-        xmlns:bs ="clr-namespace:Cinema.View"
         xmlns:cinema="clr-namespace:Cinema" 
+        xmlns:vm="clr-namespace:Cinema.VM"
+        xmlns:bs="clr-namespace:Cinema.View"
         d:DataContext="{d:DesignInstance Type=cinema:MovieLibraryVM}"
         mc:Ignorable="d"
-        Title="Main Window" Height="450" Width="800">
+        Title="Main Window" Height="450" Width="800" WindowState="Maximized">
 
     <!--<RibbonWindow.CommandBindings>
-        <CommandBinding Command="bs:BaseView.AddMovie"
+        <CommandBinding Command=""
                     CanExecute="AddMovie_CanExecute"
                     Executed="AddMovie_Executed"/>
     </RibbonWindow.CommandBindings>-->
@@ -24,16 +23,42 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
-        <!--<Ribbon Grid.Row ="0">
-            <RibbonTab Header="sort by">
-                <RibbonGroup Header="rib">
-                    <RibbonButton Label="Add movie" Width="100"  Command="{x:Static vm:Commands.AddMovie}"/>
-                    
+
+        <!--<Ribbon Grid.Row ="0" Background="White">
+            <RibbonTab>
+                <RibbonGroup Header="Add movie" Height="70">
+                    <RibbonButton LargeImageSource="C:\Users\anna.moskalenko\Downloads\theater_cinema_film_movie_clapper_icon_209580.ico"
+                                  Width="70" Height="50" Command="{Binding }"/>
+                </RibbonGroup>
+                <RibbonGroup Header="View" Height="70">
+                    <RibbonComboBox x:Name="listAppearance" Height="23" Width="120" Focusable="False" Margin="15, 13, 0, 0">
+                        <RibbonGallery SelectedValue="Select">
+                            <RibbonGalleryCategory >
+                                <RibbonGalleryItem Content="Small image" />
+                                <RibbonGalleryItem Content="Big Images" IsSelected="True"/>
+                            </RibbonGalleryCategory>
+                        </RibbonGallery>
+                    </RibbonComboBox>
+                </RibbonGroup>
+                <RibbonGroup Header="Sorting" Height="70">
+                    <StackPanel Orientation="Horizontal">
+                        <RadioButton Content="Ascending"/>
+                        <RadioButton Content="Descending" Margin="7,0,0,0"/>
+                    </StackPanel>
+                    <RibbonMenuItem Header="Sort by" Margin="10,5,5,5">
+                        <RibbonMenuItem Header="name" Command="{Binding SortByCommand}" CommandParameter="MovieName"/>
+                        <RibbonMenuItem Header="year" Command="{Binding SortByCommand}" CommandParameter="Year"/>
+                        <RibbonMenuItem Header="rating" Command="{Binding SortByCommand}" CommandParameter="Rating"/>
+                    </RibbonMenuItem>
+                    <RibbonGroup>
+                        <RibbonGroup Header="Save changes" Height="70">
+                            <RibbonButton LargeImageSource="C:\Users\anna.moskalenko\Downloads\save-file-option_icon-icons.com_73423.png" Command="{Binding SaveAllChanges}" Height="50" Margin="12, 0, 0, 0"/>
+                        </RibbonGroup>
+                    </RibbonGroup>
                 </RibbonGroup>
             </RibbonTab>
         </Ribbon>-->
-        
+
         <TabControl Name="tabController" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1"/>
 
     </Grid>

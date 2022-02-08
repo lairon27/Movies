@@ -8,7 +8,7 @@
         d:DataContext="{d:DesignInstance Type=cinema:UserVM}"
         mc:Ignorable="d">
 
-    <UserControl.Resources>
+    <!--<UserControl.Resources>
         <xcdg:DataGridCollectionViewSource x:Key="users" Source="{Binding Path=Users}">
             <xcdg:DataGridCollectionViewSource.SortDescriptions>
                 <scm:SortDescription PropertyName="UserName" Direction="Ascending"/>
@@ -17,7 +17,7 @@
                 <scm:SortDescription PropertyName="AmountOfRatedFilms" Direction="Ascending"/>
             </xcdg:DataGridCollectionViewSource.SortDescriptions>
         </xcdg:DataGridCollectionViewSource>
-    </UserControl.Resources>
+    </UserControl.Resources>-->
     
     <Grid>
         <Grid.ColumnDefinitions>
@@ -33,7 +33,7 @@
 
         <TextBlock Text="Users" Grid.ColumnSpan="3" Grid.Row="0" TextAlignment="Center" FontSize="24"/>
 
-        <xcdg:DataGridControl SelectedItem="{Binding SelectedUser}" ItemsSource="{Binding Source={StaticResource users}}" AutoCreateColumns="False" Grid.Column="0" Grid.Row="1">
+        <xcdg:DataGridControl SelectedItem="{Binding SelectedUser}" ItemsSource="{Binding Users}" AutoCreateColumns="False" Grid.Column="0" Grid.Row="1">
             <xcdg:DataGridControl.View>
                 <xcdg:TableflowView UseDefaultHeadersFooters="False">
                     <xcdg:TableflowView.FixedHeaders>

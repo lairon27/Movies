@@ -2,7 +2,6 @@
 using System.Windows;
 using System.Windows.Controls;
 
-
 namespace Cinema.View
 {
     /// <summary>
@@ -10,12 +9,11 @@ namespace Cinema.View
     /// </summary>
     public partial class MainWindow : Window
     {
+        IDataManager dataManager = new DataManager();
+
         public MainWindow()
         {
             InitializeComponent();
-
-            IDataManager dataManager = new DataManager();
-            dataManager.Load();
 
             tabController.Items.Add(new TabItem
             {
@@ -34,6 +32,11 @@ namespace Cinema.View
                     DataContext = new MovieLibraryVM(dataManager)
                 }
             });
+        }
+
+        public void LoadData()
+        {
+            dataManager.Load();
         }
     }
 }
