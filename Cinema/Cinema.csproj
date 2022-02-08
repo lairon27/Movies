@@ -37,6 +37,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Controls.Ribbon" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -79,6 +80,9 @@
     <Compile Include="View\MovieLibrary.xaml.cs">
       <DependentUpon>MovieLibrary.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\SplashWindow.xaml.cs">
+      <DependentUpon>SplashWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UsersView.xaml.cs">
       <DependentUpon>UsersView.xaml</DependentUpon>
     </Compile>
@@ -106,6 +110,10 @@
     <Page Include="View\MovieLibrary.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\SplashWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UsersView.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -150,6 +158,25 @@
     <PackageReference Include="Bogus">
       <Version>34.0.1</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\avengers1.jpg" />
+    <Resource Include="Resources\avengers1.png" />
+    <Resource Include="Resources\dark_knight.jpg" />
+    <Resource Include="Resources\dune.jpg" />
+    <Resource Include="Resources\faa7995301fcctn10c46k.jpeg" />
+    <Resource Include="Resources\ford_v_ferrari.jpg" />
+    <Resource Include="Resources\harry_potter.jpg" />
+    <Resource Include="Resources\joker.jpg" />
+    <Resource Include="Resources\no_time.png" />
+    <Resource Include="Resources\shang-chi.png" />
+    <Resource Include="Resources\shawshank.jpeg" />
+    <Resource Include="Resources\shawshank.jpg" />
+    <Resource Include="Resources\spotlight.jpg" />
+    <Resource Include="Resources\terminator2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\splash.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
