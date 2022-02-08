@@ -46,13 +46,15 @@ namespace Cinema.Generation
             var idCollection = new List<Guid>(amount);
             var guidsCopy = new List<Guid>(guids);
 
-            for (var i = 0; i < amount; i++)
+            if(guidsCopy.Count != 0)
             {
-                int index = random.Next(guidsCopy.Count);
-                idCollection.Add(guidsCopy[index]);
-                guidsCopy.RemoveAt(index);
+                for (var i = 0; i < amount; i++)
+                {
+                    int index = random.Next(guidsCopy.Count);
+                    idCollection.Add(guidsCopy[index]);
+                    guidsCopy.RemoveAt(index);
+                }
             }
-
             return idCollection;
         }
     }
