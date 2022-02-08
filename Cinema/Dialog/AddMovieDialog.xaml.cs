@@ -10,7 +10,6 @@ namespace Cinema.View
     /// </summary>
     public partial class AddMovieDialog : Window
     {
-
         public AddMovieDialog(Movie movie, bool editMode = false)
         {
             InitializeComponent();
@@ -19,7 +18,8 @@ namespace Cinema.View
 
             if (editMode)
             {
-                Editor();
+                addBtn.Content = "Save";
+                Title = "Movie Editor";
             }
 
         }
@@ -53,13 +53,6 @@ namespace Cinema.View
             {
                 DialogResult = true;
             }
-        }
-
-        public void Editor()
-        {
-            addBtn.Visibility = Visibility.Hidden;
-            saveBtn.Visibility = Visibility.Visible;
-            Title = "Movie Editor";
         }
     }
 }
