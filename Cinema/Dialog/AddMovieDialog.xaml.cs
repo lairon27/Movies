@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using System;
 using System.ComponentModel;
 using System.Windows;
 
@@ -9,13 +10,18 @@ namespace Cinema.View
     /// </summary>
     public partial class AddMovieDialog : Window
     {
-        //public bool flag = true;
 
-        public AddMovieDialog()
+        public AddMovieDialog(Movie movie, bool editMode = false)
         {
             InitializeComponent();
-            DataContext = new Movie();
+            DataContext = movie;
             Closing += AddWindow_Closing;
+
+            if (editMode)
+            {
+                Editor();
+            }
+
         }
 
         public void add_Button_Click(object sender, RoutedEventArgs e)

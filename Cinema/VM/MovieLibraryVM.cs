@@ -9,10 +9,11 @@ using Cinema.Utils;
 using System.Windows.Input;
 using System.Windows.Controls;
 using Cinema.Service;
+using System.Linq;
 
 namespace Cinema
 {
-    internal class MovieLibraryVM : VMBaseNotify
+    public class MovieLibraryVM : VMBaseNotify
     {
         private Movie selectedMovie;
 
@@ -22,6 +23,11 @@ namespace Cinema
         public static ICommand AddMovieDialogCmd { get; set; }
         public static ICommand EditMovieDialogCmd { get; set; }
         public static ICommand SaveAllChanges { get; set; }
+
+        internal bool AddMovie_CanExecute()
+        {
+            throw new NotImplementedException();
+        }
 
         private IDataManager dataManager;
 
@@ -61,7 +67,7 @@ namespace Cinema
             }
         }
 
-        public FileManager fileManager = new FileManager(@"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\moviesFileAttribute2.xml");
+        public FileManager fileManager = new FileManager(@"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\moviesFileAttribute3.xml");
 
         //public RoutedCommand addNewWindow = new RoutedCommand("Open", typeof(MovieLibraryVM));
         public MovieLibraryVM(IDataManager _dataManager)
@@ -79,7 +85,6 @@ namespace Cinema
 
             SaveAllChanges = new RelayCommand(parameter =>
              SaveAllChanges_Command());
-
 
             //dataManager.Load();
             //var data = fileManager.LoadData();
@@ -101,26 +106,20 @@ namespace Cinema
 
         private void AddMovieDialog_Command()
         {
-            AddMovieDialog movieDialog = new AddMovieDialog();
+            var movie = new Movie();
+
+            AddMovieDialog movieDialog = new AddMovieDialog(movie);
 
             if (movieDialog.ShowDialog() == true)
             {
-                var newMovie = (Movie)movieDialog.DataContext;
-                newMovie.MovieId = Guid.NewGuid();
-
-                dataManager.AddMovie(newMovie);
+                dataManager.AddMovie(movie);
             }
         }
 
         private void EditMovieDialog_Command()
         {
-            var movieDialog = new AddMovieDialog();
-
-            movieDialog.Editor();
-
             var copy = (Movie)SelectedMovie.Clone();
-
-            movieDialog.DataContext = copy;
+            var movieDialog = new AddMovieDialog(copy, true);
 
             if (movieDialog.ShowDialog() == true)
             {
