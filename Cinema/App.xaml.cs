@@ -1,5 +1,4 @@
 ﻿using Cinema.View;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -11,24 +10,34 @@ namespace WpfApp1
     /// Interaction logic for App.xaml
     /// </summary>
     public partial class App : Application
-    { 
-        private void Application_Startup(object sender, StartupEventArgs e)
+    {
+        private async void Application_Startup(object sender, StartupEventArgs e)
         {
             var splash = new SplashWindow();
             splash.Show();
 
             var main = new MainWindow();
 
-            Task.Run(() =>
+            await Task.Run(() =>
             {
                 main.LoadData();
-
-                Dispatcher.Invoke(() =>
-                {
-                    main.Show();
-                    splash.Close();
-                }); 
             });
+
+            main.Initialize();
+            main.Show();
+
+            splash.Close();
+            //Task.Run(() =>
+            //{
+            //    main.LoadData();
+
+            //    Dispatcher.Invoke(() =>
+            //    {
+            //        main.Initialize();
+            //        main.Show();
+            //        splash.Close();
+            //    });
+            //});
         }
     }
 }

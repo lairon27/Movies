@@ -11,10 +11,36 @@ namespace Cinema.View
     {
         IDataManager dataManager = new DataManager();
 
+        public void LoadData()
+        {
+            dataManager.Load();
+        }
+
         public MainWindow()
         {
             InitializeComponent();
 
+            //tabController.Items.Add(new TabItem
+            //{
+            //    Header = "Users",
+            //    Content = new Users()
+            //    {
+            //        DataContext = new UserVM(dataManager)
+            //    }
+            //});
+
+            //tabController.Items.Add(new TabItem
+            //{
+            //    Header = "Movie Library",
+            //    Content = new MovieLibrary()
+            //    {
+            //        DataContext = new MovieLibraryVM(dataManager)
+            //    }
+            //});
+        }   
+        
+        public void Initialize()
+        {
             tabController.Items.Add(new TabItem
             {
                 Header = "Users",
@@ -32,11 +58,6 @@ namespace Cinema.View
                     DataContext = new MovieLibraryVM(dataManager)
                 }
             });
-        }
-
-        public void LoadData()
-        {
-            dataManager.Load();
         }
     }
 }

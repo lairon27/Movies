@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace Cinema.Utils
 {
@@ -10,21 +11,21 @@ namespace Cinema.Utils
         {
             FilePath = path;
         }
-        public void SaveData(Stream stream)
+        public async void SaveData(Stream stream)
         {
            using(var filestream = new FileStream(FilePath, FileMode.Create, FileAccess.Write))
             { 
                 stream.Position = 0;
-                stream.CopyTo(filestream);
+                await stream.CopyToAsync(filestream);
             }
         }
-        public void LoadData(Stream stream)
+        public async void LoadData(Stream stream)
         {
             if (File.Exists(FilePath) && stream != null)
             {
-                using(var fileStream = new FileStream(FilePath, FileMode.Open, FileAccess.Read))
+                using (var fileStream = new FileStream(FilePath, FileMode.Open, FileAccess.Read))
                 {
-                    fileStream.CopyTo(stream);
+                    await fileStream.CopyToAsync(stream);
                     stream.Position = 0;
                 }
             }
