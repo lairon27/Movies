@@ -143,7 +143,16 @@ namespace Cinema
 
         private float CalcRatingByUsers()
         {
-            return 0;
+            float avarage = 0f;
+
+            foreach (var rating in Ratings)
+            {
+                avarage += rating.UserRating;
+            }
+
+            avgRatingByUsers = (float)Math.Round(avarage / Ratings.Count(), 1);
+
+            return avgRatingByUsers;
         }
 
         public object Clone()
