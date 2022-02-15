@@ -1,33 +1,29 @@
-﻿using Cinema.Service;
+﻿using Cinema.Converters;
+using Cinema.Service;
+using Cinema.VM;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Ribbon;
 
 namespace Cinema.View
 {
     /// <summary>
     /// Interaction logic for MovieLibrary.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    /// 
+    public partial class MainWindow : RibbonWindow
     {
         IDataManager dataManager = new DataManager();
 
-        public void LoadData()
+        public async Task LoadData()
         {
-            dataManager.Load();
+              await dataManager.Load();
         }
 
         public MainWindow()
         {
             InitializeComponent();
-
-            //tabController.Items.Add(new TabItem
-            //{
-            //    Header = "Users",
-            //    Content = new Users()
-            //    {
-            //        DataContext = new UserVM(dataManager)
-            //    }
-            //});
 
             //tabController.Items.Add(new TabItem
             //{
@@ -37,14 +33,23 @@ namespace Cinema.View
             //        DataContext = new MovieLibraryVM(dataManager)
             //    }
             //});
-        }   
-        
+
+            //tabController.Items.Add(new TabItem
+            //{
+            //    Header = "Users",
+            //    Content = new UsersView()
+            //    {
+            //        DataContext = new UserVM(dataManager)
+            //    }
+            //});
+        }
+
         public void Initialize()
         {
             tabController.Items.Add(new TabItem
             {
                 Header = "Users",
-                Content = new Users()
+                Content = new UsersView()
                 {
                     DataContext = new UserVM(dataManager)
                 }
@@ -56,7 +61,7 @@ namespace Cinema.View
                 Content = new MovieLibrary()
                 {
                     DataContext = new MovieLibraryVM(dataManager)
-                }
+                },
             });
         }
     }

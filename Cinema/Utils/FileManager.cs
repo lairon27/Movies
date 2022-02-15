@@ -1,6 +1,7 @@
-﻿using System;
+﻿using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Cinema.Utils
 {
@@ -11,7 +12,7 @@ namespace Cinema.Utils
         {
             FilePath = path;
         }
-        public async void SaveData(Stream stream)
+        public async Task SaveData(Stream stream)
         {
            using(var filestream = new FileStream(FilePath, FileMode.Create, FileAccess.Write))
             { 
@@ -19,8 +20,10 @@ namespace Cinema.Utils
                 await stream.CopyToAsync(filestream);
             }
         }
-        public async void LoadData(Stream stream)
+        public async Task LoadData(Stream stream)
         {
+            //Stopwatch stopwatch = new Stopwatch();
+            //stopwatch.Start();
             if (File.Exists(FilePath) && stream != null)
             {
                 using (var fileStream = new FileStream(FilePath, FileMode.Open, FileAccess.Read))
@@ -29,6 +32,9 @@ namespace Cinema.Utils
                     stream.Position = 0;
                 }
             }
+
+            //stopwatch.Stop();
+            //MessageBox.Show($"Time loading: {stopwatch.Elapsed}");
         }
     }
 }
