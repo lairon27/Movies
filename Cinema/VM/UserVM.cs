@@ -16,13 +16,13 @@ namespace Cinema
     {
         private User selectedUser;
 
-        public static ObservableCollection<User> Users { get; set; }
+        public ObservableCollection<User> Users { get; set; }
 
-        public FileManager fileManager = new FileManager(@"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\usersFileAttribute5.xml");
+        public FileManager fileManager = new FileManager(@"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\usersFileAttribute13.xml");
 
         private IDataManager dataManager;
 
-        public static ICommand UsersGeneratorCommand { get; set; }
+        //public static ICommand UsersGeneratorCommand { get; set; }
         public static ICommand SaveUsersCommand { get; set; }
 
         public User SelectedUser
@@ -41,8 +41,8 @@ namespace Cinema
 
             Users = new ObservableCollection<User>();
 
-            UsersGeneratorCommand = new RelayCommand(parameter =>
-             UsersGenerator_CommandExecute());
+            //UsersGeneratorCommand = new RelayCommand(parameter =>
+            // UsersGenerator_CommandExecute());
 
             SaveUsersCommand = new RelayCommand(parameter =>
               SaveUsers_CommandExecute());
@@ -51,7 +51,9 @@ namespace Cinema
 
             //dataManager.Load();
 
-            //Users = dataManager.GetUsers;
+            Users = dataManager.GetUsers;
+
+            //dataManager.GetUsers = Users;
 
             //dataManager.Load();
 
@@ -69,7 +71,12 @@ namespace Cinema
             //Users = Serialization.Deserialize<ObservableCollection<User>>(fileManager.LoadData());
         }
 
-        private void UsersGenerator_CommandExecute()
+        internal bool UserGenerator_CanExecute()
+        {
+            return true;
+        }
+
+        public void UsersGenerator_CommandExecute()
         {
             InputIntDialog dialog = new InputIntDialog("Amount of users", "Input number of users:");
 
@@ -81,6 +88,7 @@ namespace Cinema
                 {
                     var user = generator.GenerateUser();
                     Users.Add(user);
+                    //dataManager.AddUser(user);
 
                     var amount = user.AmountOfRatedFilms;
                     var selectedId = dataManager.GetMovies.Select(j => j.MovieId).ToList();
@@ -95,14 +103,16 @@ namespace Cinema
             }
         }
 
-        private void SaveUsers_CommandExecute()
+        public void SaveUsers_CommandExecute()
         {
-            using (var stream = Serialization.SerializeToXML(Users))
-            {
-                fileManager.SaveData(stream);
-            }
+            //using (var stream = Serialization.SerializeToXML(Users))
+            //{
+            //    fileManager.SaveData(stream);
+            //}
 
-            // dataManager.Save();
+            
+
+            dataManager.Save();
 
             MessageBox.Show("Changes saved successfully", "Saved", MessageBoxButton.OK);
         }
