@@ -1,16 +1,54 @@
-﻿using System.Windows.Controls;
-
+﻿using Cinema.VM;
+using System;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Cinema.View
 {
     /// <summary>
     /// Interaction logic for Users.xaml
     /// </summary>
-    public partial class Users : UserControl
+    public partial class UsersView : UserControl
     {
-        public Users()
+        public UsersView()
         {
             InitializeComponent();
+
+            var userGenerator = new CommandBinding(Commands.UsersGeneratorCommand, UsersGeneratorCommand_Executed, UsersGeneratorCommand_CanExecute);
+            CommandBindings.Add(userGenerator);
+
+            var saveBinding = new CommandBinding(Commands.SaveAllChanges, SaveAllChanges_Executed, SaveAllChanges_CanExecute);
+            CommandBindings.Add(saveBinding);
+
+            CommandManager.InvalidateRequerySuggested();
+
+            Loaded += Users_Loaded;
+        }
+
+        private void SaveAllChanges_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            ((UserVM)DataContext).SaveUsers_CommandExecute();
+        }
+
+        private void SaveAllChanges_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = ((UserVM)DataContext).UserGenerator_CanExecute();
+        }
+
+        private void Users_Loaded(object sender, RoutedEventArgs e)
+        {
+            usersList.Focus();
+        }
+
+        private void UsersGeneratorCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            ((UserVM)DataContext).UsersGenerator_CommandExecute();
+        }
+
+        private void UsersGeneratorCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = ((UserVM)DataContext).UserGenerator_CanExecute();
         }
     }
 }
