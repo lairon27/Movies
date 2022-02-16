@@ -2,12 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using System.Windows.Data;
 
 namespace Cinema.Service
 {
     public interface IDataManager
     {
-         void Load();
+         Task Load();
          void Save();
          ObservableCollection<User> GetUsers { get; set; }
          ObservableCollection<Movie> GetMovies { get; set; }

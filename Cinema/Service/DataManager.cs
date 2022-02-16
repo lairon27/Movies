@@ -1,30 +1,39 @@
 ﻿using Cinema.Model;
 using Cinema.Utils;
-using Cinema.View;
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Data;
 
 namespace Cinema.Service
 {
     internal class DataManager : IDataManager
     {
-        public const string moviesPath = @"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\moviesFileAttribute3.xml";
-        public const string userPath = @"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\usersFileAttribute4.xml";
+        public const string moviesPath = @"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\moviesFileAttribute13s.xml";
+        public const string userPath = @"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\usersFileAttribute23.xml";
+        public const string ratingPath = @"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\rating2.xml";
         public FileManager MoviesFileManager;
         public FileManager UsersFileManager;
+        public FileManager RatingsFileManager;
 
         public ObservableCollection<Movie> movies;
         public ObservableCollection<User> users;
+        public ObservableCollection<Rating> ratings;
 
         public DataManager()
         {
             MoviesFileManager = new FileManager(moviesPath);
             UsersFileManager = new FileManager(userPath);
+            RatingsFileManager = new FileManager(ratingPath);
 
             movies = new ObservableCollection<Movie>();
             users = new ObservableCollection<User>();
+            ratings = new ObservableCollection<Rating>();
         }
 
         public void AddMovie(Movie movie)
@@ -49,27 +58,69 @@ namespace Cinema.Service
             set { users = value; }
         }
 
-        public void Load()
+        public async Task Load()
         {
+            //Stopwatch stopwatch = new Stopwatch();
             Stream movieStream = new MemoryStream();
-            Stream usersStream = new MemoryStream();
-            MoviesFileManager.LoadData(movieStream);
-            UsersFileManager.LoadData(usersStream);
+            //Stream usersStream = new MemoryStream();
+            Stream ratingStream = new MemoryStream();
 
+            //stopwatch.Start();
+            await MoviesFileManager.LoadData(movieStream);
+            await RatingsFileManager.LoadData(ratingStream);
+
+
+            //await UsersFileManager.LoadData(usersStream);
+            //stopwatch.Stop();
+            //MessageBox.Show($"Time loading1111: {stopwatch.Elapsed}");
+
+
+            //stopwatch.Start();
             movies = Serialization.Deserialize<ObservableCollection<Movie>>(movieStream);
-            users = Serialization.Deserialize<ObservableCollection<User>>(usersStream);
+            //users = Serialization.Deserialize<ObservableCollection<User>>(usersStream);
+            ratings = Serialization.Deserialize<ObservableCollection<Rating>>(ratingStream);
+
+            foreach(var movie in movies)
+            {
+                foreach(var rating in ratings)
+                {
+                    if(movie.MovieId == rating.MovieId)
+                    {
+                        movie.Ratings.Add(rating);
+                    }
+                }
+            }
+
+            foreach (var user in users)
+            {
+                foreach (var rating in ratings)
+                {
+                    if (user.UserId == rating.MovieId)
+                    {
+                        user.Ratings.Add(rating);
+                    }
+                }
+            }
+
+            //stopwatch.Stop();
+            //MessageBox.Show($"Time deserializing: {stopwatch.Elapsed}");
         }
 
-        public void Save()
+        public async void Save()
         {
-            using (var stream = Serialization.SerializeToXML(movies))
-            {
-                MoviesFileManager.SaveData(stream);
-            }
+            //using (var stream = Serialization.SerializeToXML(movies))
+            //{
+            //    await MoviesFileManager.SaveData(stream);
+            //}
 
             using (var stream = Serialization.SerializeToXML(users))
             {
-                UsersFileManager.SaveData(stream);
+                await UsersFileManager.SaveData(stream);
+            }
+
+            using (var stream = Serialization.SerializeToXML(ratings))
+            {
+                await RatingsFileManager.SaveData(stream);
             }
         }
 
@@ -78,6 +129,7 @@ namespace Cinema.Service
             var rating = new Rating(movie.MovieId, user.UserId, rate);
             user.Ratings.Add(rating);
             movie.Ratings.Add(rating);
+            ratings.Add(rating);
         }
 
 
