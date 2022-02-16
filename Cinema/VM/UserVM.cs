@@ -22,6 +22,15 @@ namespace Cinema
 
         private IDataManager dataManager;
 
+        public IDataManager DataManager
+        {
+            get { return dataManager; }
+            set { 
+                dataManager = value;
+                OnPropertyChanged("DataManager");           
+            }
+        }
+
         //public static ICommand UsersGeneratorCommand { get; set; }
         public static ICommand SaveUsersCommand { get; set; }
 
@@ -87,8 +96,8 @@ namespace Cinema
                 for (var i = 0; i < dialog.Number; i++)
                 {
                     var user = generator.GenerateUser();
-                    Users.Add(user);
-                    //dataManager.AddUser(user);
+                    //Users.Add(user);
+                    dataManager.AddUser(user);
 
                     var amount = user.AmountOfRatedFilms;
                     var selectedId = dataManager.GetMovies.Select(j => j.MovieId).ToList();

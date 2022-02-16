@@ -24,6 +24,16 @@ namespace Cinema
 
         private IDataManager dataManager;
 
+        public IDataManager DataManager
+        {
+            get { return dataManager; }
+            set
+            {
+                dataManager = value;
+                OnPropertyChanged("DataManager");
+            }
+        }
+
         internal bool AddMovie_CanExecute()
         {
             return true;
@@ -65,7 +75,7 @@ namespace Cinema
             }
         }
 
-        public FileManager fileManager = new FileManager(@"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\moviesFileAttribute13.xml");
+        public FileManager fileManager = new FileManager(@"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\moviesFileAttribute15.xml");
 
         public MovieLibraryVM(IDataManager _dataManager)
         {
@@ -135,12 +145,12 @@ namespace Cinema
 
         public void SaveAllChanges_Command()
         {
-            //using (var stream = Serialization.SerializeToXML(Movies))
-            //{
-            //    fileManager.SaveData(stream);
-            //}
+            using (var stream = Serialization.SerializeToXML(Movies))
+            {
+                fileManager.SaveData(stream);
+            }
 
-            dataManager.Save();
+            //dataManager.Save();
 
             MessageBox.Show("Changes saved successfully", "Saved", MessageBoxButton.OK);
         }
