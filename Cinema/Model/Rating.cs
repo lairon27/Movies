@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml.Serialization;
 
 namespace Cinema.Model
 {
@@ -8,6 +9,7 @@ namespace Cinema.Model
         private Guid userId;
         private int userRating;
 
+        [XmlAttribute("MovieId")]
         public Guid MovieId
         {
             get { return movieId; }
@@ -18,6 +20,7 @@ namespace Cinema.Model
             }
         }
 
+        [XmlAttribute("UserId")]
         public Guid UserId
         {
             get { return userId; }
@@ -28,6 +31,7 @@ namespace Cinema.Model
             }
         }
 
+        [XmlAttribute("UserRating")]
         public int UserRating
         {
             get { return userRating; }
