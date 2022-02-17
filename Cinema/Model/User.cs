@@ -75,5 +75,10 @@ namespace Cinema.Model
         {
             Ratings = new ObservableCollection<Rating>();
         }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
     }
 }

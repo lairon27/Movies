@@ -1,6 +1,7 @@
 ﻿using Cinema.Model;
 using Cinema.Utils;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
@@ -14,9 +15,9 @@ namespace Cinema.Service
 {
     internal class DataManager : IDataManager
     {
-        public const string moviesPath = @"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\moviesFileAttribute13s.xml";
-        public const string userPath = @"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\usersFileAttribute23.xml";
-        public const string ratingPath = @"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\rating2.xml";
+        public const string moviesPath = @"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\moviesFileAttribute16f.xml";
+        public const string userPath = @"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\usersFileAttribute31.xml";
+        public const string ratingPath = @"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\rating5.xml";
         public FileManager MoviesFileManager;
         public FileManager UsersFileManager;
         public FileManager RatingsFileManager;
@@ -60,60 +61,69 @@ namespace Cinema.Service
 
         public async Task Load()
         {
-            //Stopwatch stopwatch = new Stopwatch();
+            Stopwatch stopwatch = new Stopwatch();
             Stream movieStream = new MemoryStream();
-            //Stream usersStream = new MemoryStream();
+            Stream usersStream = new MemoryStream();
             Stream ratingStream = new MemoryStream();
 
-            //stopwatch.Start();
-            await MoviesFileManager.LoadData(movieStream);
+            stopwatch.Start();
             await RatingsFileManager.LoadData(ratingStream);
-
-
-            //await UsersFileManager.LoadData(usersStream);
+            await MoviesFileManager.LoadData(movieStream);
+            await UsersFileManager.LoadData(usersStream);
             //stopwatch.Stop();
             //MessageBox.Show($"Time loading1111: {stopwatch.Elapsed}");
 
 
             //stopwatch.Start();
-            movies = Serialization.Deserialize<ObservableCollection<Movie>>(movieStream);
-            //users = Serialization.Deserialize<ObservableCollection<User>>(usersStream);
             ratings = Serialization.Deserialize<ObservableCollection<Rating>>(ratingStream);
+            movies = Serialization.Deserialize<ObservableCollection<Movie>>(movieStream);
+            users = Serialization.Deserialize<ObservableCollection<User>>(usersStream);
 
-            foreach(var movie in movies)
+
+            foreach (var movie in movies)
             {
-                foreach(var rating in ratings)
+                foreach (var rating in ratings.Where(rating => movie.MovieId == rating.MovieId))
                 {
-                    if(movie.MovieId == rating.MovieId)
-                    {
-                        movie.Ratings.Add(rating);
-                    }
+                    movie.Ratings.Add(rating);
                 }
             }
 
+            //stopwatch.Start();
             foreach (var user in users)
             {
-                foreach (var rating in ratings)
+                foreach (var rating in ratings.Where(rating => user.UserId == rating.UserId))
                 {
-                    if (user.UserId == rating.MovieId)
-                    {
-                        user.Ratings.Add(rating);
-                    }
+                    user.Ratings.Add(rating);
                 }
             }
 
-            //stopwatch.Stop();
-            //MessageBox.Show($"Time deserializing: {stopwatch.Elapsed}");
+            stopwatch.Stop();
+            MessageBox.Show($"Time: {stopwatch.Elapsed}");
         }
 
         public async void Save()
         {
-            //using (var stream = Serialization.SerializeToXML(movies))
-            //{
-            //    await MoviesFileManager.SaveData(stream);
-            //}
+            var moviesCopy = movies.Select(i => (Movie)i.Clone()).ToList();
 
-            using (var stream = Serialization.SerializeToXML(users))
+            foreach(var movie in moviesCopy)
+            {
+                movie.Ratings = null;
+            }
+
+            var usersCopy = users.Select(i => (User)i.Clone()).ToList();
+
+            foreach (var user in usersCopy)
+            {
+                user.Ratings = null;
+            }
+
+
+            using (var stream = Serialization.SerializeToXML(moviesCopy))
+            {
+                await MoviesFileManager.SaveData(stream);
+            }
+
+            using (var stream = Serialization.SerializeToXML(usersCopy))
             {
                 await UsersFileManager.SaveData(stream);
             }
