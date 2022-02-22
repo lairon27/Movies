@@ -4,12 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Data;
 
 namespace Cinema.Service
 {
@@ -66,7 +64,7 @@ namespace Cinema.Service
             Stream usersStream = new MemoryStream();
             Stream ratingStream = new MemoryStream();
 
-            stopwatch.Start();
+            //stopwatch.Start();
             await RatingsFileManager.LoadData(ratingStream);
             await MoviesFileManager.LoadData(movieStream);
             await UsersFileManager.LoadData(usersStream);
@@ -74,26 +72,25 @@ namespace Cinema.Service
             //MessageBox.Show($"Time loading1111: {stopwatch.Elapsed}");
 
 
-            //stopwatch.Start();
+            stopwatch.Start();
+            
             ratings = Serialization.Deserialize<ObservableCollection<Rating>>(ratingStream);
             movies = Serialization.Deserialize<ObservableCollection<Movie>>(movieStream);
             users = Serialization.Deserialize<ObservableCollection<User>>(usersStream);
 
+            var usersDictionary = users.GroupBy(i => i.UserId).ToDictionary(g => g.Key, g => g.First());
+            var moviesDictionary = movies.GroupBy(i => i.MovieId).ToDictionary(g => g.Key, g => g.First());
 
-            foreach (var movie in movies)
+            foreach (var rating in ratings)
             {
-                foreach (var rating in ratings.Where(rating => movie.MovieId == rating.MovieId))
+                if (usersDictionary.ContainsKey(rating.UserId))
                 {
-                    movie.Ratings.Add(rating);
+                    usersDictionary[rating.UserId].Ratings.Add(rating);
                 }
-            }
 
-            //stopwatch.Start();
-            foreach (var user in users)
-            {
-                foreach (var rating in ratings.Where(rating => user.UserId == rating.UserId))
+                if (moviesDictionary.ContainsKey(rating.MovieId))
                 {
-                    user.Ratings.Add(rating);
+                    moviesDictionary[rating.MovieId].Ratings.Add(rating);
                 }
             }
 
