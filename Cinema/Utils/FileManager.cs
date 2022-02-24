@@ -5,7 +5,7 @@ using System.Windows;
 
 namespace Cinema.Utils
 {
-    public class FileManager
+    public class FileManager: IFileManager
     {
         public string FilePath;
         public FileManager(string path)
