@@ -47,9 +47,8 @@
             <Setter Property="FontSize" Value="14"/>
         </Style>
 
-
         <DataTemplate x:Key="normal">
-            <Grid Margin="5">
+            <Grid Margin="5" Tag="{Binding DataContext.DataManager, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="325" />
                     <RowDefinition Height="110"/>
@@ -73,29 +72,34 @@
                                   Command="{Binding DataContext.EditMovieDialogCmd, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
                                   CommandParameter="{Binding SelectedMovie}" />
                 </Grid.InputBindings>
+             
                 <Grid.ToolTip>
-                    <StackPanel Width="150">
-                        <DataGrid ItemsSource="{Binding Ratings}" AutoGenerateColumns="False" HeadersVisibility="Column" ColumnWidth="*" CanUserAddRows="False" IsReadOnly="True" >
-                            <DataGrid.Columns>
-                                <!--<DataGridTextColumn Header="User">
-                                    <DataGridTextColumn.Binding>
-                                        <MultiBinding Converter="{StaticResource UserIdConv}">
-                                            <Binding Path="UserId"/>
-                                            <Binding Path="DataContext.DataManager" ElementName="this_"/>
-                                        </MultiBinding>
-                                    </DataGridTextColumn.Binding>
-                                </DataGridTextColumn>-->
-                                <DataGridTextColumn Binding="{Binding UserId}" Header="User"/>
-                                <DataGridTextColumn Binding="{Binding UserRating}" Header="Rating"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    </StackPanel>
+                    <ToolTip>
+                        <StackPanel Height="300">
+                            <DataGrid ItemsSource="{Binding Ratings}" Height="500" Width="150" AutoGenerateColumns="False" HeadersVisibility="Column" ColumnWidth="*" CanUserAddRows="False" IsReadOnly="True" 
+                                      EnableColumnVirtualization="True" EnableRowVirtualization="True">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="User">
+                                        <DataGridTextColumn.Binding>
+                                            <MultiBinding Converter="{StaticResource UserIdConv}">
+                                                <Binding Path="UserId"/>
+                                                <Binding Path="PlacementTarget.Tag" RelativeSource="{RelativeSource FindAncestor, AncestorType=ToolTip}"/>
+                                            </MultiBinding>
+                                        </DataGridTextColumn.Binding>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn Binding="{Binding UserRating}" Header="Rating"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </ToolTip>
                 </Grid.ToolTip>
+
                 <Image x:Name="images" Source="{Binding Path=Image}" Grid.Row="0" HorizontalAlignment="Left"/>
+
                 <StackPanel Grid.Row="1" HorizontalAlignment="Left">
                     <TextBlock Foreground="{Binding Path=Rating, Converter={StaticResource rangeConv}}" Text="{Binding Path=MovieName}" FontSize="18" TextWrapping="Wrap"/>
                     <TextBlock Text="{Binding Path=Year}" />
-                    <TextBlock Text="{Binding Path=Rating}" />
+                    <TextBlock Text="{Binding Path=Rating}"/>
                     <TextBlock Text="{Binding Path=MovieId}" />
                 </StackPanel>
                 <StackPanel x:Name="selectedMovieInfo" Margin="10, 10, 5, 5" Grid.Column="1">
@@ -109,12 +113,13 @@
                             </Style.Triggers>
                         </Style>
                     </StackPanel.Style>
+            
                     <TextBlock Text="Genre" FontWeight="Bold" FontSize="15"/>
                     <TextBlock Text="{Binding Genre, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" FontSize="13"/>
                     <TextBlock Text="Describe" FontWeight="Bold" FontSize="15"/>
                     <TextBlock Text="{Binding Describe, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" FontSize="13"/>
                     <TextBlock Text="Rating" FontWeight="Bold" FontSize="15"/>
-                    <!--<TextBlock Text="{Binding Rating, UpdateSourceTrigger=PropertyChanged}" FontSize="12"/>-->
+                    <TextBlock Text="{Binding Rating, UpdateSourceTrigger=PropertyChanged}" FontSize="12"/>
                     <syncfusion:SfRating ItemsCount="5" Value="{Binding Path=Rating, Converter={StaticResource amountConv}}" IsEnabled="False" HorizontalAlignment="Left">
                         <syncfusion:SfRating.ItemContainerStyle>
                             <Style TargetType="syncfusion:SfRatingItem">
@@ -133,7 +138,7 @@
         </DataTemplate>
 
         <DataTemplate x:Key="small">
-            <Grid Width="250" Height="180" Margin="5">
+            <Grid Width="250" Height="180" Margin="5" Tag="{Binding DataContext.DataManager, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="170" />
                     <RowDefinition Height="100"/>
@@ -149,34 +154,22 @@
                 </Grid.InputBindings>
                 <Grid.ToolTip>
                     <ToolTip>
-                        <!--<ListView ItemsSource="{Binding Ratings}">
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn Header="User">
-                                        <GridViewColumn.DisplayMemberBinding>
+                        <StackPanel>
+                            <DataGrid ItemsSource="{Binding Ratings}"  Width="150" AutoGenerateColumns="False" HeadersVisibility="Column" ColumnWidth="*" CanUserAddRows="False" IsReadOnly="True" 
+                                      EnableColumnVirtualization="True" EnableRowVirtualization="True">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="User">
+                                        <DataGridTextColumn.Binding>
                                             <MultiBinding Converter="{StaticResource UserIdConv}">
                                                 <Binding Path="UserId"/>
-                                                <Binding Path="DataContext.DataManager" ElementName="this_"/>
+                                                <Binding Path="PlacementTarget.Tag" RelativeSource="{RelativeSource FindAncestor, AncestorType=ToolTip}"/>
                                             </MultiBinding>
-                                        </GridViewColumn.DisplayMemberBinding>
-                                    </GridViewColumn>
-                                    <GridViewColumn Header="Rating" DisplayMemberBinding="{Binding UserRating}"/>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>-->
-                        <!--<DataGrid ItemsSource="{Binding Ratings}" AutoGenerateColumns="False" HeadersVisibility="Column" ColumnWidth="*" CanUserAddRows="False" IsReadOnly="True" >
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="User">
-                                    <DataGridTextColumn.Binding>
-                                        <MultiBinding Converter="{StaticResource UserIdConv}">
-                                            <Binding Path="UserId"/>
-                                            <Binding Path="DataContext.DataManager" ElementName="this_"/>
-                                        </MultiBinding>
-                                    </DataGridTextColumn.Binding>
-                                </DataGridTextColumn>
-                                <DataGridTextColumn Binding="{Binding UserRating}" Header="Rating"/>
-                            </DataGrid.Columns>
-                        </DataGrid>-->
+                                        </DataGridTextColumn.Binding>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn Binding="{Binding UserRating}" Header="Rating"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
                     </ToolTip>
                 </Grid.ToolTip>
                 <Image x:Name="images" Source="{Binding Path=Image}" Grid.Row="0"  VerticalAlignment="Top" HorizontalAlignment="Left"/>
@@ -203,66 +196,9 @@
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
-        <!--<Menu Grid.ColumnSpan="3" Background="#E0EBE5">
-            <MenuItem Header="Sort by">
-                <MenuItem Header="name" Command="{Binding SortByCommand}" CommandParameter="MovieName"/>
-                <MenuItem Header="year" Command="{Binding SortByCommand}" CommandParameter="Year"/>
-                <MenuItem Header="rating" Command="{Binding SortByCommand}" CommandParameter="Rating"/>
-            </MenuItem>
-            <Separator/>
-            <MenuItem Header="Add new movie" Command="{Binding AddMovieDialogCmd}" ></MenuItem>
-            <Separator/>
-            <ComboBox x:Name="listAppearance" Grid.Column="0" Grid.Row="1" Height="23" Width="120" Focusable="False">
-                <ComboBoxItem IsSelected="True" IsEnabled="False">
-                    View
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    Small image
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    Big Images
-                </ComboBoxItem>
-            </ComboBox>
-        </Menu>-->
-
-        <!--<ribbon:Ribbon Grid.ColumnSpan="3" Background="White">
-            <ribbon:RibbonTab>
-                <ribbon:RibbonGroup Header="Add movie" Height="70">
-                    <ribbon:RibbonButton LargeImageSource="C:\Users\anna.moskalenko\Downloads\theater_cinema_film_movie_clapper_icon_209580.ico"
-                                  Width="70" Height="50" Command="{Binding AddMovieDialogCmd}"/>
-                </ribbon:RibbonGroup>
-                <ribbon:RibbonGroup Header="View" Height="70">
-                    <ribbon:RibbonComboBox x:Name="listAppearance" Height="23" Width="120" Focusable="False" Margin="15, 13, 0, 0">
-                        <ribbon:RibbonGallery SelectedValue="Select">
-                            <ribbon:RibbonGalleryCategory >
-                                <ribbon:RibbonGalleryItem Content="Small image" />
-                                <ribbon:RibbonGalleryItem Content="Big Images" IsSelected="True"/>
-                            </ribbon:RibbonGalleryCategory>
-                        </ribbon:RibbonGallery>
-                    </ribbon:RibbonComboBox>
-                </ribbon:RibbonGroup>
-                <ribbon:RibbonGroup Header="Sorting" Height="70">
-                    <StackPanel Orientation="Horizontal">
-                        <RadioButton Content="Ascending"/>
-                        <RadioButton Content="Descending" Margin="7,0,0,0"/>
-                    </StackPanel>
-                    <RadioButton Content="Ascending"/>
-                    <RadioButton Content="Descending" Margin="0,7,0,0"/>
-                    <ribbon:RibbonMenuItem Header="Sort by" Margin="10,5,5,5">
-                        <ribbon:RibbonMenuItem Header="name" Command="{Binding SortByCommand}" CommandParameter="MovieName"/>
-                        <ribbon:RibbonMenuItem Header="year" Command="{Binding SortByCommand}" CommandParameter="Year"/>
-                        <ribbon:RibbonMenuItem Header="rating" Command="{Binding SortByCommand}" CommandParameter="Rating"/>
-                    </ribbon:RibbonMenuItem>
-                </ribbon:RibbonGroup>
-                <ribbon:RibbonGroup Header="Save changes" Height="70">
-                    <ribbon:RibbonButton LargeImageSource="C:\Users\anna.moskalenko\Downloads\save-file-option_icon-icons.com_73423.png" Command="{Binding SaveAllChanges}" Height="50" Margin="12, 0, 0, 0"/>
-                </ribbon:RibbonGroup>
-            </ribbon:RibbonTab>
-        </ribbon:Ribbon>-->
-
         <TextBlock Text="Top Movies" Grid.Row="0" Grid.ColumnSpan="3" TextAlignment="Center" FontSize="24"/>
 
-        <ListBox x:Name="moviesList" Grid.ColumnSpan="2" Grid.Row="2" Grid.RowSpan="4" ItemsSource="{Binding View}"
+        <ListBox x:Name="moviesList" Grid.ColumnSpan="3" Grid.Row="2" Grid.RowSpan="4" ItemsSource="{Binding View}"
                  SelectedItem="{Binding SelectedMovie}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" IsSynchronizedWithCurrentItem="True">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -274,58 +210,26 @@
                 <Style TargetType="{x:Type ListBox}">
                     <Setter Property="ItemTemplate" Value="{StaticResource normal}" />
                     <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-
-                    <!--<Style.Triggers>
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Grid.ColumnSpan" Value="2"/>
-                        </Trigger>
-                    </Style.Triggers>
-
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}, Path=IsSelected}" Value="True">
-                            <Setter Property="Grid.ColumnSpan" Value="2"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-
-                    <Style.Triggers>
-
-                        <DataTrigger Binding="{Binding ElementName=listAppearance, Path=SelectionBoxItem}" Value="Small image">
-                            <Setter Property="ItemTemplate" Value="{StaticResource small}" />
-                            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-                        </DataTrigger>
-
-                    </Style.Triggers>-->
                 </Style>
             </ListBox.Style>
-
-            <!--<ListBox.ItemContainerStyle>
-                <Style TargetType="ListBoxItem">
-                    <Setter Property="Width" Value="210"/>
-                    <Style.Triggers>
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Width" Value="400"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </ListBox.ItemContainerStyle>-->
-
         </ListBox>
 
-        <StackPanel x:Name="selectedMovieInfo" Grid.Column="2" Grid.Row="2" Grid.RowSpan="3" DataContext="{Binding SelectedMovie}" Margin="5">
-            <DataGrid ItemsSource="{Binding Ratings}" AutoGenerateColumns="False" HeadersVisibility="Column" ColumnWidth="*" CanUserAddRows="False" IsReadOnly="True" >
+        <!--<StackPanel x:Name="selectedMovieInfo" Grid.Column="2" Grid.Row="2" Grid.RowSpan="3" DataContext="{Binding SelectedMovie}" Margin="5">
+            --><!--<TextBlock x:Name="data" Text="{Binding Genre, UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold" />-->
+            <!--<DataGrid ItemsSource="{Binding Ratings}" VirtualizingPanel.IsVirtualizingWhenGrouping="True" AutoGenerateColumns="False" HeadersVisibility="Column" ColumnWidth="*" CanUserAddRows="False" IsReadOnly="True" >
                 <DataGrid.Columns>
-                    <!--<DataGridTextColumn Header="User">
+                    <DataGridTextColumn Header="User">
                         <DataGridTextColumn.Binding>
                             <MultiBinding Converter="{StaticResource UserIdConv}">
                                 <Binding Path="UserId"/>
                                 <Binding Path="DataContext.DataManager" ElementName="this_"/>
                             </MultiBinding>
                         </DataGridTextColumn.Binding>
-                    </DataGridTextColumn>-->
+                    </DataGridTextColumn>
                     <DataGridTextColumn Binding="{Binding UserId}" Header="User"/>
                     <DataGridTextColumn Binding="{Binding UserRating}" Header="Rating"/>
                 </DataGrid.Columns>
-            </DataGrid>
+            </DataGrid>-->
             <!--<StackPanel.Style>
                 <Style TargetType="{x:Type StackPanel}">
                     <Setter Property="Visibility" Value="Hidden"/>
@@ -383,9 +287,9 @@
                         <Setter Property="UnratedFill" Value="#C0C0C0"/>
                     </Style>
                 </syncfusion:SfRating.ItemContainerStyle>
-            </syncfusion:SfRating>-->
+            </syncfusion:SfRating>--><!--
 
-        </StackPanel>
+        </StackPanel>-->
 
         <StackPanel Grid.Column="0" Grid.Row="1"  Margin="5">
             <TextBox x:Name="searchTextBox" Style="{StaticResource placeHolder}" Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Tag="movie search"
