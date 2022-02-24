@@ -157,6 +157,7 @@ namespace Cinema
 
         public object Clone()
         {
+            Ratings = null;
             return MemberwiseClone();
         }
 

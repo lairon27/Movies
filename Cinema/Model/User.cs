@@ -78,6 +78,7 @@ namespace Cinema.Model
 
         public object Clone()
         {
+            Ratings = null;
             return MemberwiseClone();
         }
     }

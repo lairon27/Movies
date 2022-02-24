@@ -1,7 +1,6 @@
 ﻿using Cinema.Model;
 using Cinema.Utils;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
@@ -11,14 +10,14 @@ using System.Windows;
 
 namespace Cinema.Service
 {
-    internal class DataManager : IDataManager
+    public class DataManager : IDataManager
     {
-        public const string moviesPath = @"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\moviesFileAttribute16f.xml";
-        public const string userPath = @"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\usersFileAttribute31.xml";
-        public const string ratingPath = @"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\rating5.xml";
-        public FileManager MoviesFileManager;
-        public FileManager UsersFileManager;
-        public FileManager RatingsFileManager;
+        //public const string moviesPath = @"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\moviesFileAttribute16f.xml";
+        //public const string userPath = @"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\usersFileAttribute31.xml";
+        //public const string ratingPath = @"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\rating5.xml";
+        public IFileManager MoviesFileManager;
+        public IFileManager UsersFileManager;
+        public IFileManager RatingsFileManager;
 
         public ObservableCollection<Movie> movies;
         public ObservableCollection<User> users;
@@ -26,9 +25,9 @@ namespace Cinema.Service
 
         public DataManager()
         {
-            MoviesFileManager = new FileManager(moviesPath);
-            UsersFileManager = new FileManager(userPath);
-            RatingsFileManager = new FileManager(ratingPath);
+            MoviesFileManager = new FileManager(ConstClass.moviesPath);
+            UsersFileManager = new FileManager(ConstClass.userPath);
+            RatingsFileManager = new FileManager(ConstClass.ratingPath);
 
             movies = new ObservableCollection<Movie>();
             users = new ObservableCollection<User>();
@@ -71,7 +70,6 @@ namespace Cinema.Service
             //stopwatch.Stop();
             //MessageBox.Show($"Time loading1111: {stopwatch.Elapsed}");
 
-
             stopwatch.Start();
             
             ratings = Serialization.Deserialize<ObservableCollection<Rating>>(ratingStream);
@@ -101,19 +99,7 @@ namespace Cinema.Service
         public async void Save()
         {
             var moviesCopy = movies.Select(i => (Movie)i.Clone()).ToList();
-
-            foreach(var movie in moviesCopy)
-            {
-                movie.Ratings = null;
-            }
-
             var usersCopy = users.Select(i => (User)i.Clone()).ToList();
-
-            foreach (var user in usersCopy)
-            {
-                user.Ratings = null;
-            }
-
 
             using (var stream = Serialization.SerializeToXML(moviesCopy))
             {
@@ -151,10 +137,10 @@ namespace Cinema.Service
             source.Image = target.Image;
         }
 
-        public void UpdateUser(User target, User source)
-        {
-            throw new NotImplementedException();
-        }
+        //public void UpdateUser(User target, User source)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public User GetUserById(Guid userId)
         {

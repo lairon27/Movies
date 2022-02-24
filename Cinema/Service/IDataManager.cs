@@ -17,7 +17,7 @@ namespace Cinema.Service
          void AddMovie(Movie movie);
          void UpdateMovie(Movie target, Movie source);
          void AddUser(User user);
-         void UpdateUser(User target, User source);
+         //void UpdateUser(User target, User source);
          User GetUserById(Guid userId);
          Movie GetMovieById(Guid movieId);
     }
