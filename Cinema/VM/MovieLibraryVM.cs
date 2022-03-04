@@ -8,6 +8,7 @@ using System.Windows;
 using Cinema.Utils;
 using System.Windows.Input;
 using Cinema.Service;
+using Cinema.Dialog;
 
 namespace Cinema
 { 
@@ -16,11 +17,9 @@ namespace Cinema
         private Movie selectedMovie;
 
         public ObservableCollection<Movie> Movies { get; set; }
-        
-        //public static ICommand SortByCommand { get; set; }
-        //public static ICommand AddMovieDialogCmd { get; set; }
+     
         public static ICommand EditMovieDialogCmd { get; set; }
-       // public static ICommand SaveAllChanges { get; set; }
+        public static ICommand ShowRatingInfoCmd { get; set; }
 
         private IDataManager dataManager;
 
@@ -75,37 +74,25 @@ namespace Cinema
             }
         }
 
-        public FileManager fileManager = new FileManager(@"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\moviesFileAttribute15.xml");
-
         public MovieLibraryVM(IDataManager _dataManager)
         {
             dataManager = _dataManager;
 
-
-
-            //SortByCommand = new RelayCommand(parameter =>
-            //  SortBy_CommandExecute(parameter.ToString()));
-
-            //AddMovieDialogCmd = new RelayCommand(parameter =>
-            // AddMovieDialog_Command());
-
             EditMovieDialogCmd = new RelayCommand(parameter =>
              EditMovieDialog_Command());
 
-            //SaveAllChanges = new RelayCommand(parameter =>
-            // SaveAllChanges_Command());
+            ShowRatingInfoCmd = new RelayCommand(parameter =>
+             ShowRatingInfo_Command());
 
-            //dataManager.Load();
-            //var data = fileManager.LoadData();
-
-            //if (data != null)
-            //{
-            //    Movies = Serialization.Deserialize<ObservableCollection<Movie>>(data);
-            //}
-
-           
             Movies = dataManager.GetMovies;
             view = CollectionViewSource.GetDefaultView(Movies);
+        }
+
+        private void ShowRatingInfo_Command()
+        {
+            var usersRatingDialog = new RatingsByUsers(SelectedMovie);
+            usersRatingDialog.DataManager = dataManager;
+            usersRatingDialog.ShowDialog();
         }
 
         public void SortBy_CommandExecute(string parameter)
@@ -124,7 +111,7 @@ namespace Cinema
         {
             var movie = new Movie();
 
-            AddMovieDialog movieDialog = new AddMovieDialog(movie);
+            var movieDialog = new AddMovieDialog(movie);
 
             if (movieDialog.ShowDialog() == true)
             {
@@ -145,14 +132,9 @@ namespace Cinema
 
         public void SaveAllChanges_Command()
         {
-            using (var stream = Serialization.SerializeToXML(Movies))
-            {
-                fileManager.SaveData(stream);
-            }
+            dataManager.Save();
 
-            //dataManager.Save();
-
-            MessageBox.Show("Changes saved successfully", "Saved", MessageBoxButton.OK);
+            MessageBox.Show(ConstClass.changesSaved, ConstClass.saved, MessageBoxButton.OK);
         }
     }
 }
