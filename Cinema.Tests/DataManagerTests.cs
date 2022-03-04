@@ -4,8 +4,11 @@ using Cinema.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
+using System.Collections;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Cinema.Tests
 {
@@ -60,20 +63,36 @@ namespace Cinema.Tests
         }
 
         [TestMethod]
-        public void Load_LoadData_CallMethodLoadData()
+        public async Task Load_LoadData_CallMethodLoadData() //to finish
         {
             //Arange
             var dataManager = new DataManager();
             var fileManagerMock = new Mock<IFileManager>();
-            dataManager.MoviesFileManager = fileManagerMock.Object;
+           
+            var user = new User
+            {
+                UserId = Guid.NewGuid(),
+                UserName = "Gabriel"
+            };
+
+            
+
+            fileManagerMock.Setup(x => x.LoadData(It.IsAny<Stream>())).Callback<Stream>((st) =>
+            {
+                var writer = new StreamWriter(st);
+                writer.Write(user);
+                writer.Flush();
+                st.Position = 0;
+
+            });
+
             dataManager.UsersFileManager = fileManagerMock.Object;
-            dataManager.RatingsFileManager = fileManagerMock.Object;
+            
 
             //Act
-            _ = dataManager.Load();
+            await dataManager.Load();
 
             //Assert
-            fileManagerMock.Verify(x => x.LoadData(It.IsAny<Stream>()), Times.Exactly(3));
         }
 
         [TestMethod]
@@ -108,7 +127,7 @@ namespace Cinema.Tests
             dataManager.UpdateMovie(updatedMovie, movie);
 
             //Assert
-            Assert.AreNotEqual(updatedMovie, movie);
+            Assert.AreNotEqual(updatedMovie, movie); //change
         }
     }
 }
