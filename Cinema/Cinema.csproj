@@ -56,9 +56,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Commands\Commands.cs" />
+    <Compile Include="Converters\MovieIdToTitleConverter.cs" />
+    <Compile Include="Converters\UseridToNameConverter.cs" />
+    <Compile Include="Dialog\AddRatingDialog.xaml.cs">
+      <DependentUpon>AddRatingDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\RatingsByUsers.xaml.cs">
+      <DependentUpon>RatingsByUsers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\ConstClass.cs" />
+    <Compile Include="Utils\IFileManager.cs" />
+    <Compile Include="VM\Commands.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Converters\RatingToColorConverter.cs" />
+    <Compile Include="Converters\RatingToStarsConverter.cs" />
     <Compile Include="Dialog\AddMovieDialog.xaml.cs">
       <DependentUpon>AddMovieDialog.xaml</DependentUpon>
     </Compile>
@@ -73,7 +84,6 @@
     <Compile Include="Service\IDataManager.cs" />
     <Compile Include="Utils\FileManager.cs" />
     <Compile Include="Utils\Serialization.cs" />
-    <Compile Include="View\BaseView.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -86,13 +96,16 @@
     <Compile Include="View\UsersView.xaml.cs">
       <DependentUpon>UsersView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="VM\MainVm.cs" />
     <Compile Include="VM\MovieLibraryVM.cs" />
     <Compile Include="VM\UserVM.cs" />
     <Compile Include="VM\VMBaseNotify.cs" />
     <Page Include="Dialog\AddMovieDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialog\AddRatingDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialog\InputIntDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -103,6 +116,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Generation\Generator.cs" />
+    <Page Include="Dialog\RatingsByUsers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -149,9 +166,12 @@
   <ItemGroup>
     <PackageReference Include="Bogus" Version="34.0.1" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
-    <PackageReference Include="Infragistics.WPF.DataGrids.Trial" Version="21.1.49" />
-    <PackageReference Include="Infragistics.WPF.Editors.Trial" Version="21.1.49" />
-    <PackageReference Include="Infragistics.WPF.Trial" Version="21.1.49" />
+    <PackageReference Include="Extended.Wpf.Toolkit">
+      <Version>4.2.0</Version>
+    </PackageReference>
+    <PackageReference Include="Syncfusion.SfInput.WPF">
+      <Version>19.4.0.50</Version>
+    </PackageReference>
     <PackageReference Include="Xceed.Products.Wpf.DataGrid.Full" Version="7.0.20452.1321" />
   </ItemGroup>
   <ItemGroup>

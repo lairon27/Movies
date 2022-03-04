@@ -1,4 +1,5 @@
 ﻿using Cinema.View;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,26 +19,12 @@ namespace WpfApp1
 
             var main = new MainWindow();
 
-            await Task.Run(() =>
-            {
-                main.LoadData();
-            });
+            await Task.Run(() => main.LoadData());
 
             main.Initialize();
             main.Show();
 
             splash.Close();
-            //Task.Run(() =>
-            //{
-            //    main.LoadData();
-
-            //    Dispatcher.Invoke(() =>
-            //    {
-            //        main.Initialize();
-            //        main.Show();
-            //        splash.Close();
-            //    });
-            //});
         }
     }
 }
