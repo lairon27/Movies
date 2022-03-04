@@ -1,7 +1,4 @@
-﻿
-using Cinema.VM;
-using System;
-using System.Collections.Generic;
+﻿using Cinema.VM;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;

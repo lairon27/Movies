@@ -1,4 +1,4 @@
-﻿<Window x:Class="Cinema.View.MainWindow"
+﻿<RibbonWindow x:Class="Cinema.View.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,16 +6,50 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:cinema="clr-namespace:Cinema" 
         xmlns:vm="clr-namespace:Cinema.VM"
-        xmlns:bs="clr-namespace:Cinema.View"
         d:DataContext="{d:DesignInstance Type=cinema:MovieLibraryVM}"
         mc:Ignorable="d"
         Title="Main Window" Height="450" Width="800" WindowState="Maximized">
 
-    <!--<RibbonWindow.CommandBindings>
-        <CommandBinding Command=""
-                    CanExecute="AddMovie_CanExecute"
-                    Executed="AddMovie_Executed"/>
-    </RibbonWindow.CommandBindings>-->
+    <RibbonWindow.Resources>
+        <Style TargetType="{x:Type TabItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+                        <Grid>
+                            <Border 
+                                Name="Border"
+                                Margin="5,0,-2,0" 
+                                Background="#969696"
+                                BorderBrush="#888" 
+                                BorderThickness="1" 
+                                CornerRadius="2" >
+                                <ContentPresenter x:Name="ContentSite"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    ContentSource="Header"
+                                    Margin="12,2,12,2"
+                                    RecognizesAccessKey="True"/>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Panel.ZIndex" Value="100" />
+                                <Setter TargetName="Border" Property="Background" Value="#6f6aa3" />
+                                <Setter TargetName="Border" Property="BorderThickness" Value="1,1,1,0" />
+                                <Setter Property="Foreground" Value="#ffff"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Border" Property="Background" Value="#EEE" />
+                                <Setter TargetName="Border" Property="BorderBrush" Value="#AAA" />
+                                <Setter Property="Foreground" Value="#888" />
+                                <Setter Property="Foreground" Value="#ffff"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </RibbonWindow.Resources>
 
     <Grid>
 
@@ -24,42 +58,68 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!--<Ribbon Grid.Row ="0" Background="White">
-            <RibbonTab>
-                <RibbonGroup Header="Add movie" Height="70">
-                    <RibbonButton LargeImageSource="C:\Users\anna.moskalenko\Downloads\theater_cinema_film_movie_clapper_icon_209580.ico"
-                                  Width="70" Height="50" Command="{Binding }"/>
+        <Ribbon x:Name="_ribbon" SelectedIndex="{Binding ElementName=tabController, Path=SelectedIndex}" Background="White"
+                  BorderBrush="#FFA384"
+                  MouseOverBackground="LightCoral"
+                  MouseOverBorderBrush="Coral"
+                  PressedBackground="LightGreen"
+                  PressedBorderBrush="Green"
+                  CheckedBackground="LightBlue"
+                  CheckedBorderBrush="Blue"
+                  FocusedBackground="LightSlateGray"
+                  FocusedBorderBrush="SlateBlue">
+
+            <RibbonTab x:Name="usersControl" Header="Users">
+                <RibbonGroup Header="Generation" Height="70">
+                    <RibbonButton LargeImageSource="C:\Users\anna.moskalenko\Downloads\adduser_añadir_13238.png" Command="{x:Static vm:Commands.UsersGeneratorCommand}" Height="50" Margin="12, 0, 0, 0"/>
                 </RibbonGroup>
-                <RibbonGroup Header="View" Height="70">
-                    <RibbonComboBox x:Name="listAppearance" Height="23" Width="120" Focusable="False" Margin="15, 13, 0, 0">
-                        <RibbonGallery SelectedValue="Select">
-                            <RibbonGalleryCategory >
-                                <RibbonGalleryItem Content="Small image" />
-                                <RibbonGalleryItem Content="Big Images" IsSelected="True"/>
-                            </RibbonGalleryCategory>
-                        </RibbonGallery>
-                    </RibbonComboBox>
-                </RibbonGroup>
-                <RibbonGroup Header="Sorting" Height="70">
-                    <StackPanel Orientation="Horizontal">
-                        <RadioButton Content="Ascending"/>
-                        <RadioButton Content="Descending" Margin="7,0,0,0"/>
-                    </StackPanel>
-                    <RibbonMenuItem Header="Sort by" Margin="10,5,5,5">
-                        <RibbonMenuItem Header="name" Command="{Binding SortByCommand}" CommandParameter="MovieName"/>
-                        <RibbonMenuItem Header="year" Command="{Binding SortByCommand}" CommandParameter="Year"/>
-                        <RibbonMenuItem Header="rating" Command="{Binding SortByCommand}" CommandParameter="Rating"/>
-                    </RibbonMenuItem>
-                    <RibbonGroup>
-                        <RibbonGroup Header="Save changes" Height="70">
-                            <RibbonButton LargeImageSource="C:\Users\anna.moskalenko\Downloads\save-file-option_icon-icons.com_73423.png" Command="{Binding SaveAllChanges}" Height="50" Margin="12, 0, 0, 0"/>
-                        </RibbonGroup>
-                    </RibbonGroup>
+                <RibbonGroup Header="Save changes" Height="70">
+                    <RibbonButton LargeImageSource="C:\Users\anna.moskalenko\Downloads\save-file-option_icon-icons.com_73423.png" Command="{x:Static vm:Commands.SaveAllChanges}" Height="50" Margin="12, 0, 0, 0"/>
                 </RibbonGroup>
             </RibbonTab>
-        </Ribbon>-->
+            <RibbonTab x:Name="moviesControl" Header="Movie Library">
+                <RibbonGroup Header="Add movie" Height="70">
+                    <RibbonButton LargeImageSource="C:\Users\anna.moskalenko\Downloads\theater_cinema_film_movie_clapper_icon_209580.ico"
+                                  Width="70" Height="50" Command="{x:Static vm:Commands.AddMovieDialog}"></RibbonButton>
+                </RibbonGroup>
+                <RibbonGroup Header="View">
+                    <RibbonSplitButton x:Name="listAppearance" Label="Appearance" LargeImageSource="C:\Users\anna.moskalenko\Downloads\theater_cinema_film_movie_clapper_icon_209580.ico">
+                        <RibbonGallery>
+                            <RibbonGalleryCategory >
+                                <RibbonMenuItem x:Name="smaller" Header="Small image" Command="{x:Static vm:Commands.Appearance}" CommandParameter="1"/>
+                                <RibbonMenuItem Header="Big Images" Command="{x:Static vm:Commands.Appearance}" CommandParameter="2"/>
+                            </RibbonGalleryCategory>
+                        </RibbonGallery>
+                    </RibbonSplitButton>
+                </RibbonGroup>
+                <RibbonGroup Header="Sorting" Height="70">
+                    <RibbonMenuButton Label="Sort by" Margin="0, 17, 0, 0">
+                        <RibbonMenuItem Header="name">
+                            <RibbonMenuItem Header="ascending"  Command="{x:Static vm:Commands.SortByAscCommand}" CommandParameter="MovieName"/>
+                            <RibbonMenuItem Header="descending"  Command="{x:Static vm:Commands.SortByCommand}" CommandParameter="MovieName"/>
+                        </RibbonMenuItem>
+                        <RibbonMenuItem Header="year">
+                            <RibbonMenuItem Header="ascending"  Command="{x:Static vm:Commands.SortByAscCommand}" CommandParameter="Year"/>
+                            <RibbonMenuItem Header="descending"  Command="{x:Static vm:Commands.SortByCommand}" CommandParameter="Year"/>
+                        </RibbonMenuItem>
+                        <RibbonMenuItem Header="rating">
+                            <RibbonMenuItem Header="ascending"  Command="{x:Static vm:Commands.SortByAscCommand}" CommandParameter="Rating"/>
+                            <RibbonMenuItem Header="descending"  Command="{x:Static vm:Commands.SortByCommand}" CommandParameter="Rating"/>
+                        </RibbonMenuItem>
+                    </RibbonMenuButton>
+                </RibbonGroup>
+                <RibbonGroup Header="Save changes" Height="70">
+                    <RibbonButton LargeImageSource="C:\Users\anna.moskalenko\Downloads\save-file-option_icon-icons.com_73423.png" Command="{x:Static vm:Commands.SaveAllChanges}" Height="50" Margin="12, 0, 0, 0"/>
+                </RibbonGroup>
+            </RibbonTab>
+        </Ribbon>
 
-        <TabControl Name="tabController" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1"/>
-
+        <TabControl Name="tabController" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" BorderThickness="0" Background="#E7F2F8">
+            <TabControl.Resources>
+                <Style TargetType="{x:Type Grid}">
+                    <Setter Property="Background" Value="#E7F2F8"/>
+                </Style>
+            </TabControl.Resources>
+        </TabControl>
     </Grid>
-</Window>
+</RibbonWindow>

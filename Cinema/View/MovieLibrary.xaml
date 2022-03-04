@@ -25,6 +25,7 @@
                                                 UpdateSourceTrigger=PropertyChanged}"
                                  x:Name="textSource" 
                                  Background="Transparent" 
+                                 Foreground="White"
                                  Panel.ZIndex="2" />
                             <TextBox Text="{TemplateBinding Tag}" Background="{TemplateBinding Background}" Panel.ZIndex="1">
                                 <TextBox.Style>
@@ -32,7 +33,7 @@
                                         <Setter Property="Foreground" Value="Transparent"/>
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding Path=Text, Source={x:Reference textSource}}" Value="">
-                                                <Setter Property="Foreground" Value="LightGray"/>
+                                                <Setter Property="Foreground" Value="DarkGray"/>
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
@@ -47,8 +48,19 @@
             <Setter Property="FontSize" Value="14"/>
         </Style>
 
+        <Style TargetType="ListBoxItem" x:Key="ListBoxItemStyle">
+            <Setter Property="IsSelected" Value="{Binding Content.IsSelected, Mode=TwoWay, RelativeSource={RelativeSource Self}}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <ContentPresenter/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <DataTemplate x:Key="normal">
-            <Grid Margin="5" Tag="{Binding DataContext.DataManager, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}">
+            <Grid Margin="17, 5, 5, 5" ToolTipService.ShowDuration="12000" Tag="{Binding DataContext.DataManager, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="325" />
                     <RowDefinition Height="110"/>
@@ -72,35 +84,13 @@
                                   Command="{Binding DataContext.EditMovieDialogCmd, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
                                   CommandParameter="{Binding SelectedMovie}" />
                 </Grid.InputBindings>
-             
-                <Grid.ToolTip>
-                    <ToolTip>
-                        <StackPanel Height="300">
-                            <DataGrid ItemsSource="{Binding Ratings}" Height="500" Width="150" AutoGenerateColumns="False" HeadersVisibility="Column" ColumnWidth="*" CanUserAddRows="False" IsReadOnly="True" 
-                                      EnableColumnVirtualization="True" EnableRowVirtualization="True">
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn Header="User">
-                                        <DataGridTextColumn.Binding>
-                                            <MultiBinding Converter="{StaticResource UserIdConv}">
-                                                <Binding Path="UserId"/>
-                                                <Binding Path="PlacementTarget.Tag" RelativeSource="{RelativeSource FindAncestor, AncestorType=ToolTip}"/>
-                                            </MultiBinding>
-                                        </DataGridTextColumn.Binding>
-                                    </DataGridTextColumn>
-                                    <DataGridTextColumn Binding="{Binding UserRating}" Header="Rating"/>
-                                </DataGrid.Columns>
-                            </DataGrid>
-                        </StackPanel>
-                    </ToolTip>
-                </Grid.ToolTip>
-
+            
                 <Image x:Name="images" Source="{Binding Path=Image}" Grid.Row="0" HorizontalAlignment="Left"/>
 
                 <StackPanel Grid.Row="1" HorizontalAlignment="Left">
                     <TextBlock Foreground="{Binding Path=Rating, Converter={StaticResource rangeConv}}" Text="{Binding Path=MovieName}" FontSize="18" TextWrapping="Wrap"/>
-                    <TextBlock Text="{Binding Path=Year}" />
-                    <TextBlock Text="{Binding Path=Rating}"/>
-                    <TextBlock Text="{Binding Path=MovieId}" />
+                    <TextBlock Text="{Binding Path=Year}" Foreground="#ffffff"/>
+                    <TextBlock Text="{Binding Path=Rating}" Foreground="#baf5df"/>
                 </StackPanel>
                 <StackPanel x:Name="selectedMovieInfo" Margin="10, 10, 5, 5" Grid.Column="1">
                     <StackPanel.Style>
@@ -113,13 +103,12 @@
                             </Style.Triggers>
                         </Style>
                     </StackPanel.Style>
-            
-                    <TextBlock Text="Genre" FontWeight="Bold" FontSize="15"/>
-                    <TextBlock Text="{Binding Genre, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" FontSize="13"/>
-                    <TextBlock Text="Describe" FontWeight="Bold" FontSize="15"/>
-                    <TextBlock Text="{Binding Describe, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" FontSize="13"/>
-                    <TextBlock Text="Rating" FontWeight="Bold" FontSize="15"/>
-                    <TextBlock Text="{Binding Rating, UpdateSourceTrigger=PropertyChanged}" FontSize="12"/>
+
+                    <TextBlock Text="Genre" FontWeight="Bold" FontSize="15" Foreground="#53b562"/>
+                    <TextBlock Text="{Binding Genre, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" FontSize="13" Foreground="#d5d3de"/>
+                    <TextBlock Text="Describe" FontWeight="Bold" FontSize="15" Foreground="#53b562"/>
+                    <TextBlock Text="{Binding Describe, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" FontSize="13" Foreground="#d5d3de"/>
+                    <TextBlock Text="Rating" FontWeight="Bold" FontSize="15" Foreground="#53b562"/>
                     <syncfusion:SfRating ItemsCount="5" Value="{Binding Path=Rating, Converter={StaticResource amountConv}}" IsEnabled="False" HorizontalAlignment="Left">
                         <syncfusion:SfRating.ItemContainerStyle>
                             <Style TargetType="syncfusion:SfRatingItem">
@@ -129,10 +118,21 @@
                             </Style>
                         </syncfusion:SfRating.ItemContainerStyle>
                     </syncfusion:SfRating>
-                    <TextBlock Text="Time" FontWeight="Bold" FontSize="15"/>
-                    <TextBlock Text="{Binding Time, UpdateSourceTrigger=PropertyChanged}" FontSize="13"/>
-                    <TextBlock Text="Avarage Rating" FontWeight="Bold" FontSize="15"/>
-                    <TextBlock Text="{Binding AvgRatingByUsers, UpdateSourceTrigger=PropertyChanged}" FontSize="13"/>
+                    <TextBlock Text="Time" FontWeight="Bold" FontSize="15" Foreground="#53b562"/>
+                    <TextBlock Text="{Binding Time, UpdateSourceTrigger=PropertyChanged}" FontSize="13" Foreground="#d5d3de"/>
+                    <TextBlock Text="Avarage Rating" FontWeight="Bold" FontSize="15" Foreground="#53b562"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding AvgRatingByUsers, UpdateSourceTrigger=PropertyChanged}" FontSize="13" Foreground="#d5d3de"/>
+                        <Button Content="more">
+                            <Button.InputBindings>
+                                <MouseBinding MouseAction="LeftClick"
+                                  Command="{Binding DataContext.ShowRatingInfoCmd, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+                                  CommandParameter="{Binding SelectedMovie}" />
+                            </Button.InputBindings>
+                        </Button>
+                        
+                    </StackPanel>
+                    
                 </StackPanel>
             </Grid>
         </DataTemplate>
@@ -152,26 +152,6 @@
                                   Command="{Binding DataContext.EditMovieDialogCmd, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
                                   CommandParameter="{Binding SelectedMovie}" />
                 </Grid.InputBindings>
-                <Grid.ToolTip>
-                    <ToolTip>
-                        <StackPanel>
-                            <DataGrid ItemsSource="{Binding Ratings}"  Width="150" AutoGenerateColumns="False" HeadersVisibility="Column" ColumnWidth="*" CanUserAddRows="False" IsReadOnly="True" 
-                                      EnableColumnVirtualization="True" EnableRowVirtualization="True">
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn Header="User">
-                                        <DataGridTextColumn.Binding>
-                                            <MultiBinding Converter="{StaticResource UserIdConv}">
-                                                <Binding Path="UserId"/>
-                                                <Binding Path="PlacementTarget.Tag" RelativeSource="{RelativeSource FindAncestor, AncestorType=ToolTip}"/>
-                                            </MultiBinding>
-                                        </DataGridTextColumn.Binding>
-                                    </DataGridTextColumn>
-                                    <DataGridTextColumn Binding="{Binding UserRating}" Header="Rating"/>
-                                </DataGrid.Columns>
-                            </DataGrid>
-                        </StackPanel>
-                    </ToolTip>
-                </Grid.ToolTip>
                 <Image x:Name="images" Source="{Binding Path=Image}" Grid.Row="0"  VerticalAlignment="Top" HorizontalAlignment="Left"/>
                 <StackPanel Grid.Row="0" Grid.Column="1">
                     <TextBlock Foreground="{Binding Path=Rating, Converter={StaticResource rangeConv}}" Text="{Binding Path=MovieName}" FontSize="18" TextWrapping="Wrap"/>
@@ -196,17 +176,16 @@
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Top Movies" Grid.Row="0" Grid.ColumnSpan="3" TextAlignment="Center" FontSize="24"/>
+        <TextBlock Text="Movies" Grid.Row="0" Grid.ColumnSpan="3" TextAlignment="Center" FontSize="28" FontWeight="Bold" Foreground="#819bf0"/>
 
-        <ListBox x:Name="moviesList" Grid.ColumnSpan="3" Grid.Row="2" Grid.RowSpan="4" ItemsSource="{Binding View}"
-                 SelectedItem="{Binding SelectedMovie}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" IsSynchronizedWithCurrentItem="True">
+        <ListBox Background="#E7F2F8" BorderThickness="0" x:Name="moviesList" Grid.ColumnSpan="3" Grid.Row="2" Grid.RowSpan="4" ItemsSource="{Binding View}"
+                 SelectedItem="{Binding SelectedMovie}" ItemContainerStyle="{StaticResource ListBoxItemStyle}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" IsSynchronizedWithCurrentItem="True">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel IsItemsHost="True" />
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
             <ListBox.Style>
-
                 <Style TargetType="{x:Type ListBox}">
                     <Setter Property="ItemTemplate" Value="{StaticResource normal}" />
                     <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
@@ -214,88 +193,9 @@
             </ListBox.Style>
         </ListBox>
 
-        <!--<StackPanel x:Name="selectedMovieInfo" Grid.Column="2" Grid.Row="2" Grid.RowSpan="3" DataContext="{Binding SelectedMovie}" Margin="5">
-            --><!--<TextBlock x:Name="data" Text="{Binding Genre, UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold" />-->
-            <!--<DataGrid ItemsSource="{Binding Ratings}" VirtualizingPanel.IsVirtualizingWhenGrouping="True" AutoGenerateColumns="False" HeadersVisibility="Column" ColumnWidth="*" CanUserAddRows="False" IsReadOnly="True" >
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="User">
-                        <DataGridTextColumn.Binding>
-                            <MultiBinding Converter="{StaticResource UserIdConv}">
-                                <Binding Path="UserId"/>
-                                <Binding Path="DataContext.DataManager" ElementName="this_"/>
-                            </MultiBinding>
-                        </DataGridTextColumn.Binding>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding UserId}" Header="User"/>
-                    <DataGridTextColumn Binding="{Binding UserRating}" Header="Rating"/>
-                </DataGrid.Columns>
-            </DataGrid>-->
-            <!--<StackPanel.Style>
-                <Style TargetType="{x:Type StackPanel}">
-                    <Setter Property="Visibility" Value="Hidden"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}, Path=IsSelected}" Value="True">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </StackPanel.Style>
-            <TextBlock Text="Genre" FontWeight="Bold" />
-            <TextBlock Text="{Binding Genre, UpdateSourceTrigger=PropertyChanged}" />
-            <TextBlock Text="Describe" FontWeight="Bold" />
-            <TextBlock Text="{Binding Describe, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" />
-            <TextBlock Text="Rating" FontWeight="Bold" />
-            <TextBlock Text="{Binding Rating, UpdateSourceTrigger=PropertyChanged}" />
-            <syncfusion:SfRating ItemsCount="5" Width="150" Value="{Binding Path=Rating, Converter={StaticResource amountConv}}" IsEnabled="False" HorizontalAlignment="Left">
-                <syncfusion:SfRating.ItemContainerStyle>
-                    <Style TargetType="syncfusion:SfRatingItem">
-                        <Setter Property="RatedFill" Value="#FFD700"/>
-                        <Setter Property="UnratedFill" Value="#C0C0C0"/>
-                    </Style>
-                </syncfusion:SfRating.ItemContainerStyle>
-            </syncfusion:SfRating>
-            <TextBlock Text="Time" FontWeight="Bold" />
-            <TextBlock Text="{Binding Time, UpdateSourceTrigger=PropertyChanged}" />
-            <TextBlock Text="Avarage Rating" FontWeight="Bold" />
-            <TextBlock Text="{Binding AvgRatingByUsers, UpdateSourceTrigger=PropertyChanged}" />
-            <Polygon Points="144 48, 200 222, 53 114, 235 114, 88 222"
-                 Fill="Red" 
-                 Stroke="Blue"
-                 StrokeThickness="5"/>
-            <Canvas>
-                <Canvas Canvas.Left="5" Canvas.Top="20">
-                    <Path Stroke="#000000" Fill="#FFFF00" StrokeThickness="2" StrokeStartLineCap="Round"  StrokeEndLineCap="Round" StrokeLineJoin="Round"  Data="M 0,0 l 10,0 l 5,-10 l 5,10 l 10,0 l -7,10 l 2,10 l -10,-5 l -10,5 l 2,-10 Z" />
-                </Canvas>
-                <Canvas Canvas.Left="45" Canvas.Top="20">
-                    <Path Stroke="#000000" Fill="#FFFF00" StrokeThickness="3" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Data="M 0,0 l 10,0 l 5,-10 l 5,10 l 10,0 l -7,10 l 2,10 l -10,-5 l -10,5 l 2,-10 Z" />
-                </Canvas>
-                <Canvas Canvas.Left="85" Canvas.Top="20">
-                    <Path Stroke="#000000" Fill="#FFFF00" StrokeThickness="3" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Data="M 0,0 l 10,0 l 5,-10 l 5,10 l 10,0 l -7,10 l 2,10 l -10,-5 l -10,5 l 2,-10 Z" />
-                </Canvas>
-                <Canvas Canvas.Left="125" Canvas.Top="20">
-                    <Path Stroke="#808080" Fill="#C0C0C0" StrokeThickness="3" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Data="M 0,0 l 10,0 l 5,-10 l 5,10 l 10,0 l -7,10 l 2,10 l -10,-5 l -10,5 l 2,-10 Z" />
-                </Canvas>
-                <Canvas Canvas.Left="165" Canvas.Top="20">
-                    <Path Stroke="#808080" Fill="#C0C0C0" StrokeThickness="3" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Data="M 0,0 l 10,0 l 5,-10 l 5,10 l 10,0 l -7,10 l 2,10 l -10,-5 l -10,5 l 2,-10 Z" />
-                </Canvas>
-            </Canvas>
-
-            <syncfusion:SfRating ItemsCount="5" Width="150" Value="{Binding Path=Rating, Converter={StaticResource amountConv}}" IsEnabled="False" HorizontalAlignment="Left">
-                <syncfusion:SfRating.ItemContainerStyle>
-                    <Style TargetType="syncfusion:SfRatingItem">
-                        <Setter Property="RatedFill" Value="{Binding Path=Rating, Converter={StaticResource rangeConv}}"/>
-                        <Setter Property="UnratedFill" Value="#C0C0C0"/>
-                    </Style>
-                </syncfusion:SfRating.ItemContainerStyle>
-            </syncfusion:SfRating>--><!--
-
-        </StackPanel>-->
-
-        <StackPanel Grid.Column="0" Grid.Row="1"  Margin="5">
-            <TextBox x:Name="searchTextBox" Style="{StaticResource placeHolder}" Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Tag="movie search"
-                     FontSize="14" FontFamily="Montsserat"/>
+        <StackPanel Grid.Column="0" Grid.Row="1" Margin="5">
+            <TextBox Style="{StaticResource placeHolder}" x:Name="searchTextBox" Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Tag="movie search"
+                     FontSize="14" FontFamily="Montsserat" Background="#E7F2F8"/>
         </StackPanel>
-
-        <!--<Button Grid.Column="2" Grid.Row="4" Content="Save changes" Command="{Binding SaveAllChanges}" Width="100" Height="30" HorizontalAlignment="Right" Margin="5"/>-->
     </Grid>
 </UserControl>

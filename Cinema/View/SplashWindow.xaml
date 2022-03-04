@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Cinema.View"
         mc:Ignorable="d"
         Title="SplashScreen" Height="450" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" Topmost="True" AllowsTransparency="True" Background="#f5ece9">
     <Grid>
@@ -14,7 +13,7 @@
                         <Storyboard>
                             <DoubleAnimation 
                                 Storyboard.TargetProperty="Opacity"
-                                From="1" To="0.5" Duration="0:0:3.5"
+                                From="1" To="0.5" Duration="0:0:1"
                                 AutoReverse="True" RepeatBehavior="Forever"/>
                         </Storyboard>
                     </BeginStoryboard>

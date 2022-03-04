@@ -12,9 +12,6 @@ namespace Cinema.Service
 {
     public class DataManager : IDataManager
     {
-        //public const string moviesPath = @"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\moviesFileAttribute16f.xml";
-        //public const string userPath = @"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\usersFileAttribute31.xml";
-        //public const string ratingPath = @"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\rating5.xml";
         public IFileManager MoviesFileManager;
         public IFileManager UsersFileManager;
         public IFileManager RatingsFileManager;
@@ -58,20 +55,14 @@ namespace Cinema.Service
 
         public async Task Load()
         {
-            Stopwatch stopwatch = new Stopwatch();
             Stream movieStream = new MemoryStream();
             Stream usersStream = new MemoryStream();
             Stream ratingStream = new MemoryStream();
 
-            //stopwatch.Start();
             await RatingsFileManager.LoadData(ratingStream);
             await MoviesFileManager.LoadData(movieStream);
             await UsersFileManager.LoadData(usersStream);
-            //stopwatch.Stop();
-            //MessageBox.Show($"Time loading1111: {stopwatch.Elapsed}");
-
-            stopwatch.Start();
-            
+           
             ratings = Serialization.Deserialize<ObservableCollection<Rating>>(ratingStream);
             movies = Serialization.Deserialize<ObservableCollection<Movie>>(movieStream);
             users = Serialization.Deserialize<ObservableCollection<User>>(usersStream);
@@ -92,8 +83,6 @@ namespace Cinema.Service
                 }
             }
 
-            stopwatch.Stop();
-            MessageBox.Show($"Time: {stopwatch.Elapsed}");
         }
 
         public async void Save()
@@ -137,18 +126,13 @@ namespace Cinema.Service
             source.Image = target.Image;
         }
 
-        //public void UpdateUser(User target, User source)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
         public User GetUserById(Guid userId)
         {
             return users.Single(i => i.UserId == userId);
         }
 
         public Movie GetMovieById(Guid movieId)
-        {
+        {  
             return movies.Single(i => i.MovieId == movieId); 
         }
     }

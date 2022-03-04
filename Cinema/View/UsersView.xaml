@@ -5,24 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:cinema="clr-namespace:Cinema" 
         xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
         xmlns:cef1="clr-namespace:Cinema.Converters" 
-        xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         d:DataContext="{d:DesignInstance Type=cinema:UserVM}"
         mc:Ignorable="d" x:Name="this">
 
     <UserControl.Resources>
         <cef1:MovieIdToTitleConverter x:Key="idConv"></cef1:MovieIdToTitleConverter>
-
-        <xcdg:DataGridCollectionViewSource x:Key="users" Source="{Binding Path=Users}">
-            <xcdg:DataGridCollectionViewSource.SortDescriptions>
-                <scm:SortDescription PropertyName="UserName" Direction="Ascending"/>
-                <scm:SortDescription PropertyName="UserLastName" Direction="Ascending"/>
-                <scm:SortDescription PropertyName="BirthDate" Direction="Ascending"/>
-                <scm:SortDescription PropertyName="AmountOfRatedFilms" Direction="Ascending"/>
-            </xcdg:DataGridCollectionViewSource.SortDescriptions>
-        </xcdg:DataGridCollectionViewSource>
     </UserControl.Resources>
-    
-    <Grid>
+
+    <Grid Background="#ffff">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="546" />
             <ColumnDefinition Width="100"/>
@@ -36,7 +26,7 @@
 
         <TextBlock Text="Users" Grid.ColumnSpan="3" Grid.Row="0" TextAlignment="Center" FontSize="24"/>
 
-        <xcdg:DataGridControl x:Name="usersList" SelectedItem="{Binding SelectedUser}" ItemsSource="{Binding Source={StaticResource users}}" AutoCreateColumns="False" Grid.Column="0" Grid.Row="1">
+        <xcdg:DataGridControl x:Name="usersList" SelectedItem="{Binding SelectedUser}" ItemsSource="{Binding Users}" AutoCreateColumns="False" Grid.Column="0" Grid.Row="1">
             <xcdg:DataGridControl.View>
                 <xcdg:TableflowView UseDefaultHeadersFooters="False">
                     <xcdg:TableflowView.FixedHeaders>
@@ -68,12 +58,22 @@
                     </xcdg:Column.DisplayMemberBindingInfo>
                 </xcdg:Column>
             </xcdg:DataGridControl.Columns>
+            <xcdg:DataGridControl.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Rate film" Command="{Binding AddRatingCommand}" />
+                    <MenuItem Header="Delete rated film" Command="{Binding DeletePersonCommand}" />
+                </ContextMenu>
+            </xcdg:DataGridControl.ContextMenu>
         </xcdg:DataGridControl>
 
         <GridSplitter Grid.Column="0" Grid.Row="1" ShowsPreview="False" Width="3" VerticalAlignment="Stretch" Background="#e0e0e0"/>
 
         <StackPanel DataContext="{Binding SelectedUser}" Grid.Column="2" Grid.Row="1" >
-            <DataGrid ItemsSource="{Binding Ratings}" AutoGenerateColumns="False" HeadersVisibility="Column" ColumnWidth="*" CanUserAddRows="False" IsReadOnly="True" >
+            <DataGrid x:Name="grid" ItemsSource="{Binding Ratings, Mode=TwoWay}" AutoGenerateColumns="False" HeadersVisibility="Column" ColumnWidth="*" CanUserAddRows="False" CanUserDeleteRows="True"
+                      CommandManager.PreviewCanExecute="Grid_PreviewCanExecute">
+                <!--<DataGrid.InputBindings>
+                    <KeyBinding Key="Delete" Command="{Binding DeletePersonCommand}" />
+                </DataGrid.InputBindings>-->
                 <DataGrid.Columns>
                     <DataGridTextColumn  Header="Movie Title">
                         <DataGridTextColumn.Binding>
@@ -86,6 +86,36 @@
                     <DataGridTextColumn Binding="{Binding UserRating}" Header="Rating"/>
                 </DataGrid.Columns>
             </DataGrid>
+            
         </StackPanel>
+        <Button Content="Add item" Command="{Binding AddRatingCommand}"/>
+
+        <!--<StackPanel DataContext="{Binding SelectedRating}">
+            <Button Content="delete item" Command="{Binding DeletePersonCommand}"/>
+        </StackPanel>-->
+
+
+        <!--<ComboBox ItemsSource="{Binding Path=SelectedUser.Ratings}" DisplayMemberPath="MovieId" 
+                  Width="120"  
+                  HorizontalAlignment="Left"   
+                  Margin="183,39,0,0"   
+                  VerticalAlignment="Top" Grid.Column="2" Grid.Row="1" >
+        </ComboBox>-->
+
+        <!--<ComboBox ItemsSource="{Binding Path=SelectedUser.Ratings}" Grid.Column="2" Grid.Row="1" DisplayMemberPath="MovieId"
+                  Width="120"  
+                  HorizontalAlignment="Left"   
+                  Margin="183,39,0,0"   
+                  VerticalAlignment="Top"  >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{Binding Path=Image}" Width="40" Height="50"/>
+                        <TextBlock Text=" - "/>
+                        <TextBlock Text="{Binding Path=MovieName}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>-->
     </Grid>
 </UserControl>

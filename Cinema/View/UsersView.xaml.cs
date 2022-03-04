@@ -1,4 +1,5 @@
-﻿using Cinema.VM;
+﻿using Cinema.Model;
+using Cinema.VM;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -49,6 +50,17 @@ namespace Cinema.View
         private void UsersGeneratorCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = ((UserVM)DataContext).UserGenerator_CanExecute();
+        }
+
+        private void Grid_PreviewCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            if (e.Command == DataGrid.DeleteCommand)
+            {
+                if (MessageBox.Show(String.Format("Are you sure?"), "Confirm Delete", MessageBoxButton.OKCancel) != MessageBoxResult.OK)
+                { 
+                    e.Handled = true;
+                }
+            }
         }
     }
 }
