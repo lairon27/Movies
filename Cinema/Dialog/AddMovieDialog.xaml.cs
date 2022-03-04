@@ -1,7 +1,10 @@
-﻿using Microsoft.Win32;
+﻿using Cinema.Utils;
+using Microsoft.Win32;
 using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
+using Xceed.Wpf.Toolkit;
 
 namespace Cinema.View
 {
@@ -13,7 +16,10 @@ namespace Cinema.View
         public AddMovieDialog(Movie movie, bool editMode = false)
         {
             InitializeComponent();
+            genresComboBox.ItemsSource = Enum.GetValues(typeof(Genres));
+            genresComboBox.SelectedValue = movie.Genre.ToString().Replace(" ", "");
             DataContext = movie;
+           
             Closing += AddWindow_Closing;
 
             if (editMode)
@@ -27,17 +33,18 @@ namespace Cinema.View
         public void add_Button_Click(object sender, RoutedEventArgs e)
         {
             Closing -= AddWindow_Closing;
+            ((Movie)DataContext).Genre = (Genres)Enum.Parse(typeof(Genres),genresComboBox.SelectedValue);
             DialogResult = true;
         }
 
         private void DowloadImage(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog myDialog = new OpenFileDialog();
-            myDialog.Filter = "Images(*.JPG;*.PNG;*.JPEG)|*.JPG;*.PNG;*.JPEG" + "|All Files (*.*)|*.* ";
-            myDialog.CheckFileExists = true;
-            if (myDialog.ShowDialog() == true && DataContext is Movie)
+            OpenFileDialog chooseImageDialog = new OpenFileDialog();
+            chooseImageDialog.Filter = "Images(*.JPG;*.PNG;*.JPEG)|*.JPG;*.PNG;*.JPEG" + "|All Files (*.*)|*.* ";
+            chooseImageDialog.CheckFileExists = true;
+            if (chooseImageDialog.ShowDialog() == true && DataContext is Movie)
             {
-                ((Movie)DataContext).Image = myDialog.FileName;
+                ((Movie)DataContext).Image = chooseImageDialog.FileName;
             }
         }
 
@@ -49,7 +56,7 @@ namespace Cinema.View
 
         private void AddWindow_Closing(object sender, CancelEventArgs e)
         {
-            if (MessageBox.Show("Do you want to save all changes?", "Close app", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            if (System.Windows.MessageBox.Show(ConstClass.saveChanges, "Close app", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 DialogResult = true;
             }

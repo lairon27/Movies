@@ -3,9 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Cinema.View" xmlns:vm="clr-namespace:Cinema.VM" xmlns:cinema="clr-namespace:Cinema" d:DataContext="{d:DesignInstance Type=cinema:MovieLibraryVM}"
+        xmlns:local="clr-namespace:Cinema.View" 
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
+        xmlns:vm="clr-namespace:Cinema.VM" 
+        xmlns:cinema="clr-namespace:Cinema"
+        xmlns:model="clr-namespace:Cinema.Model"
+        xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+        d:DataContext="{d:DesignInstance Type=cinema:MovieLibraryVM}"
         mc:Ignorable="d"
         Title="Add Movie" Height="400" Width="300">
+   
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -33,8 +40,8 @@
             <TextBox Text="{Binding Year, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Text="Rating" FontWeight="Bold" />
             <TextBox Text="{Binding Rating, UpdateSourceTrigger=PropertyChanged}" />
-            <TextBlock Text="Genre" FontWeight="Bold" />
-            <TextBox Text="{Binding Genre, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="Genre" FontWeight="Bold"/>
+            <xctk:CheckComboBox x:Name="genresComboBox"/>
             <TextBlock Text="Description" FontWeight="Bold" />
             <TextBox Text="{Binding Describe, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap"/>
             <TextBlock Text="Time" FontWeight="Bold" />
