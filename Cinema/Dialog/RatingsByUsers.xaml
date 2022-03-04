@@ -1,0 +1,30 @@
+﻿<Window x:Class="Cinema.Dialog.RatingsByUsers"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:cinema="clr-namespace:Cinema"
+        xmlns:view="clr-namespace:Cinema.VM"
+        xmlns:cef1="clr-namespace:Cinema.Converters" 
+        d:DataContext="{d:DesignInstance Type=cinema:MovieLibraryVM}"
+        mc:Ignorable="d"
+        Title="RatingsByUsers" Height="450" Width="300" x:Name="this_" >
+    <Window.Resources>
+        <cef1:UseridToNameConverter x:Key="UserIdConv"></cef1:UseridToNameConverter>
+    </Window.Resources>
+    <Grid>
+        <DataGrid ItemsSource="{Binding Ratings}" VirtualizingPanel.IsVirtualizingWhenGrouping="True" AutoGenerateColumns="False" HeadersVisibility="Column" ColumnWidth="*" CanUserAddRows="False" IsReadOnly="True" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="User">
+                    <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource UserIdConv}">
+                            <Binding Path="UserId"/>
+                            <Binding Path="DataManager" ElementName="this_"/>
+                        </MultiBinding>
+                    </DataGridTextColumn.Binding>
+                </DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding UserRating}" Header="Rating"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

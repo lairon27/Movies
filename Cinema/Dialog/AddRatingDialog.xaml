@@ -1,0 +1,27 @@
+﻿<Window x:Class="Cinema.Dialog.AddRatingDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Cinema.Dialog" xmlns:cinema="clr-namespace:Cinema"
+        mc:Ignorable="d"
+        Title="AddRatingDialog" Height="200" Width="300" x:Name="this">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="Choose movie" Margin="0, 0, 0, 5"/>
+            <TextBox Width="150" Height="20" Text="{Binding MovieTitle, UpdateSourceTrigger=PropertyChanged}"/> <!--change to dropdown list-->
+            <TextBox Width="150" Height="20" Text="{Binding Rating, UpdateSourceTrigger=PropertyChanged}" Margin="0, 10, 0, 0"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Width="150" >
+            <Button Width="50" Height="20" Content="OK" Margin="5" Click="Generate_Click" IsDefault="True"/>
+            <Button Width="50" Height="20" Content="Cancel" IsCancel="True" Margin="35, 0, 0, 0"/>
+        </StackPanel>
+    </Grid>
+</Window>
