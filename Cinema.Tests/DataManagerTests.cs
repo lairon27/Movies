@@ -85,7 +85,7 @@ namespace Cinema.Tests
                 new Movie()
                 {
                     MovieId = new Guid(),
-                    MovieName="RWS FCK YOU",
+                    MovieName="No Time to Die",
                 }
             };
 
