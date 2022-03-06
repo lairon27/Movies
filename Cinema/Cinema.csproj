@@ -66,6 +66,7 @@
     </Compile>
     <Compile Include="Utils\ConstClass.cs" />
     <Compile Include="Utils\IFileManager.cs" />
+    <Compile Include="Utils\IXMLSerializator.cs" />
     <Compile Include="VM\Commands.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Converters\RatingToColorConverter.cs" />

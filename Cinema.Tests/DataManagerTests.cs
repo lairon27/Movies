@@ -8,6 +8,7 @@ using System.Collections;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Threading.Tasks;
 
 namespace Cinema.Tests
@@ -68,31 +69,75 @@ namespace Cinema.Tests
             //Arange
             var dataManager = new DataManager();
             var fileManagerMock = new Mock<IFileManager>();
-           
-            var user = new User
+            var serealizationMock = new Mock<IXMLSerializator>();
+
+            var users = new ObservableCollection<User>()
             {
-                UserId = Guid.NewGuid(),
-                UserName = "Gabriel"
+                new User()
+                {
+                    UserId = new Guid("5b89e195-0905-4b23-99cc-2ccc660b8454"),
+                    UserName="Mable",
+                }
             };
 
-            
+            var movies = new ObservableCollection<Movie>()
+            {
+                new Movie()
+                {
+                    MovieId = new Guid(),
+                    MovieName="RWS FCK YOU",
+                }
+            };
+
+            var ratings = new ObservableCollection<Rating>()
+            {
+                new Rating()
+                {
+                    UserId = new Guid("5b89e195-0905-4b23-99cc-2ccc660b8454"),
+                    MovieId = new Guid("81915939-af6b-4514-a247-f0bb109aeb05")
+                }
+            };
 
             fileManagerMock.Setup(x => x.LoadData(It.IsAny<Stream>())).Callback<Stream>((st) =>
             {
                 var writer = new StreamWriter(st);
-                writer.Write(user);
+                writer.Write(users);
                 writer.Flush();
                 st.Position = 0;
-
             });
 
+            fileManagerMock.Setup(x => x.LoadData(It.IsAny<Stream>())).Callback<Stream>((st) =>
+            {
+                var writer = new StreamWriter(st);
+                writer.Write(movies);
+                writer.Flush();
+                st.Position = 0;
+            });
+
+            fileManagerMock.Setup(x => x.LoadData(It.IsAny<Stream>())).Callback<Stream>((st) =>
+            {
+                var writer = new StreamWriter(st);
+                writer.Write(ratings);
+                writer.Flush();
+                st.Position = 0;
+            });
+
+            serealizationMock.Setup(x => x.Deserialize<ObservableCollection<User>>(It.IsAny<Stream>())).Returns(users);
+            serealizationMock.Setup(x => x.Deserialize<ObservableCollection<Movie>>(It.IsAny<Stream>())).Returns(movies);
+            serealizationMock.Setup(x => x.Deserialize<ObservableCollection<Rating>>(It.IsAny<Stream>())).Returns(ratings);
+
             dataManager.UsersFileManager = fileManagerMock.Object;
-            
+            dataManager.MoviesFileManager = fileManagerMock.Object;
+            dataManager.RatingsFileManager = fileManagerMock.Object;
+
+            dataManager.xMLSerializator = serealizationMock.Object;
 
             //Act
             await dataManager.Load();
 
             //Assert
+            fileManagerMock.Verify(x => x.LoadData(It.IsAny<Stream>()), Times.Exactly(3));
+            serealizationMock.Verify();
         }
 
         [TestMethod]
@@ -119,15 +164,16 @@ namespace Cinema.Tests
             //Arange
             var dataManager = new DataManager();
             var movie = new Movie();
-            var updatedMovie = new Movie();
             movie.Year = 2019;
-            updatedMovie.Year = 2022;
+            var updatedMovie = movie.Clone();
+            
+            ((Movie)updatedMovie).Year = 2022;
             
             //Act
-            dataManager.UpdateMovie(updatedMovie, movie);
+            dataManager.UpdateMovie((Movie)updatedMovie, movie);
 
             //Assert
-            Assert.AreNotEqual(updatedMovie, movie); //change
+            Assert.AreNotEqual(updatedMovie, movie);
         }
     }
 }

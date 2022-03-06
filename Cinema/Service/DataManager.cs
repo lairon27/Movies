@@ -15,6 +15,7 @@ namespace Cinema.Service
         public IFileManager MoviesFileManager;
         public IFileManager UsersFileManager;
         public IFileManager RatingsFileManager;
+        public IXMLSerializator xMLSerializator;
 
         public ObservableCollection<Movie> movies;
         public ObservableCollection<User> users;
@@ -25,6 +26,8 @@ namespace Cinema.Service
             MoviesFileManager = new FileManager(ConstClass.moviesPath);
             UsersFileManager = new FileManager(ConstClass.userPath);
             RatingsFileManager = new FileManager(ConstClass.ratingPath);
+
+            xMLSerializator = new Serialization();
 
             movies = new ObservableCollection<Movie>();
             users = new ObservableCollection<User>();
@@ -63,9 +66,9 @@ namespace Cinema.Service
             await MoviesFileManager.LoadData(movieStream);
             await UsersFileManager.LoadData(usersStream);
            
-            ratings = Serialization.Deserialize<ObservableCollection<Rating>>(ratingStream);
-            movies = Serialization.Deserialize<ObservableCollection<Movie>>(movieStream);
-            users = Serialization.Deserialize<ObservableCollection<User>>(usersStream);
+            ratings = xMLSerializator.Deserialize<ObservableCollection<Rating>>(ratingStream);
+            movies = xMLSerializator.Deserialize<ObservableCollection<Movie>>(movieStream);
+            users = xMLSerializator.Deserialize<ObservableCollection<User>>(usersStream);
 
             var usersDictionary = users.GroupBy(i => i.UserId).ToDictionary(g => g.Key, g => g.First());
             var moviesDictionary = movies.GroupBy(i => i.MovieId).ToDictionary(g => g.Key, g => g.First());
@@ -90,17 +93,17 @@ namespace Cinema.Service
             var moviesCopy = movies.Select(i => (Movie)i.Clone()).ToList();
             var usersCopy = users.Select(i => (User)i.Clone()).ToList();
 
-            using (var stream = Serialization.SerializeToXML(moviesCopy))
+            using (var stream = xMLSerializator.SerializeToXML(moviesCopy))
             {
                 await MoviesFileManager.SaveData(stream);
             }
 
-            using (var stream = Serialization.SerializeToXML(usersCopy))
+            using (var stream = xMLSerializator.SerializeToXML(usersCopy))
             {
                 await UsersFileManager.SaveData(stream);
             }
 
-            using (var stream = Serialization.SerializeToXML(ratings))
+            using (var stream = xMLSerializator.SerializeToXML(ratings))
             {
                 await RatingsFileManager.SaveData(stream);
             }

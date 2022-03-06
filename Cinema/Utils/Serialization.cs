@@ -5,9 +5,9 @@ using System.Xml.Serialization;
 
 namespace Cinema.Utils
 {
-   class Serialization
+   public class Serialization : IXMLSerializator
     {
-        public static Stream SerializeToXML<T>(T obj)
+        public Stream SerializeToXML<T>(T obj)
         {
             MemoryStream stream = new MemoryStream();
             XmlSerializer xs = new XmlSerializer(typeof(T));
@@ -16,7 +16,7 @@ namespace Cinema.Utils
             return stream;
         }
 
-        public static T Deserialize<T>(Stream stream) where T : class
+        public T Deserialize<T>(Stream stream) where T : class
         {
             XmlSerializer xs = new XmlSerializer(typeof(T));
 
