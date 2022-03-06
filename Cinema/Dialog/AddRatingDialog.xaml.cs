@@ -24,13 +24,15 @@ namespace Cinema.Dialog
         private string title;
         private int rating;
 
-        public AddRatingDialog()
+        public AddRatingDialog(IDataManager dataManager)
         {
             InitializeComponent();
             DataContext = this;
+
+            combo.ItemsSource = dataManager.GetMovies.Select(i => i.MovieName).ToList();
         }
 
-        private void Generate_Click(object sender, RoutedEventArgs e)
+        private void Add_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = true;
         }
