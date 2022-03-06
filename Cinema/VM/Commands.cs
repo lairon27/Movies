@@ -12,6 +12,7 @@ namespace Cinema.VM
             SortByAscCommand = new RoutedUICommand("SortByAscCommand", "SortByAscCommand", typeof(Commands));
             Appearance = new RoutedUICommand("Appearance", "Appearance", typeof(Commands));
             UsersGeneratorCommand = new RoutedUICommand("UsersGeneratorCommand", "UsersGeneratorCommand", typeof(Commands));
+            AddRatingCommand = new RoutedUICommand("AddRatingCommand", "AddRatingCommand", typeof (Commands));
         }
 
         public static RoutedUICommand AddMovieDialog { get; set; }
@@ -20,5 +21,6 @@ namespace Cinema.VM
         public static RoutedUICommand SortByAscCommand { get; set; }
         public static RoutedUICommand Appearance { get; set; }
         public static RoutedUICommand UsersGeneratorCommand { get; set; }
+        public static RoutedCommand AddRatingCommand { get; set; }
     }
 }

@@ -15,7 +15,7 @@ namespace Cinema
     public class UserVM : VMBaseNotify
     {
         private User selectedUser;
-
+        
         public ObservableCollection<User> Users { get; set; }
 
         private IDataManager dataManager;
@@ -29,8 +29,7 @@ namespace Cinema
             }
         }
 
-        public static ICommand AddRatingCommand { get; set; }
-        public static ICommand DeletePersonCommand { get; set; }
+        public static ICommand DeleteRatingCommand { get; set; }
 
         public User SelectedUser
         {
@@ -48,10 +47,16 @@ namespace Cinema
 
             Users = new ObservableCollection<User>();
 
-            AddRatingCommand = new RelayCommand(parameter =>
-              AddRating_CommandExecute());
+            DeleteRatingCommand = new RelayCommand(parameter =>
+             DeleteRating_CommandExecute());
 
             Users = dataManager.GetUsers;
+        }
+
+        private void DeleteRating_CommandExecute()
+        {
+            selectedUser.Ratings.Remove(selectedUser.SelectedRating);
+            selectedUser.AmountOfRatedFilms -= 1;
         }
 
         internal bool UserGenerator_CanExecute()
@@ -87,7 +92,7 @@ namespace Cinema
 
         public void AddRating_CommandExecute()
         {
-            var addRating = new AddRatingDialog();
+            var addRating = new AddRatingDialog(dataManager);
             if(addRating.ShowDialog() == true)
             {
                 var movie = dataManager.GetMovies.Single(i => i.MovieName == addRating.MovieTitle);

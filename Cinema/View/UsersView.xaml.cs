@@ -22,9 +22,22 @@ namespace Cinema.View
             var saveBinding = new CommandBinding(Commands.SaveAllChanges, SaveAllChanges_Executed, SaveAllChanges_CanExecute);
             CommandBindings.Add(saveBinding);
 
+            var addRating = new CommandBinding(Commands.AddRatingCommand, AddRatingCommand_Executed, AddRatingCommand_CanExecute);
+            CommandBindings.Add(addRating);
+
             CommandManager.InvalidateRequerySuggested();
 
             Loaded += Users_Loaded;
+        }
+
+        private void AddRatingCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            ((UserVM)DataContext).AddRating_CommandExecute();
+        }
+
+        private void AddRatingCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = ((UserVM)DataContext).UserGenerator_CanExecute();
         }
 
         private void SaveAllChanges_Executed(object sender, ExecutedRoutedEventArgs e)

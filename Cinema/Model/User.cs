@@ -14,7 +14,18 @@ namespace Cinema.Model
         private string userLastName;
         private string birthDate;
         private int amountOfRatedFilms;
+        private Rating selectedRating;
         public ObservableCollection<Rating> Ratings { get; set; }
+
+        public Rating SelectedRating
+        {
+            get { return selectedRating; }
+            set
+            {
+                selectedRating = value;
+                OnPropertyChanged("SelectedRating");
+            }
+        }
 
         [XmlAttribute("UserId")]
         public Guid UserId
