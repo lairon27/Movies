@@ -1,4 +1,4 @@
-﻿<UserControl  
+﻿<view:BaseView  xmlns:view="clr-namespace:Cinema.View" 
         x:Class="Cinema.View.MovieLibrary"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -9,7 +9,7 @@
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
         d:DataContext="{d:DesignInstance Type=cinema:MovieLibraryVM}"
         mc:Ignorable="d" x:Name="this_">
-    <UserControl.Resources>
+    <view:BaseView.Resources>
         <cef1:RatingToColorConverter x:Key="rangeConv"></cef1:RatingToColorConverter>
         <cef1:RatingToStarsConverter x:Key="amountConv"></cef1:RatingToStarsConverter>
         <cef1:UseridToNameConverter x:Key="UserIdConv"></cef1:UseridToNameConverter>
@@ -89,8 +89,8 @@
 
                 <StackPanel Grid.Row="1" HorizontalAlignment="Left">
                     <TextBlock Foreground="{Binding Path=Rating, Converter={StaticResource rangeConv}}" Text="{Binding Path=MovieName}" FontSize="18" TextWrapping="Wrap"/>
-                    <TextBlock Text="{Binding Path=Year}" Foreground="#ffffff"/>
-                    <TextBlock Text="{Binding Path=Rating}" Foreground="#baf5df"/>
+                    <TextBlock Text="{Binding Path=Year}" Foreground="Black"/>
+                    <TextBlock Text="{Binding Path=Rating}" Foreground="Black"/>
                 </StackPanel>
                 <StackPanel x:Name="selectedMovieInfo" Margin="10, 10, 5, 5" Grid.Column="1">
                     <StackPanel.Style>
@@ -104,11 +104,11 @@
                         </Style>
                     </StackPanel.Style>
 
-                    <TextBlock Text="Genre" FontWeight="Bold" FontSize="15" Foreground="#53b562"/>
-                    <TextBlock Text="{Binding Genre, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" FontSize="13" Foreground="#d5d3de"/>
-                    <TextBlock Text="Describe" FontWeight="Bold" FontSize="15" Foreground="#53b562"/>
-                    <TextBlock Text="{Binding Describe, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" FontSize="13" Foreground="#d5d3de"/>
-                    <TextBlock Text="Rating" FontWeight="Bold" FontSize="15" Foreground="#53b562"/>
+                    <TextBlock Text="Genre" FontWeight="Bold" FontSize="15" Foreground="Black"/>
+                    <TextBlock Text="{Binding Genre, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" FontSize="13" Foreground="Black"/>
+                    <TextBlock Text="Describe" FontWeight="Bold" FontSize="15" Foreground="Black"/>
+                    <TextBlock Text="{Binding Describe, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" FontSize="13" Foreground="Black"/>
+                    <TextBlock Text="Rating" FontWeight="Bold" FontSize="15" Foreground="Black"/>
                     <syncfusion:SfRating ItemsCount="5" Value="{Binding Path=Rating, Converter={StaticResource amountConv}}" IsEnabled="False" HorizontalAlignment="Left">
                         <syncfusion:SfRating.ItemContainerStyle>
                             <Style TargetType="syncfusion:SfRatingItem">
@@ -118,11 +118,11 @@
                             </Style>
                         </syncfusion:SfRating.ItemContainerStyle>
                     </syncfusion:SfRating>
-                    <TextBlock Text="Time" FontWeight="Bold" FontSize="15" Foreground="#53b562"/>
-                    <TextBlock Text="{Binding Time, UpdateSourceTrigger=PropertyChanged}" FontSize="13" Foreground="#d5d3de"/>
-                    <TextBlock Text="Avarage Rating" FontWeight="Bold" FontSize="15" Foreground="#53b562"/>
+                    <TextBlock Text="Time" FontWeight="Bold" FontSize="15" Foreground="Black"/>
+                    <TextBlock Text="{Binding Time, UpdateSourceTrigger=PropertyChanged}" FontSize="13" Foreground="Black"/>
+                    <TextBlock Text="Avarage Rating" FontWeight="Bold" FontSize="15" Foreground="Black"/>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding AvgRatingByUsers, UpdateSourceTrigger=PropertyChanged}" FontSize="13" Foreground="#d5d3de"/>
+                        <TextBlock Text="{Binding AvgRatingByUsers, UpdateSourceTrigger=PropertyChanged}" FontSize="13" Foreground="Black"/>
                         <Button Content="more">
                             <Button.InputBindings>
                                 <MouseBinding MouseAction="LeftClick"
@@ -160,7 +160,7 @@
                 </StackPanel>
             </Grid>
         </DataTemplate>
-    </UserControl.Resources>
+    </view:BaseView.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -198,4 +198,4 @@
                      FontSize="14" FontFamily="Montsserat" Background="#E7F2F8"/>
         </StackPanel>
     </Grid>
-</UserControl>
+</view:BaseView>

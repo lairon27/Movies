@@ -67,6 +67,8 @@
     <Compile Include="Utils\ConstClass.cs" />
     <Compile Include="Utils\IFileManager.cs" />
     <Compile Include="Utils\IXMLSerializator.cs" />
+    <Compile Include="View\BaseView.cs" />
+    <Compile Include="View\ScreenFactory.cs" />
     <Compile Include="VM\Commands.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Converters\RatingToColorConverter.cs" />
@@ -200,7 +202,16 @@
     <Resource Include="Resources\splash.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\recycle-bin.png" />
+    <Resource Include="Resources\icons\add-friend.png" />
+    <Resource Include="Resources\icons\recycle-bin.png" />
+    <Resource Include="Resources\icons\save.png" />
+    <Resource Include="Resources\icons\star.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icons\save-file-option_icon-icons.com_73423.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icons\theater_cinema_film_movie_clapper_icon_209580.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -5,11 +5,13 @@ using System.Windows.Input;
 
 namespace Cinema.View
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MovieLibrary : UserControl
+    public partial class MovieLibrary : BaseView
     {
+        public MovieLibraryVM movieVM
+        {
+            get { return (MovieLibraryVM)DataContext; }
+        }
+
         public MovieLibrary()
         {
             InitializeComponent();
@@ -46,9 +48,10 @@ namespace Cinema.View
             }
         }
 
+
         private void Appearance_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = ((MovieLibraryVM)DataContext).AddMovie_CanExecute();
+            e.CanExecute = movieVM.AddMovie_CanExecute();
         }
 
         private void MovieLibrary_Loaded(object sender, RoutedEventArgs e)
@@ -58,42 +61,42 @@ namespace Cinema.View
 
         private void SortByAscCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = ((MovieLibraryVM)DataContext).AddMovie_CanExecute();
+            e.CanExecute = movieVM.AddMovie_CanExecute();
         }
 
         private void SortByAscCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            ((MovieLibraryVM)DataContext).SortByAsc_CommandExecute(e.Parameter.ToString());
+            movieVM.SortByAsc_CommandExecute(e.Parameter.ToString());
         }
 
         private void SortByCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = ((MovieLibraryVM)DataContext).AddMovie_CanExecute();
+            e.CanExecute = movieVM.AddMovie_CanExecute();
         }
 
         private void SortByCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            ((MovieLibraryVM)DataContext).SortBy_CommandExecute(e.Parameter.ToString());
+            movieVM.SortBy_CommandExecute(e.Parameter.ToString());
         }
 
         private void SaveAllChanges_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = ((MovieLibraryVM)DataContext).AddMovie_CanExecute();
+            e.CanExecute = movieVM.AddMovie_CanExecute();
         }
 
         private void SaveAllChanges_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            ((MovieLibraryVM)DataContext).SaveAllChanges_Command();
+            movieVM.SaveAllChanges_Command();
         }
 
         private void AddMovie_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-           e.CanExecute = ((MovieLibraryVM)DataContext).AddMovie_CanExecute();     
+           e.CanExecute = movieVM.AddMovie_CanExecute();     
         }
 
         private void AddMovie_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            ((MovieLibraryVM)DataContext).AddMovieDialog_Command();
+            movieVM.AddMovieDialog_Command();
         }
     }
 }

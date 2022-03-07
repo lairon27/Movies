@@ -8,7 +8,6 @@ using System.Windows;
 using Cinema.Utils;
 using System.Linq;
 using Cinema.Service;
-using System;
 
 namespace Cinema
 {
@@ -23,13 +22,12 @@ namespace Cinema
         public IDataManager DataManager
         {
             get { return dataManager; }
-            set { 
+            set
+            {
                 dataManager = value;
-                OnPropertyChanged("DataManager");           
+                OnPropertyChanged("DataManager");
             }
         }
-
-        public static ICommand DeleteRatingCommand { get; set; }
 
         public User SelectedUser
         {
@@ -47,13 +45,10 @@ namespace Cinema
 
             Users = new ObservableCollection<User>();
 
-            DeleteRatingCommand = new RelayCommand(parameter =>
-             DeleteRating_CommandExecute());
-
             Users = dataManager.GetUsers;
         }
 
-        private void DeleteRating_CommandExecute()
+        public void DeleteRating_CommandExecute()
         {
             selectedUser.Ratings.Remove(selectedUser.SelectedRating);
             selectedUser.AmountOfRatedFilms -= 1;
@@ -64,28 +59,23 @@ namespace Cinema
             return true;
         }
 
-        public void UsersGenerator_CommandExecute()
+        public void UsersGenerator_CommandExecute(int number)
         {
-            InputIntDialog dialog = new InputIntDialog("Amount of users", "Input number of users:");
+            var generator = new Generator();
 
-            if (dialog.ShowDialog() == true)
+            for (var i = 0; i < number; i++)
             {
-                var generator = new Generator();
+                var user = generator.GenerateUser();
+                dataManager.AddUser(user);
 
-                for (var i = 0; i < dialog.Number; i++)
+                var amount = user.AmountOfRatedFilms;
+                var selectedId = dataManager.GetMovies.Select(j => j.MovieId).ToList();
+                var listOfRatings = generator.GenerateRating(amount, selectedId);
+
+                foreach (var element in listOfRatings)
                 {
-                    var user = generator.GenerateUser();
-                    dataManager.AddUser(user);
-
-                    var amount = user.AmountOfRatedFilms;
-                    var selectedId = dataManager.GetMovies.Select(j => j.MovieId).ToList();
-                    var listOfRatings = generator.GenerateRating(amount, selectedId);
-
-                    foreach (var element in listOfRatings)
-                    {
-                        var movieById = dataManager.GetMovieById(element.MovieId);
-                        dataManager.SetRating(movieById, user, element.UserRating);
-                    }
+                    var movieById = dataManager.GetMovieById(element.MovieId);
+                    dataManager.SetRating(movieById, user, element.UserRating);
                 }
             }
         }

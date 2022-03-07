@@ -15,6 +15,7 @@ namespace Cinema.View
     public partial class MainWindow : RibbonWindow
     {
         IDataManager dataManager = new DataManager();
+        ScreenFactory screenFactory = new ScreenFactory();
 
         public async Task LoadData()
         {
@@ -28,23 +29,26 @@ namespace Cinema.View
 
         public void Initialize()
         {
-           
             tabController.Items.Add(new TabItem
             {
                 Header = "Users",
-                Content = new UsersView()
-                {
-                    DataContext = new UserVM(dataManager)
-                }
+                Content = screenFactory.UserScreen(),
+                DataContext = new UserVM(dataManager)
+                //Content = new UsersView()
+                //{
+                //    DataContext = new UserVM(dataManager)
+                //}
             });
 
             tabController.Items.Add(new TabItem
             {
                 Header = "Movie Library",
-                Content = new MovieLibrary()
-                {
-                    DataContext = new MovieLibraryVM(dataManager)
-                },
+                Content = screenFactory.MovieScreen(),
+                DataContext = new MovieLibraryVM(dataManager)
+                //Content = new MovieLibrary()
+                //{
+                //    DataContext = new MovieLibraryVM(dataManager)
+                //}
             });
         }
     }

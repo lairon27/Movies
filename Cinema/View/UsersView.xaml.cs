@@ -1,4 +1,6 @@
-﻿using Cinema.Model;
+﻿using Cinema.Dialog;
+using Cinema.Model;
+using Cinema.Utils;
 using Cinema.VM;
 using System;
 using System.Windows;
@@ -7,11 +9,13 @@ using System.Windows.Input;
 
 namespace Cinema.View
 {
-    /// <summary>
-    /// Interaction logic for Users.xaml
-    /// </summary>
-    public partial class UsersView : UserControl
+    public partial class UsersView : BaseView
     {
+        public UserVM userVM
+        {
+            get { return (UserVM)DataContext; }
+        }
+
         public UsersView()
         {
             InitializeComponent();
@@ -25,29 +29,42 @@ namespace Cinema.View
             var addRating = new CommandBinding(Commands.AddRatingCommand, AddRatingCommand_Executed, AddRatingCommand_CanExecute);
             CommandBindings.Add(addRating);
 
+            var deleteRating = new CommandBinding(Commands.DeleteRatingCommand, DeleteRatingCommand_Executed, DeleteRatingCommand_CanExecute);
+            CommandBindings.Add(deleteRating);
+
             CommandManager.InvalidateRequerySuggested();
 
             Loaded += Users_Loaded;
         }
 
+        private void DeleteRatingCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = userVM.UserGenerator_CanExecute();
+        }
+
+        private void DeleteRatingCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            userVM.DeleteRating_CommandExecute();
+        }
+
         private void AddRatingCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            ((UserVM)DataContext).AddRating_CommandExecute();
+            userVM.AddRating_CommandExecute();
         }
 
         private void AddRatingCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = ((UserVM)DataContext).UserGenerator_CanExecute();
+            e.CanExecute = userVM.UserGenerator_CanExecute();
         }
 
         private void SaveAllChanges_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            ((UserVM)DataContext).SaveUsers_CommandExecute();
+            userVM.SaveUsers_CommandExecute();
         }
 
         private void SaveAllChanges_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = ((UserVM)DataContext).UserGenerator_CanExecute();
+            e.CanExecute = userVM.UserGenerator_CanExecute();
         }
 
         private void Users_Loaded(object sender, RoutedEventArgs e)
@@ -57,12 +74,15 @@ namespace Cinema.View
 
         private void UsersGeneratorCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            ((UserVM)DataContext).UsersGenerator_CommandExecute();
+            InputIntDialog dialog = new InputIntDialog(ConstClass.amountOf, ConstClass.inputNumber);
+            dialog.ShowDialog();
+
+            userVM.UsersGenerator_CommandExecute(dialog.Number);
         }
 
         private void UsersGeneratorCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = ((UserVM)DataContext).UserGenerator_CanExecute();
+            e.CanExecute = userVM.UserGenerator_CanExecute();
         }
 
         private void Grid_PreviewCanExecute(object sender, CanExecuteRoutedEventArgs e)

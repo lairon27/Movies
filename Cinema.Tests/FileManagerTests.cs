@@ -10,12 +10,11 @@ namespace Cinema.Tests
     [TestClass]
     public class FileManagerTests
     {
-        [TestMethod]
-        [DeploymentItem(@"C:\Users\anna.moskalenko\source\repos\NewRepo\Cinema\bin\Debug\moviesFileAttribute17w.xml")]
+        [TestMethod]       
         public async Task Save_SaveData_SavedData()
         {
             //Arrange
-            var path = "moviesFileAttribute17w.xml";
+            var path = "..\\Files\\testFile1.xml";
             if (File.Exists(path))
             {
                 File.Delete(path);

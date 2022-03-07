@@ -2,11 +2,9 @@
 using Cinema.Utils;
 using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace Cinema.Service
 {
@@ -47,13 +45,11 @@ namespace Cinema.Service
         public ObservableCollection<Movie> GetMovies
         {
             get{ return movies; }
-            set{ movies = value; }
         }
 
         public ObservableCollection<User> GetUsers
         {
             get { return users; }
-            set { users = value; }
         }
 
         public async Task Load()
@@ -88,7 +84,7 @@ namespace Cinema.Service
 
         }
 
-        public async void Save()
+        public async Task Save()
         {
             var moviesCopy = movies.Select(i => (Movie)i.Clone()).ToList();
             var usersCopy = users.Select(i => (User)i.Clone()).ToList();
@@ -131,12 +127,26 @@ namespace Cinema.Service
 
         public User GetUserById(Guid userId)
         {
-            return users.Single(i => i.UserId == userId);
+            try
+            {
+                return users.Single(i => i.UserId == userId);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public Movie GetMovieById(Guid movieId)
-        {  
-            return movies.Single(i => i.MovieId == movieId); 
+        {
+            try
+            {
+                return movies.Single(i => i.MovieId == movieId);
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }

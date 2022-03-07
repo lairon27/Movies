@@ -24,10 +24,9 @@ namespace Cinema.Utils
             {
                 return xs.Deserialize(stream) as T;
             }
-            catch(Exception e)
+            catch
             {
-                //return null;
-                return MessageBox.Show(e.Message) as T;
+                return null;
             }
         }
     }

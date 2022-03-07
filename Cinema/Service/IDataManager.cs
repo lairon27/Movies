@@ -10,9 +10,9 @@ namespace Cinema.Service
     public interface IDataManager
     {
          Task Load();
-         void Save();
-         ObservableCollection<User> GetUsers { get; set; }
-         ObservableCollection<Movie> GetMovies { get; set; }
+         Task Save();
+         ObservableCollection<User> GetUsers { get; }
+         ObservableCollection<Movie> GetMovies { get; }
          void SetRating(Movie movie, User user, int rate);
          void AddMovie(Movie movie);
          void UpdateMovie(Movie target, Movie source);

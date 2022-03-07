@@ -1,6 +1,7 @@
 ﻿using Cinema.Service;
 using System;
 using System.Globalization;
+using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 
@@ -14,12 +15,12 @@ namespace Cinema.Converters
 
             string name = id.ToString();
 
-            if(values[1] != DependencyProperty.UnsetValue)
+            if (values[1] != DependencyProperty.UnsetValue)
             {
                 DataManager manager = (DataManager)values[1];
+
                 name = manager.GetMovieById(id).MovieName;
             }
- 
             return name;
         }
 

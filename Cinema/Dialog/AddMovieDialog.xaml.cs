@@ -24,8 +24,8 @@ namespace Cinema.View
 
             if (editMode)
             {
-                addBtn.Content = "Save";
-                Title = "Movie Editor";
+                addBtn.Content = ConstClass.saveBtn;
+                Title = ConstClass.editTitile;
             }
 
         }
@@ -40,7 +40,7 @@ namespace Cinema.View
         private void DowloadImage(object sender, RoutedEventArgs e)
         {
             OpenFileDialog chooseImageDialog = new OpenFileDialog();
-            chooseImageDialog.Filter = "Images(*.JPG;*.PNG;*.JPEG)|*.JPG;*.PNG;*.JPEG" + "|All Files (*.*)|*.* ";
+            chooseImageDialog.Filter = ConstClass.imageFilter;
             chooseImageDialog.CheckFileExists = true;
             if (chooseImageDialog.ShowDialog() == true && DataContext is Movie)
             {
@@ -56,7 +56,7 @@ namespace Cinema.View
 
         private void AddWindow_Closing(object sender, CancelEventArgs e)
         {
-            if (System.Windows.MessageBox.Show(ConstClass.saveChanges, "Close app", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            if (System.Windows.MessageBox.Show(ConstClass.saveChanges, ConstClass.close, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 DialogResult = true;
             }

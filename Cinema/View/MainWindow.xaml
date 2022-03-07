@@ -19,7 +19,7 @@
                             <Border 
                                 Name="Border"
                                 Margin="5,0,-2,0" 
-                                Background="#969696"
+                                Background="#EBEBEC"
                                 BorderBrush="#888" 
                                 BorderThickness="1" 
                                 CornerRadius="2" >
@@ -34,15 +34,9 @@
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsSelected" Value="True">
                                 <Setter Property="Panel.ZIndex" Value="100" />
-                                <Setter TargetName="Border" Property="Background" Value="#6f6aa3" />
+                                <Setter TargetName="Border" Property="Background" Value="#F2F2F2" />
                                 <Setter TargetName="Border" Property="BorderThickness" Value="1,1,1,0" />
-                                <Setter Property="Foreground" Value="#ffff"/>
-                            </Trigger>
-                            <Trigger Property="IsEnabled" Value="False">
-                                <Setter TargetName="Border" Property="Background" Value="#EEE" />
-                                <Setter TargetName="Border" Property="BorderBrush" Value="#AAA" />
-                                <Setter Property="Foreground" Value="#888" />
-                                <Setter Property="Foreground" Value="#ffff"/>
+                                <Setter Property="Foreground" Value="Black"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -58,36 +52,48 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Ribbon x:Name="_ribbon" SelectedIndex="{Binding ElementName=tabController, Path=SelectedIndex}" Background="White"
-                  BorderBrush="#FFA384"
-                  MouseOverBackground="LightCoral"
-                  MouseOverBorderBrush="Coral"
-                  PressedBackground="LightGreen"
-                  PressedBorderBrush="Green"
-                  CheckedBackground="LightBlue"
-                  CheckedBorderBrush="Blue"
-                  FocusedBackground="LightSlateGray"
-                  FocusedBorderBrush="SlateBlue">
-
+        <Ribbon x:Name="_ribbon" SelectedIndex="{Binding ElementName=tabController, Path=SelectedIndex}" Background="#F2F2F2"
+                  BorderBrush="#83c7b5"
+                  MouseOverBackground="#f0fffb"
+                  MouseOverBorderBrush="#bdffee">
             <RibbonTab x:Name="usersControl" Header="Users">
+                <RibbonTab.Style>
+                    <Style TargetType="{x:Type RibbonTab}">
+                        <Setter Property="Visibility" Value="Visible"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding  ElementName=tabController, Path=SelectedIndex}" Value="1">
+                                <Setter Property="Visibility" Value="Hidden" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </RibbonTab.Style>
                 <RibbonGroup Header="Generation" Height="70">
-                    <RibbonButton LargeImageSource="C:\Users\anna.moskalenko\Downloads\adduser_añadir_13238.png" Command="{x:Static vm:Commands.UsersGeneratorCommand}" Height="50" Margin="12, 0, 0, 0"/>
+                    <RibbonButton LargeImageSource="../Resources/icons/add-friend.png" Command="{x:Static vm:Commands.UsersGeneratorCommand}" Height="40" Margin="10, 5, 0, 0"/>
                 </RibbonGroup>
                 <RibbonGroup Header="Save changes" Height="70">
-                    <RibbonButton LargeImageSource="C:\Users\anna.moskalenko\Downloads\save-file-option_icon-icons.com_73423.png" Command="{x:Static vm:Commands.SaveAllChanges}" Height="50" Margin="12, 0, 0, 0"/>
+                    <RibbonButton LargeImageSource="../Resources/icons/save.png" Command="{x:Static vm:Commands.SaveAllChanges}" Height="40" Margin="12, 5, 0, 0"/>
                 </RibbonGroup>
-                <RibbonGroup Header="Edit" Height="70">
-                    <RibbonButton LargeImageSource="C:\Users\anna.moskalenko\Downloads\save-file-option_icon-icons.com_73423.png" Command="{x:Static vm:Commands.AddRatingCommand}" Height="50" Margin="12, 0, 0, 0"/>
-                    <!--<RibbonButton Content="Delete movie" LargeImageSource="C:\Users\anna.moskalenko\Downloads\save-file-option_icon-icons.com_73423.png" Command="{x:Static vm:Commands.SaveAllChanges}" Height="50" Margin="12, 0, 0, 0"/>-->
+                <RibbonGroup Header="Rate" Height="70">
+                    <RibbonButton LargeImageSource="../Resources/icons/star.png" Command="{x:Static vm:Commands.AddRatingCommand}" Height="40" Margin="0, 5, 0, 0"/>
                 </RibbonGroup>
             </RibbonTab>
             <RibbonTab x:Name="moviesControl" Header="Movie Library">
+                <RibbonTab.Style>
+                    <Style TargetType="{x:Type RibbonTab}">
+                        <Setter Property="Visibility" Value="Hidden"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding  ElementName=tabController, Path=SelectedIndex}" Value="1">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </RibbonTab.Style>
                 <RibbonGroup Header="Add movie" Height="70">
-                    <RibbonButton LargeImageSource="C:\Users\anna.moskalenko\Downloads\theater_cinema_film_movie_clapper_icon_209580.ico"
+                    <RibbonButton LargeImageSource="../Resources/icons/theater_cinema_film_movie_clapper_icon_209580.png"
                                   Width="70" Height="50" Command="{x:Static vm:Commands.AddMovieDialog}"></RibbonButton>
                 </RibbonGroup>
                 <RibbonGroup Header="View">
-                    <RibbonSplitButton x:Name="listAppearance" Label="Appearance" LargeImageSource="C:\Users\anna.moskalenko\Downloads\theater_cinema_film_movie_clapper_icon_209580.ico">
+                    <RibbonSplitButton x:Name="listAppearance" Label="Appearance" LargeImageSource="../Resources/icons/theater_cinema_film_movie_clapper_icon_209580.png">
                         <RibbonGallery>
                             <RibbonGalleryCategory >
                                 <RibbonMenuItem x:Name="smaller" Header="Small image" Command="{x:Static vm:Commands.Appearance}" CommandParameter="1"/>
@@ -113,15 +119,15 @@
                     </RibbonMenuButton>
                 </RibbonGroup>
                 <RibbonGroup Header="Save changes" Height="70">
-                    <RibbonButton LargeImageSource="C:\Users\anna.moskalenko\Downloads\save-file-option_icon-icons.com_73423.png" Command="{x:Static vm:Commands.SaveAllChanges}" Height="50" Margin="12, 0, 0, 0"/>
+                    <RibbonButton LargeImageSource="../Resources/icons/save-file-option_icon-icons.com_73423.png" Command="{x:Static vm:Commands.SaveAllChanges}" Height="50" Margin="12, 0, 0, 0"/>
                 </RibbonGroup>
             </RibbonTab>
         </Ribbon>
 
-        <TabControl Name="tabController" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" BorderThickness="0" Background="#E7F2F8">
+        <TabControl Name="tabController" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" BorderThickness="0" Background="#F2F2F2">
             <TabControl.Resources>
                 <Style TargetType="{x:Type Grid}">
-                    <Setter Property="Background" Value="#E7F2F8"/>
+                    <Setter Property="Background" Value="#F2F2F2"/>
                 </Style>
             </TabControl.Resources>
         </TabControl>
