@@ -62,37 +62,29 @@ namespace Cinema.Service
             await MoviesFileManager.LoadData(movieStream);
             await UsersFileManager.LoadData(usersStream);
 
-            if (movieStream.Length > 0)
-            {
-                movies = xMLSerializator.Deserialize<ObservableCollection<Movie>>(movieStream);
-            }
+            movies = xMLSerializator.Deserialize<ObservableCollection<Movie>>(movieStream);
+            users = xMLSerializator.Deserialize<ObservableCollection<User>>(usersStream);
+            ratings = xMLSerializator.Deserialize<ObservableCollection<Rating>>(ratingStream);
 
-            if (usersStream.Length > 0)
-            {
-                users = xMLSerializator.Deserialize<ObservableCollection<User>>(usersStream);
-            }
 
-            if (ratingStream.Length > 0)
+            if(users != null && movies != null && ratings != null)
             {
-                ratings = xMLSerializator.Deserialize<ObservableCollection<Rating>>(ratingStream);
-            }
+                var usersDictionary = users.GroupBy(i => i.UserId).ToDictionary(g => g.Key, g => g.First());
+                var moviesDictionary = movies.GroupBy(i => i.MovieId).ToDictionary(g => g.Key, g => g.First());
 
-            var usersDictionary = users.GroupBy(i => i.UserId).ToDictionary(g => g.Key, g => g.First());
-            var moviesDictionary = movies.GroupBy(i => i.MovieId).ToDictionary(g => g.Key, g => g.First());
-
-            foreach (var rating in ratings)
-            {
-                if (usersDictionary.ContainsKey(rating.UserId))
+                foreach (var rating in ratings)
                 {
-                    usersDictionary[rating.UserId].Ratings.Add(rating);
-                }
+                    if (usersDictionary.ContainsKey(rating.UserId))
+                    {
+                        usersDictionary[rating.UserId].Ratings.Add(rating);
+                    }
 
-                if (moviesDictionary.ContainsKey(rating.MovieId))
-                {
-                    moviesDictionary[rating.MovieId].Ratings.Add(rating);
+                    if (moviesDictionary.ContainsKey(rating.MovieId))
+                    {
+                        moviesDictionary[rating.MovieId].Ratings.Add(rating);
+                    }
                 }
             }
-
         }
 
         public async Task Save()
