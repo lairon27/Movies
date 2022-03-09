@@ -3,9 +3,6 @@ using System.Collections.ObjectModel;
 using System.Windows.Data;
 using Cinema.VM;
 using Cinema.View;
-using System.Windows;
-using Cinema.Utils;
-using System.Windows.Input;
 using Cinema.Service;
 using Cinema.Dialog;
 
@@ -110,8 +107,6 @@ namespace Cinema
         public void SaveAllChanges_Command()
         {
             DataManager.Save();
-
-            //MessageBox.Show(ConstClass.changesSaved, ConstClass.saved, MessageBoxButton.OK);
         }
     }
 }

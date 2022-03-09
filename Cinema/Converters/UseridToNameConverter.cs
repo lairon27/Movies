@@ -1,6 +1,7 @@
 ﻿using Cinema.Service;
 using System;
 using System.Globalization;
+using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 
@@ -17,7 +18,11 @@ namespace Cinema.Converters
             if(values[1] != DependencyProperty.UnsetValue)
             {
                 DataManager manager = (DataManager)values[1];
-                name = manager.GetUserById(id).UserName;
+
+                if(manager.GetUsers.Select(i => i.UserId).Contains(id))
+                {
+                    name = manager.GetUserById(id).UserName;
+                }  
             }
 
             return name;

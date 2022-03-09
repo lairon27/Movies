@@ -61,10 +61,21 @@ namespace Cinema.Service
             await RatingsFileManager.LoadData(ratingStream);
             await MoviesFileManager.LoadData(movieStream);
             await UsersFileManager.LoadData(usersStream);
-           
-            ratings = xMLSerializator.Deserialize<ObservableCollection<Rating>>(ratingStream);
-            movies = xMLSerializator.Deserialize<ObservableCollection<Movie>>(movieStream);
-            users = xMLSerializator.Deserialize<ObservableCollection<User>>(usersStream);
+
+            if (movieStream.Length > 0)
+            {
+                movies = xMLSerializator.Deserialize<ObservableCollection<Movie>>(movieStream);
+            }
+
+            if (usersStream.Length > 0)
+            {
+                users = xMLSerializator.Deserialize<ObservableCollection<User>>(usersStream);
+            }
+
+            if (ratingStream.Length > 0)
+            {
+                ratings = xMLSerializator.Deserialize<ObservableCollection<Rating>>(ratingStream);
+            }
 
             var usersDictionary = users.GroupBy(i => i.UserId).ToDictionary(g => g.Key, g => g.First());
             var moviesDictionary = movies.GroupBy(i => i.MovieId).ToDictionary(g => g.Key, g => g.First());
@@ -112,7 +123,6 @@ namespace Cinema.Service
             movie.Ratings.Add(rating);
             ratings.Add(rating);
         }
-
 
         public void UpdateMovie(Movie target, Movie source)
         {

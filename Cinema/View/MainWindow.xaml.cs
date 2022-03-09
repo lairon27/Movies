@@ -34,13 +34,13 @@ namespace Cinema.View
             tabController.Items.Add(new TabItem
             {
                 Header = "Users",
-                Content = screenFactory.UserScreen(),
+                Content = screenFactory.CreateUserScreen(),
             });
 
             tabController.Items.Add(new TabItem
             {
                 Header = "Movie Library",
-                Content = screenFactory.MovieScreen(),
+                Content = screenFactory.CreateMovieScreen(),
             });
         }
     }

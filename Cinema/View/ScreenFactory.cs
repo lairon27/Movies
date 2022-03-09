@@ -1,6 +1,5 @@
 ﻿using Cinema.Service;
 using System.Windows.Controls;
-using WpfApp1;
 
 namespace Cinema.View
 {
@@ -8,19 +7,12 @@ namespace Cinema.View
     {
         private IDataManager DataManager { get; set; }
 
-        //public UserControl screen;
-
-        //public ScreenFactory()
-        //{
-        //    screen.DataContext = this;
-        //}
-
         public ScreenFactory(IDataManager dataManager)
         {
             DataManager = dataManager;
         }
 
-        public UserControl MovieScreen()
+        public UserControl CreateMovieScreen()
         {
             var screen = new MovieLibrary()
             {
@@ -29,7 +21,7 @@ namespace Cinema.View
             return screen;
         }
 
-        public UserControl UserScreen()
+        public UserControl CreateUserScreen()
         {
             var screen = new UsersView()
             {

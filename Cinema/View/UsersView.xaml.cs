@@ -11,15 +11,13 @@ namespace Cinema.View
 {
     public partial class UsersView : BaseView
     {
-        public UserVM userVM
+        public UserVM UserVM
         {
             get { return (UserVM)DataContext; }
         }
 
         public UsersView()
         {
-            
-
             InitializeComponent();
 
             var userGenerator = new CommandBinding(Commands.UsersGeneratorCommand, UsersGeneratorCommand_Executed, UsersGeneratorCommand_CanExecute);
@@ -41,33 +39,33 @@ namespace Cinema.View
 
         private void DeleteRatingCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = userVM.UserGenerator_CanExecute();
+            e.CanExecute = UserVM.UserGenerator_CanExecute();
         }
 
         private void DeleteRatingCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            userVM.DeleteRating_CommandExecute();
+            UserVM.DeleteRating_CommandExecute();
         }
 
         private void AddRatingCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            userVM.AddRating_CommandExecute();
+            UserVM.AddRating_CommandExecute();
         }
 
         private void AddRatingCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = userVM.UserGenerator_CanExecute();
+            e.CanExecute = UserVM.UserGenerator_CanExecute();
         }
 
         private void SaveAllChanges_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            userVM.SaveUsers_CommandExecute();
+            UserVM.SaveUsers_CommandExecute();
             MessageBox.Show(ConstClass.changesSaved, ConstClass.saved, MessageBoxButton.OK);
         }
 
         private void SaveAllChanges_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = userVM.UserGenerator_CanExecute();
+            e.CanExecute = UserVM.UserGenerator_CanExecute();
         }
 
         private void Users_Loaded(object sender, RoutedEventArgs e)
@@ -80,12 +78,12 @@ namespace Cinema.View
             InputIntDialog dialog = new InputIntDialog(ConstClass.amountOf, ConstClass.inputNumber);
             dialog.ShowDialog();
 
-            userVM.UsersGenerator_CommandExecute(dialog.Number);
+            UserVM.UsersGenerator_CommandExecute(dialog.Number);
         }
 
         private void UsersGeneratorCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = userVM.UserGenerator_CanExecute();
+            e.CanExecute = UserVM.UserGenerator_CanExecute();
         }
     }
 }
