@@ -18,6 +18,8 @@ namespace Cinema.View
 
         public UsersView()
         {
+            
+
             InitializeComponent();
 
             var userGenerator = new CommandBinding(Commands.UsersGeneratorCommand, UsersGeneratorCommand_Executed, UsersGeneratorCommand_CanExecute);
@@ -60,6 +62,7 @@ namespace Cinema.View
         private void SaveAllChanges_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             userVM.SaveUsers_CommandExecute();
+            MessageBox.Show(ConstClass.changesSaved, ConstClass.saved, MessageBoxButton.OK);
         }
 
         private void SaveAllChanges_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -83,17 +86,6 @@ namespace Cinema.View
         private void UsersGeneratorCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = userVM.UserGenerator_CanExecute();
-        }
-
-        private void Grid_PreviewCanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            if (e.Command == DataGrid.DeleteCommand)
-            {
-                if (MessageBox.Show(String.Format("Are you sure?"), "Confirm Delete", MessageBoxButton.OKCancel) != MessageBoxResult.OK)
-                { 
-                    e.Handled = true;
-                }
-            }
         }
     }
 }

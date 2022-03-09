@@ -158,7 +158,7 @@ namespace Cinema
         public object Clone()
         {
             Ratings.Clear();
-           // Ratings = null;
+            //Ratings = null;
             return MemberwiseClone();
         }
 

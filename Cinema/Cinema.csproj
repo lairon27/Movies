@@ -70,7 +70,6 @@
     <Compile Include="View\BaseView.cs" />
     <Compile Include="View\ScreenFactory.cs" />
     <Compile Include="VM\Commands.cs" />
-    <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Converters\RatingToColorConverter.cs" />
     <Compile Include="Converters\RatingToStarsConverter.cs" />
     <Compile Include="Dialog\AddMovieDialog.xaml.cs">

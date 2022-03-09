@@ -6,6 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:cef1="clr-namespace:Cinema.Converters" 
         xmlns:cinema="clr-namespace:Cinema"
+        xmlns:vm="clr-namespace:Cinema.VM"
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
         d:DataContext="{d:DesignInstance Type=cinema:MovieLibraryVM}"
         mc:Ignorable="d" x:Name="this_">
@@ -81,7 +82,7 @@
                 </Grid.Style>
                 <Grid.InputBindings>
                     <MouseBinding MouseAction="LeftDoubleClick"
-                                  Command="{Binding DataContext.EditMovieDialogCmd, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+                                  Command="{x:Static vm:Commands.EditMovieDialogCmd}"
                                   CommandParameter="{Binding SelectedMovie}" />
                 </Grid.InputBindings>
             
@@ -126,7 +127,7 @@
                         <Button Content="more">
                             <Button.InputBindings>
                                 <MouseBinding MouseAction="LeftClick"
-                                  Command="{Binding DataContext.ShowRatingInfoCmd, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+                                  Command="{x:Static vm:Commands.ShowRatingInfoCmd}"
                                   CommandParameter="{Binding SelectedMovie}" />
                             </Button.InputBindings>
                         </Button>

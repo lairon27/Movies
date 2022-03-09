@@ -1,4 +1,6 @@
-﻿using Cinema.VM;
+﻿using Cinema.Utils;
+using Cinema.VM;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -7,7 +9,7 @@ namespace Cinema.View
 {
     public partial class MovieLibrary : BaseView
     {
-        public MovieLibraryVM movieVM
+        public MovieLibraryVM MovieVM
         {
             get { return (MovieLibraryVM)DataContext; }
         }
@@ -31,9 +33,35 @@ namespace Cinema.View
             var appearance = new CommandBinding(Commands.Appearance, Appearance_Executed, Appearance_CanExecute);
             CommandBindings.Add(appearance);
 
+            var showRating = new CommandBinding(Commands.ShowRatingInfoCmd, ShowRatingInfoCmd_Executed, ShowRatingInfoCmd_CanExecute);
+            CommandBindings.Add(showRating);
+
+            var editMovie = new CommandBinding(Commands.EditMovieDialogCmd, EditMovieDialogCmd_Executed, EditMovieDialogCmd_CanExecute);
+            CommandBindings.Add(editMovie);
+
             CommandManager.InvalidateRequerySuggested();
 
             Loaded += MovieLibrary_Loaded;
+        }
+
+        private void EditMovieDialogCmd_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            MovieVM.EditMovieDialog_Command();
+        }
+
+        private void EditMovieDialogCmd_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = MovieVM.AddMovie_CanExecute();
+        }
+
+        private void ShowRatingInfoCmd_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            MovieVM.ShowRatingInfo_Command();
+        }
+
+        private void ShowRatingInfoCmd_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = MovieVM.AddMovie_CanExecute();
         }
 
         private void Appearance_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -51,7 +79,7 @@ namespace Cinema.View
 
         private void Appearance_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = movieVM.AddMovie_CanExecute();
+            e.CanExecute = MovieVM.AddMovie_CanExecute();
         }
 
         private void MovieLibrary_Loaded(object sender, RoutedEventArgs e)
@@ -61,42 +89,43 @@ namespace Cinema.View
 
         private void SortByAscCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = movieVM.AddMovie_CanExecute();
+            e.CanExecute = MovieVM.AddMovie_CanExecute();
         }
 
         private void SortByAscCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            movieVM.SortByAsc_CommandExecute(e.Parameter.ToString());
+            MovieVM.SortByAsc_CommandExecute(e.Parameter.ToString());
         }
 
         private void SortByCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = movieVM.AddMovie_CanExecute();
+            e.CanExecute = MovieVM.AddMovie_CanExecute();
         }
 
         private void SortByCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            movieVM.SortBy_CommandExecute(e.Parameter.ToString());
+            MovieVM.SortBy_CommandExecute(e.Parameter.ToString());
         }
 
         private void SaveAllChanges_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = movieVM.AddMovie_CanExecute();
+            e.CanExecute = MovieVM.AddMovie_CanExecute();
         }
 
         private void SaveAllChanges_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            movieVM.SaveAllChanges_Command();
+            MovieVM.SaveAllChanges_Command();
+            MessageBox.Show(ConstClass.changesSaved, ConstClass.saved, MessageBoxButton.OK);
         }
 
         private void AddMovie_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-           e.CanExecute = movieVM.AddMovie_CanExecute();     
+           e.CanExecute = MovieVM.AddMovie_CanExecute();     
         }
 
         private void AddMovie_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            movieVM.AddMovieDialog_Command();
+            MovieVM.AddMovieDialog_Command();
         }
     }
 }

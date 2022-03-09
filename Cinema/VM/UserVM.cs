@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using Cinema.VM;
 using Cinema.Generation;
 using Cinema.Dialog;
-using System.Windows.Input;
 using System.Windows;
 using Cinema.Utils;
 using System.Linq;
@@ -17,18 +16,6 @@ namespace Cinema
         
         public ObservableCollection<User> Users { get; set; }
 
-        private IDataManager dataManager;
-
-        public IDataManager DataManager
-        {
-            get { return dataManager; }
-            set
-            {
-                dataManager = value;
-                OnPropertyChanged("DataManager");
-            }
-        }
-
         public User SelectedUser
         {
             get { return selectedUser; }
@@ -40,12 +27,12 @@ namespace Cinema
         }
 
         public UserVM(IDataManager _dataManager)
-        { 
-            dataManager = _dataManager;
+        {
+            DataManager = _dataManager;
 
             Users = new ObservableCollection<User>();
 
-            Users = dataManager.GetUsers;
+            Users = DataManager.GetUsers;
         }
 
         public void DeleteRating_CommandExecute()
@@ -66,36 +53,34 @@ namespace Cinema
             for (var i = 0; i < number; i++)
             {
                 var user = generator.GenerateUser();
-                dataManager.AddUser(user);
+                DataManager.AddUser(user);
 
                 var amount = user.AmountOfRatedFilms;
-                var selectedId = dataManager.GetMovies.Select(j => j.MovieId).ToList();
+                var selectedId = DataManager.GetMovies.Select(j => j.MovieId).ToList();
                 var listOfRatings = generator.GenerateRating(amount, selectedId);
 
                 foreach (var element in listOfRatings)
                 {
-                    var movieById = dataManager.GetMovieById(element.MovieId);
-                    dataManager.SetRating(movieById, user, element.UserRating);
+                    var movieById = DataManager.GetMovieById(element.MovieId);
+                    DataManager.SetRating(movieById, user, element.UserRating);
                 }
             }
         }
 
         public void AddRating_CommandExecute()
         {
-            var addRating = new AddRatingDialog(dataManager);
+            var addRating = new AddRatingDialog(DataManager);
             if(addRating.ShowDialog() == true)
             {
-                var movie = dataManager.GetMovies.Single(i => i.MovieName == addRating.MovieTitle);
-                dataManager.SetRating(movie, selectedUser, addRating.Rating);
+                var movie = DataManager.GetMovies.Single(i => i.MovieName == addRating.MovieTitle);
+                DataManager.SetRating(movie, selectedUser, addRating.Rating);
                 selectedUser.AmountOfRatedFilms += 1;
             }
         }
 
         public void SaveUsers_CommandExecute()
         {
-            dataManager.Save();
-
-            MessageBox.Show(ConstClass.changesSaved, ConstClass.saved, MessageBoxButton.OK);
+            DataManager.Save();
         }
     }
 }

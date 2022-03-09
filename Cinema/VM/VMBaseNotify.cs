@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Cinema.Service;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace Cinema.VM
@@ -10,6 +11,18 @@ namespace Cinema.VM
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
+        }
+
+        private IDataManager dataManager;
+
+        public IDataManager DataManager
+        {
+            get { return dataManager; }
+            set
+            {
+                dataManager = value;
+                OnPropertyChanged("DataManager");
+            }
         }
     }
 }

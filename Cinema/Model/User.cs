@@ -89,7 +89,7 @@ namespace Cinema.Model
 
         public object Clone()
         {
-            Ratings = null;
+            Ratings.Clear();
             return MemberwiseClone();
         }
     }

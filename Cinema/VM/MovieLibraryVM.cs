@@ -16,21 +16,6 @@ namespace Cinema
         private Movie selectedMovie;
 
         public ObservableCollection<Movie> Movies { get; set; }
-     
-        public static ICommand EditMovieDialogCmd { get; set; }
-        public static ICommand ShowRatingInfoCmd { get; set; }
-
-        private IDataManager dataManager;
-
-        public IDataManager DataManager
-        {
-            get { return dataManager; }
-            set
-            {
-                dataManager = value;
-                OnPropertyChanged("DataManager");
-            }
-        }
 
         internal bool AddMovie_CanExecute()
         {
@@ -75,22 +60,15 @@ namespace Cinema
 
         public MovieLibraryVM(IDataManager _dataManager)
         {
-            dataManager = _dataManager;
-
-            EditMovieDialogCmd = new RelayCommand(parameter =>
-             EditMovieDialog_Command());
-
-            ShowRatingInfoCmd = new RelayCommand(parameter =>
-             ShowRatingInfo_Command());
-
-            Movies = dataManager.GetMovies;
+            DataManager = _dataManager;
+            Movies = DataManager.GetMovies;
             view = CollectionViewSource.GetDefaultView(Movies);
         }
 
-        private void ShowRatingInfo_Command()
+        public void ShowRatingInfo_Command()
         {
             var usersRatingDialog = new RatingsByUsers(SelectedMovie);
-            usersRatingDialog.DataManager = dataManager;
+            usersRatingDialog.DataManager = DataManager;
             usersRatingDialog.ShowDialog();
         }
 
@@ -114,26 +92,26 @@ namespace Cinema
 
             if (movieDialog.ShowDialog() == true)
             {
-                dataManager.AddMovie(movie);
+                DataManager.AddMovie(movie);
             }
         }
 
-        private void EditMovieDialog_Command()
+        public void EditMovieDialog_Command()
         {
             var copy = (Movie)SelectedMovie.Clone();
             var movieDialog = new AddMovieDialog(copy, true);
 
             if (movieDialog.ShowDialog() == true)
             {
-                dataManager.UpdateMovie(copy, SelectedMovie);
+                DataManager.UpdateMovie(copy, SelectedMovie);
             }
         }
 
         public void SaveAllChanges_Command()
         {
-            dataManager.Save();
+            DataManager.Save();
 
-            MessageBox.Show(ConstClass.changesSaved, ConstClass.saved, MessageBoxButton.OK);
+            //MessageBox.Show(ConstClass.changesSaved, ConstClass.saved, MessageBoxButton.OK);
         }
     }
 }

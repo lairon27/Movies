@@ -40,7 +40,7 @@
                 <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},
                                        Path=(xcdg:DataGridVirtualizingPanel.ItemIndex),
                                        Converter={StaticResource rowIndexConverter}}"
-                               Value="True">
+                                       Value="True">
                     <Setter Property="Background">
                         <Setter.Value>
                             <SolidColorBrush Color="White"/>
@@ -61,7 +61,6 @@
                         </Setter.Value>
                     </Setter>
                 </Trigger>
-
             </Style.Triggers>
         </Style>
 
@@ -70,8 +69,7 @@
 
     <Grid Background="#F2F2F2">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="546" />
-            <ColumnDefinition Width="100"/>
+            <ColumnDefinition MinWidth="300" MaxWidth="546"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
@@ -80,10 +78,11 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Users" Grid.ColumnSpan="3" Grid.Row="0" TextAlignment="Center" FontSize="24"/>
+        <TextBlock Text="Users" Grid.Row="0" FontSize="22" Margin="20, 10, 0, 0"/>
+        <TextBlock Text="Rated films" Grid.Row="0" Grid.Column="1" FontSize="22" Margin="150, 10, 0, 0"/>
 
-        <xcdg:DataGridControl x:Name="usersList" SelectedItem="{Binding SelectedUser}" ItemsSource="{Binding Users}" AutoCreateColumns="False" Grid.Column="0" Grid.Row="1"
-                              BorderBrush="#bdffee" Background="White">
+        <xcdg:DataGridControl x:Name="usersList" SelectedItem="{Binding SelectedUser}" ItemsSource="{Binding Users}" AutoCreateColumns="False"
+                              Grid.Column="0" Grid.Row="1" Background="White">
             <xcdg:DataGridControl.View>
                 <xcdg:TableflowView UseDefaultHeadersFooters="False">
                     <xcdg:TableflowView.FixedHeaders>
@@ -124,9 +123,9 @@
 
         <GridSplitter Grid.Column="0" Grid.Row="1" ShowsPreview="False" Width="3" VerticalAlignment="Stretch" Background="#e0e0e0"/>
 
-        <StackPanel DataContext="{Binding SelectedUser}" Grid.Column="2" Grid.Row="1" >
-            <DataGrid x:Name="grid" ItemsSource="{Binding Ratings, Mode=TwoWay}" SelectedItem="{Binding SelectedRating}" AutoGenerateColumns="False" HeadersVisibility="Column" ColumnWidth="*" CanUserAddRows="False" CanUserDeleteRows="True"
-                      CommandManager.PreviewCanExecute="Grid_PreviewCanExecute" IsReadOnly="True">
+        <StackPanel DataContext="{Binding SelectedUser}" Grid.Column="1" Grid.Row="1">
+            <DataGrid x:Name="grid" ItemsSource="{Binding Ratings, Mode=TwoWay}" SelectedItem="{Binding SelectedRating}" AutoGenerateColumns="False" HeadersVisibility="Column" ColumnWidth="*" CanUserAddRows="False" CanUserDeleteRows="False"
+                       IsReadOnly="True" Margin="70, 0, 0, 0" MaxWidth="510">
                 <DataGrid.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Rate film" Command="{x:Static vm:Commands.AddRatingCommand}" />
@@ -134,7 +133,7 @@
                     </ContextMenu>
                 </DataGrid.ContextMenu>
                 <DataGrid.Columns>
-                    <DataGridTextColumn  Header="Movie Title">
+                    <DataGridTextColumn Header="Movie Title" ScrollViewer.CanContentScroll="True">
                         <DataGridTextColumn.Binding>
                             <MultiBinding Converter="{StaticResource idConv}">
                                 <Binding Path="MovieId"/>
@@ -142,8 +141,14 @@
                             </MultiBinding>
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding UserRating}" Header="Rating"/>
-                    <DataGridTemplateColumn Width="40">
+                    <DataGridTextColumn Binding="{Binding UserRating}" Header="Rating" Width="70">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTemplateColumn MaxWidth="50">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button Background="White" Command="{x:Static vm:Commands.DeleteRatingCommand}">
