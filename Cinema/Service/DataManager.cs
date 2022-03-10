@@ -65,9 +65,8 @@ namespace Cinema.Service
             movies = xMLSerializator.Deserialize<ObservableCollection<Movie>>(movieStream);
             users = xMLSerializator.Deserialize<ObservableCollection<User>>(usersStream);
             ratings = xMLSerializator.Deserialize<ObservableCollection<Rating>>(ratingStream);
-
-
-            if(users != null && movies != null && ratings != null)
+         
+            if (users != null && movies != null && ratings != null)
             {
                 var usersDictionary = users.GroupBy(i => i.UserId).ToDictionary(g => g.Key, g => g.First());
                 var moviesDictionary = movies.GroupBy(i => i.MovieId).ToDictionary(g => g.Key, g => g.First());
@@ -116,6 +115,13 @@ namespace Cinema.Service
             ratings.Add(rating);
         }
 
+        public void DeleteRating(Movie movie, User user, Rating rating)
+        {
+            user.Ratings.Remove(rating);
+            movie.Ratings.Remove(rating);
+            ratings.Remove(rating);
+        }
+
         public void UpdateMovie(Movie target, Movie source)
         {
             source.MovieName = target.MovieName;
@@ -129,26 +135,12 @@ namespace Cinema.Service
 
         public User GetUserById(Guid userId)
         {
-            try
-            {
-                return users.Single(i => i.UserId == userId);
-            }
-            catch
-            {
-                return null;
-            }
+            return users.SingleOrDefault(i => i.UserId == userId);
         }
 
         public Movie GetMovieById(Guid movieId)
         {
-            try
-            {
-                return movies.Single(i => i.MovieId == movieId);
-            }
-            catch
-            {
-                return null;
-            }
+            return movies.SingleOrDefault(i => i.MovieId == movieId);
         }
     }
 }

@@ -7,6 +7,12 @@ using System.Windows.Input;
 
 namespace Cinema.View
 {
+    public enum Appearance
+    {
+        Small,
+        Big
+    }
+
     public partial class MovieLibrary : BaseView
     {
         public MovieLibraryVM MovieVM
@@ -66,11 +72,11 @@ namespace Cinema.View
 
         private void Appearance_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            if (e.Parameter.ToString() == "1")
+            if (e.Parameter.ToString() == Appearance.Small.ToString())
             {
                 moviesList.ItemTemplate = (DataTemplate)this.Resources["small"];
             }
-            if (e.Parameter.ToString() == "2")
+            if (e.Parameter.ToString() == Appearance.Big.ToString())
             {
                 moviesList.ItemTemplate = (DataTemplate)this.Resources["normal"];
             }

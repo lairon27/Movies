@@ -37,11 +37,17 @@ namespace Cinema
 
         public void DeleteRating_CommandExecute()
         {
-            selectedUser.Ratings.Remove(selectedUser.SelectedRating);
+            var movie = DataManager.GetMovies.Single(i => i.MovieId == selectedUser.SelectedRating.MovieId);
+            DataManager.DeleteRating(movie, selectedUser, selectedUser.SelectedRating);
             selectedUser.AmountOfRatedFilms -= 1;
         }
 
         internal bool UserGenerator_CanExecute()
+        {
+            return true;
+        }
+
+        internal bool SaveUsers_CanExecute()
         {
             return true;
         }

@@ -14,6 +14,7 @@ namespace Cinema.Service
          ObservableCollection<User> GetUsers { get; }
          ObservableCollection<Movie> GetMovies { get; }
          void SetRating(Movie movie, User user, int rate);
+         void DeleteRating(Movie movie, User user, Rating rating);
          void AddMovie(Movie movie);
          void UpdateMovie(Movie target, Movie source);
          void AddUser(User user);

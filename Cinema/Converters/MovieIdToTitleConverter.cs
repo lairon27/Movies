@@ -19,7 +19,7 @@ namespace Cinema.Converters
             {
                 DataManager manager = (DataManager)values[1];
 
-                if (manager.GetMovies.Select(i => i.MovieId).Contains(id))
+                if (manager.GetMovies.Any(i => i.MovieId == id))
                 {
                     name = manager.GetMovieById(id).MovieName;
                 }

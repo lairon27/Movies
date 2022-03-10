@@ -12,7 +12,7 @@ namespace Cinema.View
             DataManager = dataManager;
         }
 
-        public UserControl CreateMovieScreen()
+        public BaseView CreateMovieScreen()
         {
             var screen = new MovieLibrary()
             {
@@ -21,7 +21,7 @@ namespace Cinema.View
             return screen;
         }
 
-        public UserControl CreateUserScreen()
+        public BaseView CreateUserScreen()
         {
             var screen = new UsersView()
             {

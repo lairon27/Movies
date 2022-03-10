@@ -6,6 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:cinema="clr-namespace:Cinema" 
         xmlns:vm="clr-namespace:Cinema.VM"
+        xmlns:local="clr-namespace:Cinema.View"
         d:DataContext="{d:DesignInstance Type=cinema:MovieLibraryVM}"
         mc:Ignorable="d"
         Title="Main Window" Height="450" Width="800" WindowState="Maximized">
@@ -96,8 +97,8 @@
                     <RibbonSplitButton x:Name="listAppearance" Label="Appearance" LargeImageSource="../Resources/icons/theater_cinema_film_movie_clapper_icon_209580.png">
                         <RibbonGallery>
                             <RibbonGalleryCategory >
-                                <RibbonMenuItem x:Name="smaller" Header="Small image" Command="{x:Static vm:Commands.Appearance}" CommandParameter="1"/>
-                                <RibbonMenuItem Header="Big Images" Command="{x:Static vm:Commands.Appearance}" CommandParameter="2"/>
+                                <RibbonMenuItem x:Name="smaller" Header="Small image" Command="{x:Static vm:Commands.Appearance}" CommandParameter="{x:Static local:Appearance.Small}"/>
+                                <RibbonMenuItem Header="Big Images" Command="{x:Static vm:Commands.Appearance}" CommandParameter="{x:Static local:Appearance.Big}"/>
                             </RibbonGalleryCategory>
                         </RibbonGallery>
                     </RibbonSplitButton>

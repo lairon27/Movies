@@ -19,10 +19,10 @@ namespace Cinema.Converters
             {
                 DataManager manager = (DataManager)values[1];
 
-                if(manager.GetUsers.Select(i => i.UserId).Contains(id))
+                if(manager.GetUsers.Any(i => i.UserId == id))
                 {
                     name = manager.GetUserById(id).UserName;
-                }  
+                }
             }
 
             return name;
