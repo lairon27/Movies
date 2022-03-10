@@ -3,8 +3,6 @@ using System.Collections.ObjectModel;
 using Cinema.VM;
 using Cinema.Generation;
 using Cinema.Dialog;
-using System.Windows;
-using Cinema.Utils;
 using System.Linq;
 using Cinema.Service;
 
@@ -37,17 +35,11 @@ namespace Cinema
 
         public void DeleteRating_CommandExecute()
         {
-            var movie = DataManager.GetMovies.Single(i => i.MovieId == selectedUser.SelectedRating.MovieId);
-            DataManager.DeleteRating(movie, selectedUser, selectedUser.SelectedRating);
-            selectedUser.AmountOfRatedFilms -= 1;
+            DataManager.DeleteRating(selectedUser, selectedUser.SelectedRating);
+            //selectedUser.AmountOfRatedFilms -= 1;
         }
 
         internal bool UserGenerator_CanExecute()
-        {
-            return true;
-        }
-
-        internal bool SaveUsers_CanExecute()
         {
             return true;
         }
@@ -61,9 +53,9 @@ namespace Cinema
                 var user = generator.GenerateUser();
                 DataManager.AddUser(user);
 
-                var amount = user.AmountOfRatedFilms;
+                //var amount = user.AmountOfRatedFilms;
                 var selectedId = DataManager.GetMovies.Select(j => j.MovieId).ToList();
-                var listOfRatings = generator.GenerateRating(amount, selectedId);
+                var listOfRatings = generator.GenerateRating(selectedId);
 
                 foreach (var element in listOfRatings)
                 {
@@ -80,7 +72,7 @@ namespace Cinema
             {
                 var movie = DataManager.GetMovies.Single(i => i.MovieName == addRating.MovieTitle);
                 DataManager.SetRating(movie, selectedUser, addRating.Rating);
-                selectedUser.AmountOfRatedFilms += 1;
+                //selectedUser.AmountOfRatedFilms += 1;
             }
         }
 

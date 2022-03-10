@@ -44,7 +44,10 @@ namespace Cinema.View
 
         private void DeleteRatingCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            UserVM.DeleteRating_CommandExecute();
+            if (MessageBox.Show(ConstClass.deleteItem, ConstClass.delete, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                UserVM.DeleteRating_CommandExecute();
+            }
         }
 
         private void AddRatingCommand_Executed(object sender, ExecutedRoutedEventArgs e)

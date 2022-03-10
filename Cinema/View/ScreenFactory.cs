@@ -1,8 +1,13 @@
 ﻿using Cinema.Service;
-using System.Windows.Controls;
 
 namespace Cinema.View
 {
+    public enum View
+    {
+        Movie,
+        User
+    }
+
     public class ScreenFactory
     {
         private IDataManager DataManager { get; set; }
@@ -12,22 +17,23 @@ namespace Cinema.View
             DataManager = dataManager;
         }
 
-        public BaseView CreateMovieScreen()
+        public BaseView CreateScreen(View view)
         {
-            var screen = new MovieLibrary()
+            switch (view)
             {
-                DataContext = new MovieLibraryVM(DataManager)
-            };
-            return screen;
-        }
-
-        public BaseView CreateUserScreen()
-        {
-            var screen = new UsersView()
-            {
-                DataContext = new UserVM(DataManager)
-            };
-            return screen;
+                case View.Movie:
+                    return new MovieLibraryView() 
+                    { 
+                        DataContext = new MovieLibraryVM(DataManager) 
+                    };
+                case View.User:
+                    return new UsersView()
+                    {
+                        DataContext = new UserVM(DataManager)
+                    };
+                default:
+                    return null;
+            }
         }
     }
 }

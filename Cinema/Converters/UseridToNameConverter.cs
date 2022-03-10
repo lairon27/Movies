@@ -15,13 +15,14 @@ namespace Cinema.Converters
 
             string name = id.ToString();
 
-            if(values[1] != DependencyProperty.UnsetValue)
+            DataManager manager = values[1] as DataManager;
+            if (manager != null)
             {
-                DataManager manager = (DataManager)values[1];
+                var user = manager.GetUserById(id);
 
-                if(manager.GetUsers.Any(i => i.UserId == id))
+                if (user != null)
                 {
-                    name = manager.GetUserById(id).UserName;
+                    name = user.UserName;
                 }
             }
 

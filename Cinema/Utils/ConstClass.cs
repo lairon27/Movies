@@ -13,6 +13,8 @@
         public const string inputNumber = "Input number of users:";
         public const string editTitile = "Movie Editor";
         public const string saveBtn = "Save";
+        public const string delete = "Delete";
+        public const string deleteItem = "Are you sure?";
         public const string imageFilter = "Images(*.JPG;*.PNG;*.JPEG)|*.JPG;*.PNG;*.JPEG" + "|All Files (*.*)|*.* ";
     }
 }

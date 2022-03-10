@@ -13,14 +13,14 @@ namespace Cinema.View
         Big
     }
 
-    public partial class MovieLibrary : BaseView
+    public partial class MovieLibraryView : BaseView
     {
         public MovieLibraryVM MovieVM
         {
             get { return (MovieLibraryVM)DataContext; }
         }
 
-        public MovieLibrary()
+        public MovieLibraryView()
         {
             InitializeComponent();
 
@@ -72,13 +72,13 @@ namespace Cinema.View
 
         private void Appearance_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            if (e.Parameter.ToString() == Appearance.Small.ToString())
+            if ((Appearance)e.Parameter == Appearance.Small)
             {
-                moviesList.ItemTemplate = (DataTemplate)this.Resources["small"];
+                moviesList.ItemTemplate = (DataTemplate)Resources["small"];
             }
-            if (e.Parameter.ToString() == Appearance.Big.ToString())
+            if ((Appearance)e.Parameter == Appearance.Big)
             {
-                moviesList.ItemTemplate = (DataTemplate)this.Resources["normal"];
+                moviesList.ItemTemplate = (DataTemplate)Resources["normal"];
             }
         }
 

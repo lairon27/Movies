@@ -13,7 +13,7 @@ namespace Cinema.Model
         private string userName;
         private string userLastName;
         private string birthDate;
-        private int amountOfRatedFilms;
+        //private int amountOfRatedFilms;
         private Rating selectedRating;
         public ObservableCollection<Rating> Ratings { get; set; }
 
@@ -71,16 +71,16 @@ namespace Cinema.Model
             }
         }
 
-        [XmlAttribute("AmountOfRatedFilms")]
-        public int AmountOfRatedFilms
-        {
-            get { return amountOfRatedFilms; }
-            set
-            {
-                amountOfRatedFilms = value;
-                OnPropertyChanged("AmountOfRatedFilms");
-            }
-        }
+        //[XmlAttribute("AmountOfRatedFilms")]
+        //public int AmountOfRatedFilms
+        //{
+        //    get { return amountOfRatedFilms; }
+        //    set
+        //    {
+        //        amountOfRatedFilms = value;
+        //        OnPropertyChanged("AmountOfRatedFilms");
+        //    }
+        //}
 
         public User()
         {

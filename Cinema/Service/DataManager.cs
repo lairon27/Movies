@@ -62,10 +62,23 @@ namespace Cinema.Service
             await MoviesFileManager.LoadData(movieStream);
             await UsersFileManager.LoadData(usersStream);
 
-            movies = xMLSerializator.Deserialize<ObservableCollection<Movie>>(movieStream);
-            users = xMLSerializator.Deserialize<ObservableCollection<User>>(usersStream);
-            ratings = xMLSerializator.Deserialize<ObservableCollection<Rating>>(ratingStream);
-         
+            var ratingTask = Task.Run(() =>
+            {
+                ratings = xMLSerializator.Deserialize<ObservableCollection<Rating>>(ratingStream);
+            });
+
+            var movieTask = Task.Run(() =>
+              {
+                  movies = xMLSerializator.Deserialize<ObservableCollection<Movie>>(movieStream);
+              });
+
+            var userTask = Task.Run(() =>
+            {
+                users = xMLSerializator.Deserialize<ObservableCollection<User>>(usersStream);
+            });
+
+            Task.WaitAll(ratingTask, movieTask, userTask);
+
             if (users != null && movies != null && ratings != null)
             {
                 var usersDictionary = users.GroupBy(i => i.UserId).ToDictionary(g => g.Key, g => g.First());
@@ -115,8 +128,9 @@ namespace Cinema.Service
             ratings.Add(rating);
         }
 
-        public void DeleteRating(Movie movie, User user, Rating rating)
+        public void DeleteRating(User user, Rating rating)
         {
+            var movie = GetMovies.Single(i => i.MovieId == rating.MovieId);
             user.Ratings.Remove(rating);
             movie.Ratings.Remove(rating);
             ratings.Remove(rating);
