@@ -207,10 +207,29 @@
     <Resource Include="Resources\icons\star.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\icons\save-file-option_icon-icons.com_73423.png" />
+    <Resource Include="Resources\icons\video.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\icons\theater_cinema_film_movie_clapper_icon_209580.png" />
+    <Resource Include="Resources\icons\graphic-design.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icons\increase.png" />
+    <Resource Include="Resources\icons\reduce.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icons\calendar.png" />
+    <Resource Include="Resources\icons\nameplate.png" />
+    <Resource Include="Resources\icons\stars.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icons\sort.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icons\down-arrow.png" />
+    <Resource Include="Resources\icons\up-arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icons\floppy-disk.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

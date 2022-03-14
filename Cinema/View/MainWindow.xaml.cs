@@ -1,8 +1,5 @@
-﻿using Cinema.Converters;
-using Cinema.Service;
-using Cinema.VM;
+﻿using Cinema.Service;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Ribbon;
 
@@ -33,14 +30,14 @@ namespace Cinema.View
         {
             tabController.Items.Add(new TabItem
             {
-                Header = "Users",
-                Content = screenFactory.CreateScreen(View.User),
+                Header = "Movie Library",
+                Content = screenFactory.CreateScreen(ViewID.Movie),
             });
 
             tabController.Items.Add(new TabItem
             {
-                Header = "Movie Library",
-                Content = screenFactory.CreateScreen(View.Movie),
+                Header = "Users",
+                Content = screenFactory.CreateScreen(ViewID.User),
             });
         }
     }

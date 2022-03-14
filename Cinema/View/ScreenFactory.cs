@@ -2,7 +2,7 @@
 
 namespace Cinema.View
 {
-    public enum View
+    public enum ViewID
     {
         Movie,
         User
@@ -17,16 +17,16 @@ namespace Cinema.View
             DataManager = dataManager;
         }
 
-        public BaseView CreateScreen(View view)
+        public BaseView CreateScreen(ViewID view)
         {
             switch (view)
             {
-                case View.Movie:
+                case ViewID.Movie:
                     return new MovieLibraryView() 
                     { 
                         DataContext = new MovieLibraryVM(DataManager) 
                     };
-                case View.User:
+                case ViewID.User:
                     return new UsersView()
                     {
                         DataContext = new UserVM(DataManager)

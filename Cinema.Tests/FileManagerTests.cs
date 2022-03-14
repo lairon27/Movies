@@ -30,6 +30,25 @@ namespace Cinema.Tests
             Assert.IsTrue(File.Exists(path));
         }
 
+        [TestMethod]
+        public async Task Load_LoadData_LoadedData()
+        {
+            //Arrange
+            var path = "..\\Files\\testFile1.xml";
+
+            if (File.Exists(path))
+            {
+                var fileManager = new FileManager(path);
+                var stream = new MemoryStream();
+
+                //Act
+                await fileManager.LoadData(stream);
+
+                //Assert
+                Assert.IsTrue(stream.Length > 0);
+            }   
+        }
+
         public static Stream GenerateStreamFromString(string s)
         {
             var stream = new MemoryStream();

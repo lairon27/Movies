@@ -59,25 +59,27 @@ namespace Cinema.Service
             Stream ratingStream = new MemoryStream();
 
             await RatingsFileManager.LoadData(ratingStream);
-            await MoviesFileManager.LoadData(movieStream);
-            await UsersFileManager.LoadData(usersStream);
 
             var ratingTask = Task.Run(() =>
             {
                 ratings = xMLSerializator.Deserialize<ObservableCollection<Rating>>(ratingStream);
             });
 
+            await MoviesFileManager.LoadData(movieStream);
+
             var movieTask = Task.Run(() =>
-              {
-                  movies = xMLSerializator.Deserialize<ObservableCollection<Movie>>(movieStream);
-              });
+            {
+                movies = xMLSerializator.Deserialize<ObservableCollection<Movie>>(movieStream);
+            });
+
+            await UsersFileManager.LoadData(usersStream);
 
             var userTask = Task.Run(() =>
             {
                 users = xMLSerializator.Deserialize<ObservableCollection<User>>(usersStream);
             });
 
-            Task.WaitAll(ratingTask, movieTask, userTask);
+            _ = Task.WhenAll(ratingTask, movieTask, userTask);
 
             if (users != null && movies != null && ratings != null)
             {
@@ -101,15 +103,12 @@ namespace Cinema.Service
 
         public async Task Save()
         {
-            var moviesCopy = movies.Select(i => (Movie)i.Clone()).ToList();
-            var usersCopy = users.Select(i => (User)i.Clone()).ToList();
-
-            using (var stream = xMLSerializator.SerializeToXML(moviesCopy))
+            using (var stream = xMLSerializator.SerializeToXML(movies))
             {
                 await MoviesFileManager.SaveData(stream);
             }
 
-            using (var stream = xMLSerializator.SerializeToXML(usersCopy))
+            using (var stream = xMLSerializator.SerializeToXML(users))
             {
                 await UsersFileManager.SaveData(stream);
             }
@@ -130,7 +129,8 @@ namespace Cinema.Service
 
         public void DeleteRating(User user, Rating rating)
         {
-            var movie = GetMovies.Single(i => i.MovieId == rating.MovieId);
+            var movie = GetMovieById(rating.MovieId);
+
             user.Ratings.Remove(rating);
             movie.Ratings.Remove(rating);
             ratings.Remove(rating);

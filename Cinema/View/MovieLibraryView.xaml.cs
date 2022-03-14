@@ -1,8 +1,6 @@
 ﻿using Cinema.Utils;
 using Cinema.VM;
-using System;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Cinema.View
@@ -57,7 +55,7 @@ namespace Cinema.View
 
         private void EditMovieDialogCmd_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = MovieVM.AddMovie_CanExecute();
+            e.CanExecute = MovieVM.MovieCommands_CanExecute();
         }
 
         private void ShowRatingInfoCmd_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -67,7 +65,7 @@ namespace Cinema.View
 
         private void ShowRatingInfoCmd_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = MovieVM.AddMovie_CanExecute();
+            e.CanExecute = MovieVM.MovieCommands_CanExecute();
         }
 
         private void Appearance_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -85,7 +83,7 @@ namespace Cinema.View
 
         private void Appearance_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = MovieVM.AddMovie_CanExecute();
+            e.CanExecute = MovieVM.MovieCommands_CanExecute();
         }
 
         private void MovieLibrary_Loaded(object sender, RoutedEventArgs e)
@@ -95,7 +93,7 @@ namespace Cinema.View
 
         private void SortByAscCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = MovieVM.AddMovie_CanExecute();
+            e.CanExecute = MovieVM.MovieCommands_CanExecute();
         }
 
         private void SortByAscCommand_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -105,7 +103,7 @@ namespace Cinema.View
 
         private void SortByCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = MovieVM.AddMovie_CanExecute();
+            e.CanExecute = MovieVM.MovieCommands_CanExecute();
         }
 
         private void SortByCommand_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -115,7 +113,7 @@ namespace Cinema.View
 
         private void SaveAllChanges_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = MovieVM.AddMovie_CanExecute();
+            e.CanExecute = MovieVM.MovieCommands_CanExecute();
         }
 
         private void SaveAllChanges_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -126,7 +124,7 @@ namespace Cinema.View
 
         private void AddMovie_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-           e.CanExecute = MovieVM.AddMovie_CanExecute();     
+           e.CanExecute = MovieVM.MovieCommands_CanExecute();     
         }
 
         private void AddMovie_Executed(object sender, ExecutedRoutedEventArgs e)

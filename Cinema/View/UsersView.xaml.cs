@@ -1,10 +1,7 @@
 ﻿using Cinema.Dialog;
-using Cinema.Model;
 using Cinema.Utils;
 using Cinema.VM;
-using System;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Cinema.View
@@ -39,7 +36,7 @@ namespace Cinema.View
 
         private void DeleteRatingCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = UserVM.UserGenerator_CanExecute();
+            e.CanExecute = UserVM.UserCommands_CanExecute();
         }
 
         private void DeleteRatingCommand_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -57,7 +54,7 @@ namespace Cinema.View
 
         private void AddRatingCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = UserVM.UserGenerator_CanExecute();
+            e.CanExecute = UserVM.UserCommands_CanExecute();
         }
 
         private void SaveAllChanges_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -68,7 +65,7 @@ namespace Cinema.View
 
         private void SaveAllChanges_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = UserVM.UserGenerator_CanExecute();
+            e.CanExecute = UserVM.UserCommands_CanExecute();
         }
 
         private void Users_Loaded(object sender, RoutedEventArgs e)
@@ -86,7 +83,7 @@ namespace Cinema.View
 
         private void UsersGeneratorCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = UserVM.UserGenerator_CanExecute();
+            e.CanExecute = UserVM.UserCommands_CanExecute();
         }
     }
 }

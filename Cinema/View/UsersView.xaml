@@ -69,7 +69,7 @@
 
     <Grid Background="#F2F2F2">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition MinWidth="300" MaxWidth="546"/>
+            <ColumnDefinition MinWidth="300" MaxWidth="600"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
@@ -78,11 +78,11 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Users" Grid.Row="0" FontSize="22" Margin="20, 10, 0, 0"/>
-        <TextBlock Text="Rated films" Grid.Row="0" Grid.Column="1" FontSize="22" Margin="150, 10, 0, 0"/>
+        <TextBlock Text="Users" Grid.Row="0" FontSize="22" HorizontalAlignment="Center"/>
+        <TextBlock Text="Rated films" Grid.Row="0" Grid.Column="1" FontSize="22" Margin="0, 10, 0, 0" HorizontalAlignment="Center"/>
 
         <xcdg:DataGridControl x:Name="usersList" SelectedItem="{Binding SelectedUser}" ItemsSource="{Binding Users}" AutoCreateColumns="False"
-                              Grid.Column="0" Grid.Row="1" Background="White">
+                              Grid.Column="0" Grid.Row="1" Background="White" Margin="30, 0, 10, 0" HorizontalAlignment="Center">
             <xcdg:DataGridControl.View>
                 <xcdg:TableflowView UseDefaultHeadersFooters="False">
                     <xcdg:TableflowView.FixedHeaders>
@@ -108,11 +108,6 @@
                         <xcdg:DataGridBindingInfo Path="BirthDate"/>
                     </xcdg:Column.DisplayMemberBindingInfo>
                 </xcdg:Column>
-                <!--<xcdg:Column FieldName="AmountOfRatedFilms" Title="Statistics">
-                    <xcdg:Column.DisplayMemberBindingInfo>
-                        <xcdg:DataGridBindingInfo ReadOnly="True" Path="AmountOfRatedFilms"/>
-                    </xcdg:Column.DisplayMemberBindingInfo>
-                </xcdg:Column>-->
             </xcdg:DataGridControl.Columns>
             <xcdg:DataGridControl.ContextMenu>
                 <ContextMenu>
@@ -121,11 +116,11 @@
             </xcdg:DataGridControl.ContextMenu>
         </xcdg:DataGridControl>
 
-        <GridSplitter Grid.Column="0" Grid.Row="1" ShowsPreview="False" Width="3" VerticalAlignment="Stretch" Background="#e0e0e0"/>
+        <GridSplitter Grid.Column="0" Grid.Row="1" ShowsPreview="False" Width="3" VerticalAlignment="Stretch" Background="#e0e0e0" Margin="0, 0, 10, 0"/>
 
         <StackPanel DataContext="{Binding SelectedUser}" Grid.Column="1" Grid.Row="1">
             <DataGrid x:Name="grid" ItemsSource="{Binding Ratings, Mode=TwoWay}" SelectedItem="{Binding SelectedRating}" AutoGenerateColumns="False" HeadersVisibility="Column" ColumnWidth="*" CanUserAddRows="False" CanUserDeleteRows="False"
-                       IsReadOnly="True" Margin="70, 0, 0, 0" MaxWidth="510">
+                       IsReadOnly="True" MaxWidth="540" HorizontalAlignment="Right" Margin="10, 0, 30, 0">
                 <DataGrid.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Rate film" Command="{x:Static vm:Commands.AddRatingCommand}" />
@@ -133,7 +128,7 @@
                     </ContextMenu>
                 </DataGrid.ContextMenu>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Movie Title" ScrollViewer.CanContentScroll="True">
+                    <DataGridTextColumn Header="Movie Title" ScrollViewer.CanContentScroll="True"> 
                         <DataGridTextColumn.Binding>
                             <MultiBinding Converter="{StaticResource idConv}">
                                 <Binding Path="MovieId"/>

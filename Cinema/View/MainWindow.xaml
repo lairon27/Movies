@@ -1,8 +1,7 @@
 ﻿<RibbonWindow x:Class="Cinema.View.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-       
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"       
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:cinema="clr-namespace:Cinema" 
         xmlns:vm="clr-namespace:Cinema.VM"
@@ -56,8 +55,9 @@
         <Ribbon x:Name="_ribbon" SelectedIndex="{Binding ElementName=tabController, Path=SelectedIndex}" Background="#F2F2F2"
                   BorderBrush="#83c7b5"
                   MouseOverBackground="#f0fffb"
-                  MouseOverBorderBrush="#bdffee">
-            <RibbonTab x:Name="usersControl" Header="Users">
+                  MouseOverBorderBrush="#bdffee"
+                  Cursor="Hand">
+            <RibbonTab x:Name="moviesControl" Header="Movie Library">
                 <RibbonTab.Style>
                     <Style TargetType="{x:Type RibbonTab}">
                         <Setter Property="Visibility" Value="Visible"/>
@@ -68,17 +68,41 @@
                         </Style.Triggers>
                     </Style>
                 </RibbonTab.Style>
-                <RibbonGroup Header="Generation" Height="70">
-                    <RibbonButton LargeImageSource="../Resources/icons/add-friend.png" Command="{x:Static vm:Commands.UsersGeneratorCommand}" Height="40" Margin="10, 5, 0, 0"/>
+                <RibbonGroup Header="Add movie" Height="85">
+                    <RibbonButton LargeImageSource="../Resources/icons/video.png"
+                                  Width="70" Height="50" Margin="0, 10, 0, 0" Command="{x:Static vm:Commands.AddMovieDialog}"></RibbonButton>
                 </RibbonGroup>
-                <RibbonGroup Header="Save changes" Height="70">
-                    <RibbonButton LargeImageSource="../Resources/icons/save.png" Command="{x:Static vm:Commands.SaveAllChanges}" Height="40" Margin="12, 5, 0, 0"/>
+                <RibbonGroup Header="Appearance" Height="85">
+                    <RibbonSplitButton x:Name="listAppearance" Margin="7, 10, 0, 0" LargeImageSource="../Resources/icons/graphic-design.png">
+                        <RibbonGallery>
+                            <RibbonGalleryCategory>
+                                <RibbonMenuItem x:Name="smaller" ImageSource="../Resources/icons/reduce.png" Header="Small image" Command="{x:Static vm:Commands.Appearance}" CommandParameter="{x:Static local:Appearance.Small}"/>
+                                <RibbonMenuItem Header="Big Images" ImageSource="../Resources/icons/increase.png" Command="{x:Static vm:Commands.Appearance}" CommandParameter="{x:Static local:Appearance.Big}"/>
+                            </RibbonGalleryCategory>
+                        </RibbonGallery>
+                    </RibbonSplitButton>
                 </RibbonGroup>
-                <RibbonGroup Header="Rate" Height="70">
-                    <RibbonButton LargeImageSource="../Resources/icons/star.png" Command="{x:Static vm:Commands.AddRatingCommand}" Height="40" Margin="0, 5, 0, 0"/>
+                <RibbonGroup Header="Sorting" Height="85">
+                    <RibbonMenuButton LargeImageSource="../Resources/icons/sort.png" Margin="0, 10, 0, 0">
+                        <RibbonMenuItem Header="name" ImageSource="../Resources/icons/nameplate.png">
+                            <RibbonMenuItem Header="ascending" ImageSource="../Resources/icons/up-arrow.png" Command="{x:Static vm:Commands.SortByAscCommand}" CommandParameter="MovieName"/>
+                            <RibbonMenuItem Header="descending" ImageSource="../Resources/icons/down-arrow.png" Command="{x:Static vm:Commands.SortByCommand}" CommandParameter="MovieName"/>
+                        </RibbonMenuItem>
+                        <RibbonMenuItem Header="year" ImageSource="../Resources/icons/calendar.png">
+                            <RibbonMenuItem Header="ascending" ImageSource="../Resources/icons/up-arrow.png" Command="{x:Static vm:Commands.SortByAscCommand}" CommandParameter="Year"/>
+                            <RibbonMenuItem Header="descending" ImageSource="../Resources/icons/down-arrow.png" Command="{x:Static vm:Commands.SortByCommand}" CommandParameter="Year"/>
+                        </RibbonMenuItem>
+                        <RibbonMenuItem Header="rating" ImageSource="../Resources/icons/stars.png">
+                            <RibbonMenuItem Header="ascending" ImageSource="../Resources/icons/up-arrow.png" Command="{x:Static vm:Commands.SortByAscCommand}" CommandParameter="Rating"/>
+                            <RibbonMenuItem Header="descending" ImageSource="../Resources/icons/down-arrow.png" Command="{x:Static vm:Commands.SortByCommand}" CommandParameter="Rating"/>
+                        </RibbonMenuItem>
+                    </RibbonMenuButton>
+                </RibbonGroup>
+                <RibbonGroup Header="Save" Height="85">
+                    <RibbonButton LargeImageSource="../Resources/icons/floppy-disk.png" Command="{x:Static vm:Commands.SaveAllChanges}" Height="50" Margin="0, 12, 0, 0"/>
                 </RibbonGroup>
             </RibbonTab>
-            <RibbonTab x:Name="moviesControl" Header="Movie Library">
+            <RibbonTab x:Name="usersControl" Header="Users">
                 <RibbonTab.Style>
                     <Style TargetType="{x:Type RibbonTab}">
                         <Setter Property="Visibility" Value="Hidden"/>
@@ -89,38 +113,14 @@
                         </Style.Triggers>
                     </Style>
                 </RibbonTab.Style>
-                <RibbonGroup Header="Add movie" Height="70">
-                    <RibbonButton LargeImageSource="../Resources/icons/theater_cinema_film_movie_clapper_icon_209580.png"
-                                  Width="70" Height="50" Command="{x:Static vm:Commands.AddMovieDialog}"></RibbonButton>
+                <RibbonGroup Header="Generate" Height="70">
+                    <RibbonButton LargeImageSource="../Resources/icons/add-friend.png" Command="{x:Static vm:Commands.UsersGeneratorCommand}" Height="40" Margin="5, 5, 0, 0"/>
                 </RibbonGroup>
-                <RibbonGroup Header="View">
-                    <RibbonSplitButton x:Name="listAppearance" Label="Appearance" LargeImageSource="../Resources/icons/theater_cinema_film_movie_clapper_icon_209580.png">
-                        <RibbonGallery>
-                            <RibbonGalleryCategory >
-                                <RibbonMenuItem x:Name="smaller" Header="Small image" Command="{x:Static vm:Commands.Appearance}" CommandParameter="{x:Static local:Appearance.Small}"/>
-                                <RibbonMenuItem Header="Big Images" Command="{x:Static vm:Commands.Appearance}" CommandParameter="{x:Static local:Appearance.Big}"/>
-                            </RibbonGalleryCategory>
-                        </RibbonGallery>
-                    </RibbonSplitButton>
+                <RibbonGroup Header="Rate" Height="70">
+                    <RibbonButton LargeImageSource="../Resources/icons/star.png" Command="{x:Static vm:Commands.AddRatingCommand}" Height="40" Margin="0, 5, 0, 0"/>
                 </RibbonGroup>
-                <RibbonGroup Header="Sorting" Height="70">
-                    <RibbonMenuButton Label="Sort by" Margin="0, 17, 0, 0">
-                        <RibbonMenuItem Header="name">
-                            <RibbonMenuItem Header="ascending"  Command="{x:Static vm:Commands.SortByAscCommand}" CommandParameter="MovieName"/>
-                            <RibbonMenuItem Header="descending"  Command="{x:Static vm:Commands.SortByCommand}" CommandParameter="MovieName"/>
-                        </RibbonMenuItem>
-                        <RibbonMenuItem Header="year">
-                            <RibbonMenuItem Header="ascending"  Command="{x:Static vm:Commands.SortByAscCommand}" CommandParameter="Year"/>
-                            <RibbonMenuItem Header="descending"  Command="{x:Static vm:Commands.SortByCommand}" CommandParameter="Year"/>
-                        </RibbonMenuItem>
-                        <RibbonMenuItem Header="rating">
-                            <RibbonMenuItem Header="ascending"  Command="{x:Static vm:Commands.SortByAscCommand}" CommandParameter="Rating"/>
-                            <RibbonMenuItem Header="descending"  Command="{x:Static vm:Commands.SortByCommand}" CommandParameter="Rating"/>
-                        </RibbonMenuItem>
-                    </RibbonMenuButton>
-                </RibbonGroup>
-                <RibbonGroup Header="Save changes" Height="70">
-                    <RibbonButton LargeImageSource="../Resources/icons/save-file-option_icon-icons.com_73423.png" Command="{x:Static vm:Commands.SaveAllChanges}" Height="50" Margin="12, 0, 0, 0"/>
+                <RibbonGroup Header="Save" Height="70">
+                    <RibbonButton LargeImageSource="../Resources/icons/save.png" Command="{x:Static vm:Commands.SaveAllChanges}" Height="40" Margin="0, 5, 0, 0"/>
                 </RibbonGroup>
             </RibbonTab>
         </Ribbon>

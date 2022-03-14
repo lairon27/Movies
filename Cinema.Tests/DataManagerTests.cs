@@ -47,7 +47,7 @@ namespace Cinema.Tests
         }
 
         [TestMethod]
-        public void Save_SaveData_CallMethodSaveData()
+        public async Task Save_SaveData_CallMethodSaveData()
         {
             //Arange
             var dataManager = new DataManager();
@@ -57,7 +57,7 @@ namespace Cinema.Tests
             dataManager.RatingsFileManager = fileManagerMock.Object;
 
             //Act
-            dataManager.Save();
+            await dataManager.Save();
 
             //Assert
             fileManagerMock.Verify(x => x.SaveData(It.IsAny<Stream>()), Times.Exactly(3));
@@ -141,7 +141,7 @@ namespace Cinema.Tests
         }
 
         [TestMethod]
-        public void SetRating_NewRating_AddedReting()
+        public void SetRating_NewRating_AddedRating()
         {
             //Arange
             var dataManager = new DataManager();
