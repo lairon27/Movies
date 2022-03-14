@@ -1,6 +1,5 @@
 ﻿using Cinema.Model;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Xml.Serialization;
@@ -30,8 +29,6 @@ namespace Cinema
         Science = 65536
     }
 
-
-    //[System.Xml.Serialization.XmlInclude(typeof(Movie))]
     [Serializable]
     public class Movie : ModelBaseNotify
     {
@@ -45,6 +42,7 @@ namespace Cinema
         private string image;
         private float avgRatingByUsers;
 
+        [XmlIgnore]
         public ObservableCollection<Rating> Ratings { get; set; }
 
         [XmlAttribute("MovieId")]
@@ -157,8 +155,6 @@ namespace Cinema
 
         public object Clone()
         {
-            Ratings.Clear();
-            //Ratings = null;
             return MemberwiseClone();
         }
 

@@ -8,14 +8,21 @@
         Title="Amount" Height="150" Width="300"
         WindowStartupLocation="CenterScreen">
 
-    <!--<Window.Resources>
-        <ControlTemplate x:Key="validationErrorTemplate">
-            <DockPanel>
-                <TextBlock Foreground="Red" DockPanel.Dock="Top">!</TextBlock>
-                <AdornedElementPlaceholder x:Name="ErrorAdorner"></AdornedElementPlaceholder>
-            </DockPanel>
-        </ControlTemplate>
-    </Window.Resources>-->
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Foreground" Value="#F2F2F2"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="2" Background="#444" Width="50" Height="20">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     
     <Grid>
         <Grid.RowDefinitions>
@@ -25,12 +32,11 @@
         
         
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock x:Name="numberOf" Text="Input number" Margin="0, 0, 0, 5"/>
+            <TextBlock x:Name="numberOf" Text="Input number" Margin="0, 0, 0, 5" Foreground="#368980" FontWeight="Bold" FontSize="13"/>
             <TextBox Width="150" Height="20" Text="{Binding Number, UpdateSourceTrigger=PropertyChanged}">
                 <Validation.ErrorTemplate>
                     <ControlTemplate>
                         <StackPanel>
-                            <!-- Placeholder for the TextBox itself -->
                             <AdornedElementPlaceholder x:Name="textBox"/>
                             <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"/>
                         </StackPanel>
@@ -40,8 +46,8 @@
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Grid.Row="1" Width="150" >
-            <Button Width="50" Height="20" Content="OK" Margin="5" Click="Generate_Click" IsDefault="True"/>
-            <Button Width="50" Height="20" Content="Cancel" IsCancel="True" Margin="35, 0, 0, 0"/>
+            <Button Content="OK" Margin="5" Click="Generate_Click" IsDefault="True"/>
+            <Button Content="Cancel" IsCancel="True" Margin="35, 0, 0, 0"/>
         </StackPanel>
     </Grid>
 </Window>

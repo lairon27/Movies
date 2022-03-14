@@ -4,9 +4,6 @@ using System.Windows;
 
 namespace Cinema.Dialog
 {
-    /// <summary>
-    /// Interaction logic for AddRatingDialog.xaml
-    /// </summary>
     public partial class AddRatingDialog : Window
     {
         private string title;

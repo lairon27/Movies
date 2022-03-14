@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Cinema.Generation
 {
-    internal class Generator
+    public class Generator
     {
         public Faker<User> Faker { get; set; }
 

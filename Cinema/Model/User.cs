@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Xml.Serialization;
 
 namespace Cinema.Model
 {
-    //[System.Xml.Serialization.XmlInclude(typeof(User))]
     [Serializable]
     public class User : ModelBaseNotify
     {
@@ -13,8 +11,9 @@ namespace Cinema.Model
         private string userName;
         private string userLastName;
         private string birthDate;
-        //private int amountOfRatedFilms;
         private Rating selectedRating;
+
+        [XmlIgnore]
         public ObservableCollection<Rating> Ratings { get; set; }
 
         public Rating SelectedRating
@@ -71,26 +70,9 @@ namespace Cinema.Model
             }
         }
 
-        //[XmlAttribute("AmountOfRatedFilms")]
-        //public int AmountOfRatedFilms
-        //{
-        //    get { return amountOfRatedFilms; }
-        //    set
-        //    {
-        //        amountOfRatedFilms = value;
-        //        OnPropertyChanged("AmountOfRatedFilms");
-        //    }
-        //}
-
         public User()
         {
             Ratings = new ObservableCollection<Rating>();
-        }
-
-        public object Clone()
-        {
-            Ratings.Clear();
-            return MemberwiseClone();
         }
     }
 }

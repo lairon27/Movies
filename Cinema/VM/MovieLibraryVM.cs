@@ -14,7 +14,7 @@ namespace Cinema
 
         public ObservableCollection<Movie> Movies { get; set; }
 
-        internal bool AddMovie_CanExecute()
+        internal bool MovieCommands_CanExecute()
         {
             return true;
         }
@@ -95,12 +95,13 @@ namespace Cinema
 
         public void EditMovieDialog_Command()
         {
-            var copy = (Movie)SelectedMovie.Clone();
+            var copy = (Movie)selectedMovie.Clone();
+            
             var movieDialog = new AddMovieDialog(copy, true);
 
             if (movieDialog.ShowDialog() == true)
             {
-                DataManager.UpdateMovie(copy, SelectedMovie);
+                DataManager.UpdateMovie(copy, selectedMovie);
             }
         }
 

@@ -36,10 +36,9 @@ namespace Cinema
         public void DeleteRating_CommandExecute()
         {
             DataManager.DeleteRating(selectedUser, selectedUser.SelectedRating);
-            //selectedUser.AmountOfRatedFilms -= 1;
         }
 
-        internal bool UserGenerator_CanExecute()
+        internal bool UserCommands_CanExecute()
         {
             return true;
         }
@@ -53,7 +52,6 @@ namespace Cinema
                 var user = generator.GenerateUser();
                 DataManager.AddUser(user);
 
-                //var amount = user.AmountOfRatedFilms;
                 var selectedId = DataManager.GetMovies.Select(j => j.MovieId).ToList();
                 var listOfRatings = generator.GenerateRating(selectedId);
 
@@ -72,7 +70,6 @@ namespace Cinema
             {
                 var movie = DataManager.GetMovies.Single(i => i.MovieName == addRating.MovieTitle);
                 DataManager.SetRating(movie, selectedUser, addRating.Rating);
-                //selectedUser.AmountOfRatedFilms += 1;
             }
         }
 

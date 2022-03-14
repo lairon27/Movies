@@ -2,15 +2,10 @@
 using Microsoft.Win32;
 using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows;
-using Xceed.Wpf.Toolkit;
 
 namespace Cinema.View
 {
-    /// <summary>
-    /// Interaction logic for AddMovie.xaml
-    /// </summary>
     public partial class AddMovieDialog : Window
     {
         public AddMovieDialog(Movie movie, bool editMode = false)
@@ -56,7 +51,7 @@ namespace Cinema.View
 
         private void AddWindow_Closing(object sender, CancelEventArgs e)
         {
-            if (System.Windows.MessageBox.Show(ConstClass.saveChanges, ConstClass.close, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            if (MessageBox.Show(ConstClass.saveChanges, ConstClass.close, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 DialogResult = true;
             }
