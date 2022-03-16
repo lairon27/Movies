@@ -68,12 +68,12 @@
                         </Style.Triggers>
                     </Style>
                 </RibbonTab.Style>
-                <RibbonGroup Header="Add movie" Height="85">
+                <RibbonGroup Header="Add movie">
                     <RibbonButton LargeImageSource="../Resources/icons/video.png"
-                                  Width="70" Height="50" Margin="0, 10, 0, 0" Command="{x:Static vm:Commands.AddMovieDialog}"></RibbonButton>
+                                  Width="70" Height="50" Margin="0, 7, 0, 0" Command="{x:Static vm:Commands.AddMovieDialog}"></RibbonButton>
                 </RibbonGroup>
-                <RibbonGroup Header="Appearance" Height="85">
-                    <RibbonSplitButton x:Name="listAppearance" Margin="7, 10, 0, 0" LargeImageSource="../Resources/icons/graphic-design.png">
+                <RibbonGroup Header="Appearance">
+                    <RibbonSplitButton x:Name="listAppearance" Margin="7, 7, 0, 0" LargeImageSource="../Resources/icons/graphic-design.png">
                         <RibbonGallery>
                             <RibbonGalleryCategory>
                                 <RibbonMenuItem x:Name="smaller" ImageSource="../Resources/icons/reduce.png" Header="Small image" Command="{x:Static vm:Commands.Appearance}" CommandParameter="{x:Static local:Appearance.Small}"/>
@@ -82,8 +82,8 @@
                         </RibbonGallery>
                     </RibbonSplitButton>
                 </RibbonGroup>
-                <RibbonGroup Header="Sorting" Height="85">
-                    <RibbonMenuButton LargeImageSource="../Resources/icons/sort.png" Margin="0, 10, 0, 0">
+                <RibbonGroup Header="Sorting">
+                    <RibbonMenuButton LargeImageSource="../Resources/icons/sort.png" Margin="0, 7, 0, 0">
                         <RibbonMenuItem Header="name" ImageSource="../Resources/icons/nameplate.png">
                             <RibbonMenuItem Header="ascending" ImageSource="../Resources/icons/up-arrow.png" Command="{x:Static vm:Commands.SortByAscCommand}" CommandParameter="MovieName"/>
                             <RibbonMenuItem Header="descending" ImageSource="../Resources/icons/down-arrow.png" Command="{x:Static vm:Commands.SortByCommand}" CommandParameter="MovieName"/>
@@ -98,8 +98,8 @@
                         </RibbonMenuItem>
                     </RibbonMenuButton>
                 </RibbonGroup>
-                <RibbonGroup Header="Save" Height="85">
-                    <RibbonButton LargeImageSource="../Resources/icons/floppy-disk.png" Command="{x:Static vm:Commands.SaveAllChanges}" Height="50" Margin="0, 12, 0, 0"/>
+                <RibbonGroup Header="Save">
+                    <RibbonButton LargeImageSource="../Resources/icons/floppy-disk.png" Command="{x:Static vm:Commands.SaveAllChanges}" Height="40" Margin="0, 7, 0, 0"/>
                 </RibbonGroup>
             </RibbonTab>
             <RibbonTab x:Name="usersControl" Header="Users">

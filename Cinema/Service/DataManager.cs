@@ -79,8 +79,8 @@ namespace Cinema.Service
                 users = xMLSerializator.Deserialize<ObservableCollection<User>>(usersStream);
             });
 
-            _ = Task.WhenAll(ratingTask, movieTask, userTask);
-
+            await Task.WhenAll(ratingTask, movieTask, userTask);
+            
             if (users != null && movies != null && ratings != null)
             {
                 var usersDictionary = users.GroupBy(i => i.UserId).ToDictionary(g => g.Key, g => g.First());
