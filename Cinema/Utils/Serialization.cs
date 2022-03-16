@@ -1,11 +1,9 @@
-﻿using System;
-using System.IO;
-using System.Windows;
+﻿using System.IO;
 using System.Xml.Serialization;
 
 namespace Cinema.Utils
 {
-   public class Serialization : IXMLSerializator
+    public class Serialization : IXMLSerializator
     {
         public Stream SerializeToXML<T>(T obj)
         {

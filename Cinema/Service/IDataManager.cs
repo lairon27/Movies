@@ -1,9 +1,7 @@
 ﻿using Cinema.Model;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using System.Windows.Data;
 
 namespace Cinema.Service
 {

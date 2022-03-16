@@ -111,7 +111,11 @@
             </xcdg:DataGridControl.Columns>
             <xcdg:DataGridControl.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Rate film" Command="{x:Static vm:Commands.AddRatingCommand}" />
+                    <MenuItem Header="Rate film" Command="{x:Static vm:Commands.AddRatingCommand}">
+                        <MenuItem.Icon>
+                            <Image Source="../Resources/icons/star.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
                 </ContextMenu>
             </xcdg:DataGridControl.ContextMenu>
         </xcdg:DataGridControl>
@@ -123,8 +127,16 @@
                        IsReadOnly="True" MaxWidth="540" HorizontalAlignment="Right" Margin="10, 0, 30, 0">
                 <DataGrid.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Rate film" Command="{x:Static vm:Commands.AddRatingCommand}" />
-                        <MenuItem Header="Delete rated film" Command="{x:Static vm:Commands.DeleteRatingCommand}" />
+                        <MenuItem Header="Rate another film" Command="{x:Static vm:Commands.AddRatingCommand}">
+                            <MenuItem.Icon>
+                                <Image Source="../Resources/icons/star.png"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Delete rated film" Command="{x:Static vm:Commands.DeleteRatingCommand}">
+                            <MenuItem.Icon>
+                                <Image Source="../Resources/icons/recycle-bin.png"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
                     </ContextMenu>
                 </DataGrid.ContextMenu>
                 <DataGrid.Columns>

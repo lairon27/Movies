@@ -11,8 +11,10 @@ namespace Cinema.View
         public AddMovieDialog(Movie movie, bool editMode = false)
         {
             InitializeComponent();
+
             genresComboBox.ItemsSource = Enum.GetValues(typeof(Genres));
             genresComboBox.SelectedValue = movie.Genre.ToString().Replace(" ", "");
+
             DataContext = movie;
            
             Closing += AddWindow_Closing;

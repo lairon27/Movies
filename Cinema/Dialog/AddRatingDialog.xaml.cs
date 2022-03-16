@@ -14,7 +14,7 @@ namespace Cinema.Dialog
             InitializeComponent();
             DataContext = this;
 
-            combo.ItemsSource = dataManager.GetMovies.Select(i => i.MovieName).ToList();
+            movieComboBox.ItemsSource = dataManager.GetMovies.Select(i => i.MovieName).ToList();
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)

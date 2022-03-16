@@ -99,7 +99,7 @@
                     </RibbonMenuButton>
                 </RibbonGroup>
                 <RibbonGroup Header="Save">
-                    <RibbonButton LargeImageSource="../Resources/icons/floppy-disk.png" Command="{x:Static vm:Commands.SaveAllChanges}" Height="40" Margin="0, 7, 0, 0"/>
+                    <RibbonButton LargeImageSource="../Resources/icons/floppy-disk.png" Command="{x:Static vm:Commands.SaveAllChanges}" Height="50" Margin="0, 7, 0, 0"/>
                 </RibbonGroup>
             </RibbonTab>
             <RibbonTab x:Name="usersControl" Header="Users">
