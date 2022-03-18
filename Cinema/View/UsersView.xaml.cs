@@ -85,5 +85,10 @@ namespace Cinema.View
         {
             e.CanExecute = UserVM.UserCommands_CanExecute();
         }
+
+        private void usersList_LoadingRow(object sender, System.Windows.Controls.DataGridRowEventArgs e)
+        {
+            e.Row.Header = (e.Row.GetIndex() + 1).ToString();
+        }
     }
 }

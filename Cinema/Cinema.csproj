@@ -174,7 +174,9 @@
     <PackageReference Include="Syncfusion.SfInput.WPF">
       <Version>19.4.0.50</Version>
     </PackageReference>
-    <PackageReference Include="Xceed.Products.Wpf.DataGrid.Full" Version="7.0.20452.1321" />
+    <PackageReference Include="Xceed.Products.Wpf.DataGrid.Base">
+      <Version>7.0.20452.1321</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Bogus">
