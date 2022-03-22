@@ -233,5 +233,36 @@
   <ItemGroup>
     <Resource Include="Resources\icons\floppy-disk.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="files1\moviesFileAttribute16h.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="files1\rating9.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="files1\usersFileAttribute41.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Resources\ds.jpg" />
+    <Resource Include="Resources\1917.jpg" />
+    <Resource Include="Resources\Cherry.jpg" />
+    <Resource Include="Resources\Everest.jpg" />
+    <Resource Include="Resources\Nightmare Alley.jpg" />
+    <Resource Include="Resources\Spider_Man_No_Way_Home.jpg" />
+    <Resource Include="Resources\Step Up.jpg" />
+    <Resource Include="Resources\The Devil All the Time.jpg" />
+    <Resource Include="Resources\The Imitation Game.jpg" />
+    <Resource Include="Resources\Batman_&amp;_robin.jpg" />
+    <Resource Include="Resources\Tenet.jpg" />
+    <Resource Include="Resources\Kingsman_The_Secret_Service.jpg" />
+    <Resource Include="Resources\Texas Chainsaw Massacre.jpg" />
+    <Resource Include="Resources\Deep Water.jpg" />
+    <Resource Include="Resources\Master.jpg" />
+    <Resource Include="Resources\The Batman.jpg" />
+    <Resource Include="Resources\The Tashkent Files.jpg" />
+    <Resource Include="Resources\Inception.jpg" />
+    <Resource Include="Resources\Matrix.jpg" />
+    <Resource Include="Resources\icons\pen.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

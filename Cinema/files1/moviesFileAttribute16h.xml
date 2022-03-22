@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<ArrayOfMovie xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Movie MovieId="81915939-af6b-4514-a247-f0bb109aeb05" MovieName="Avengers: Infinity War" Year="2018" Rating="8.4" Time="2h 29m" Image="pack://application:,,,/Resources/avengers1.png">
+    <Genre>Action Fantasy Fiction Adventure</Genre>
+    <Describe>The Avengers and their allies must be willing to sacrifice all in an attempt to defeat the powerful Thanos before his blitz of devastation and ruin puts an end to the universe.</Describe>
+  </Movie>
+  <Movie MovieId="a7661302-06d9-49b9-8d05-ab54ef9334be" MovieName="No Time to Die" Year="2021" Rating="7.4" Time="2h 43m" Image="pack://application:,,,/Resources/no_time.png">
+    <Genre>Action Thriller Adventure</Genre>
+    <Describe>James Bond has left active service. His peace is short-lived when Felix Leiter, an old friend from the CIA, turns up asking for help, leading Bond onto the trail of a mysterious villain armed with dangerous new technology.</Describe>
+  </Movie>
+  <Movie MovieId="d110766a-28ef-4add-8fdd-9e1ac7a9fc37" MovieName="The Shawshank Redemption" Year="1994" Rating="6.2" Time="2h 22m" Image="pack://application:,,,/Resources/shawshank.jpg">
+    <Genre>Drama Crime</Genre>
+    <Describe>Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.</Describe>
+  </Movie>
+  <Movie MovieId="75312f7f-e3b5-4a48-94a7-0f027ea5d44a" MovieName="The Dark Knight " Year="2008" Rating="9" Time="2h 32m" Image="pack://application:,,,/Resources/dark_knight.jpg">
+    <Genre>Action Thriller Fiction Crime</Genre>
+    <Describe>When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.</Describe>
+  </Movie>
+  <Movie MovieId="f787598a-a8d9-411f-951f-d20e7761da88" MovieName="Harry Potter and the Deathly Hallows: Part 2" Year="2011" Rating="8.1" Time="2h 10m" Image="pack://application:,,,/Resources/harry_potter.jpg">
+    <Genre>Fantasy Adventure Detective</Genre>
+    <Describe>Harry, Ron, and Hermione search for Voldemort's remaining Horcruxes in their effort to destroy the Dark Lord as the final battle rages on at Hogwarts.</Describe>
+  </Movie>
+  <Movie MovieId="21643b4b-4f5c-4c93-b203-909959f8b26b" MovieName="Spotlight" Year="2015" Rating="8.1" Time="2h 9m" Image="pack://application:,,,/Resources/spotlight.jpg">
+    <Genre>Drama Thriller Biographical Historical</Genre>
+    <Describe>The true story of how the Boston Globe uncovered the massive scandal of child molestation and cover-up within the local Catholic Archdiocese.</Describe>
+  </Movie>
+  <Movie MovieId="b71c7a1e-fafb-4cc7-a49d-293db9197409" MovieName="Joker" Year="2019" Rating="8.3" Time="2h 2m" Image="pack://application:,,,/Resources/joker.jpg">
+    <Genre>Drama Thriller Crime</Genre>
+    <Describe>In Gotham City, mentally ill comedian Arthur Fleck is disregarded and mistreated by society.This path brings him face-to-face with his alter-ego: the Joker.</Describe>
+  </Movie>
+  <Movie MovieId="26fd369b-9069-4675-9462-6490f120e101" MovieName="Ford v Ferrari" Year="2019" Rating="8.1" Time="2h 32m" Image="pack://application:,,,/Resources/ford_v_ferrari.jpg">
+    <Genre>Drama Biographical Sports</Genre>
+    <Describe>American car designer Carroll Shelby and driver Ken Miles battle corporate interference and the laws of physics to build a revolutionary race car for Ford in order to defeat Ferrari at the 24 Hours of Le Mans in 1966.</Describe>
+  </Movie>
+  <Movie MovieId="06a38314-7145-4ce0-9c5d-16cc0becdc85" MovieName="Shang-Chi and the Legend of the Ten Rings" Year="2021" Rating="7.6" Time="2h 12m" Image="pack://application:,,,/Resources/shang-chi.png">
+    <Genre>Action Comedy Fantasy Adventure</Genre>
+    <Describe>Shang-Chi, the master of weaponry-based Kung Fu, is forced to confront his past after being drawn into the Ten Rings organization.</Describe>
+  </Movie>
+  <Movie MovieId="5adaa632-4917-4184-b138-cdd9d992f42b" MovieName="Terminator 2: Judgment Day" Year="1991" Rating="8.5" Time="2h 17m" Image="pack://application:,,,/Resources/terminator2.jpg">
+    <Genre>Action Thriller Fiction</Genre>
+    <Describe>A cyborg, identical to the one who failed to kill Sarah Connor, must now protect her ten-year-old son John from a more advanced and powerful cyborg.</Describe>
+  </Movie>
+  <Movie MovieId="eb052e38-fb2a-4e40-847b-81ead92e211e" MovieName="Dune" Year="2021" Rating="7.2" Time="2h 35m" Image="pack://application:,,,/Resources/dune.jpg">
+    <Genre>Drama Fiction Adventure</Genre>
+    <Describe>Feature adaptation of Frank Herbert's science fiction novel about the son of a noble family entrusted with the protection of the most valuable asset and most vital element in the galaxy.</Describe>
+  </Movie>
+  <Movie MovieId="92f7055f-921f-45ae-a61f-c4b04db75476" MovieName="The Matrix" Year="1999" Rating="8.7" Time="2h 16m" Image="pack://application:,,,/Resources/Matrix.jpg">
+    <Genre>Action Fiction Science</Genre>
+    <Describe>When a beautiful stranger leads computer hacker Neo to a forbidding underworld, he discovers the shocking truth--the life he knows is the elaborate deception of an evil cyber-intelligence.</Describe>
+  </Movie>
+  <Movie MovieId="c373df2d-02cc-409d-9367-d1924356a96a" MovieName="Inception" Year="2010" Rating="8.8" Time="2h 28m" Image="pack://application:,,,/Resources/Inception.jpg">
+    <Genre>Action Thriller Adventure</Genre>
+    <Describe>A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O., but his tragic past may doom the project to disaster.</Describe>
+  </Movie>
+  <Movie MovieId="49ac5794-32b8-4769-b9ed-74c7ea8d3bb6" MovieName="Deep Water" Year="2022" Rating="5.4" Time="1h 55m" Image="pack://application:,,,/Resources/Deep Water.jpg">
+    <Genre>Drama Mystery Thriller</Genre>
+    <Describe>A well-to-do husband who allows his wife to have affairs in order to avoid a divorce becomes a prime suspect in the disappearance of her lovers.</Describe>
+  </Movie>
+  <Movie MovieId="22a16288-b53e-4b4d-bfd2-a9864b220cd1" MovieName="Master" Year="2022" Rating="4.6" Time="1h 38m" Image="pack://application:,,,/Resources/Master.jpg">
+    <Genre>Drama Horror Mystery Thriller</Genre>
+    <Describe>Two African American women begin to share disturbing experiences at a predominantly white college in New England.</Describe>
+  </Movie>
+  <Movie MovieId="1e2f04e6-82ae-4104-8e91-b29700b689bc" MovieName="The Batman" Year="2022" Rating="8.4" Time="2h 56m" Image="pack://application:,,,/Resources/The Batman.jpg">
+    <Genre>Action Drama Mystery Crime</Genre>
+    <Describe>When the Riddler, a sadistic serial killer, begins murdering key political figures in Gotham, Batman is forced to investigate the city's hidden corruption and question his family's involvement.</Describe>
+  </Movie>
+  <Movie MovieId="1bdaf7d1-8ab2-40ad-a124-103902af91ba" MovieName="The Tashkent Files" Year="2019" Rating="8.7" Time="2h 14m" Image="pack://application:,,,/Resources/The Tashkent Files.jpg">
+    <Genre>Drama Mystery Thriller</Genre>
+    <Describe>Revolves around the mysterious death of India's 2nd Prime Minister Shri Lal Bahadur Shastri and attempts to uncover if he had actually died a natural death, or, as alleged, was assassinated.</Describe>
+  </Movie>
+  <Movie MovieId="5edee7fd-a639-4657-9aba-9e328391f390" MovieName="Texas Chainsaw Massacre" Year="2022" Rating="4.8" Time="1h 21m" Image="pack://application:,,,/Resources/Texas Chainsaw Massacre.jpg">
+    <Genre>Horror Thriller Crime</Genre>
+    <Describe>After nearly 50 years of hiding, Leatherface returns to terrorize a group of idealistic young friends who accidentally disrupt his carefully shielded world in a remote Texas town.</Describe>
+  </Movie>
+  <Movie MovieId="8d67dec5-0c85-4f3b-beed-01adaf64def7" MovieName="Kingsman: The Secret Service" Year="2014" Rating="7.7" Time="2h 9m" Image="pack://application:,,,/Resources/Kingsman_The_Secret_Service.jpg">
+    <Genre>Action Comedy Thriller Adventure</Genre>
+    <Describe>A spy organisation recruits a promising street kid into the agency's training program, while a global threat emerges from a twisted tech genius.</Describe>
+  </Movie>
+  <Movie MovieId="43f4b24f-8a98-4117-add7-e5a00e134529" MovieName="Tenet" Year="2020" Rating="7.4" Time="2h 30m" Image="pack://application:,,,/Resources/Tenet.jpg">
+    <Genre>Action Thriller Fiction</Genre>
+    <Describe>Fighting for the survival of the entire world, a Protagonist journeys through a twilight world of international espionage on a mission that will unfold in something beyond real time.</Describe>
+  </Movie>
+  <Movie MovieId="85909164-90c8-453f-a54c-e3cf23874689" MovieName="Batman &amp; Robin" Year="1997" Rating="3.7" Time="2h 5m" Image="pack://application:,,,/Resources/Batman_&amp;_robin.jpg">
+    <Genre>Action Fiction</Genre>
+    <Describe>Batman and Robin try to keep their relationship together even as they must stop Mr. Freeze and Poison Ivy from freezing Gotham City.</Describe>
+  </Movie>
+  <Movie MovieId="05e6b618-4609-4014-b343-b5bbe75879de" MovieName="Spider-Man: No Way Home" Year="2021" Rating="8.6" Time="2h 28m" Image="pack://application:,,,/Resources/Spider_Man_No_Way_Home.jpg">
+    <Genre>Action Fantasy Fiction Adventure</Genre>
+    <Describe>With Spider-Man's identity now revealed dangerous foes from other worlds start to appear, forcing Peter to discover what it truly means to be Spider-Man.</Describe>
+  </Movie>
+  <Movie MovieId="3ae0d1a6-f739-4132-aed8-ecde33ba7497" MovieName="Nightmare Alley" Year="2021" Rating="7.1" Time="2h 30m" Image="pack://application:,,,/Resources/Nightmare Alley.jpg">
+    <Genre>Drama Thriller Crime</Genre>
+    <Describe>A grifter working his way up from low-ranking carnival worker to lauded psychic medium matches wits with a psychiatrist bent on exposing him.</Describe>
+  </Movie>
+  <Movie MovieId="485bcbd5-12fd-4969-93a4-97a2ee3c81c4" MovieName="The Imitation Game" Year="2014" Rating="8" Time="1h 54m" Image="pack://application:,,,/Resources/The Imitation Game.jpg">
+    <Genre>Drama Thriller Biographical Science</Genre>
+    <Describe>During World War II, the English mathematical genius Alan Turing tries to crack the German Enigma code with help from fellow mathematicians.</Describe>
+  </Movie>
+  <Movie MovieId="7204d2de-bc6a-4cf1-9203-a02e78ad2b26" MovieName="Doctor Strange" Year="2016" Rating="7.5" Time="1h 55m" Image="pack://application:,,,/Resources/ds.jpg">
+    <Genre>Action Fantasy Fiction Adventure</Genre>
+    <Describe>While on a journey of physical and spiritual healing, a brilliant neurosurgeon is drawn into the world of the mystic arts.</Describe>
+  </Movie>
+  <Movie MovieId="942e9619-8243-43c5-a449-abe9fa743b57" MovieName="Step Up Revolution" Year="2012" Rating="6.4" Time="1h 39m" Image="pack://application:,,,/Resources/Step Up.jpg">
+    <Genre>Drama Romance</Genre>
+    <Describe>Emily arrives in Miami with aspirations to become a professional dancer. She sparks with Sean, the leader of a dance crew whose neighborhood is threatened by Emily's father's development plans.</Describe>
+  </Movie>
+  <Movie MovieId="0373f2d1-ecda-4f43-9bc7-5614e33078bb" MovieName="The Devil All the Time" Year="2020" Rating="7.1" Time="2h 18m" Image="pack://application:,,,/Resources/The Devil All the Time.jpg">
+    <Genre>Drama Thriller Crime</Genre>
+    <Describe>Sinister characters converge around a young man devoted to protecting those he loves in a postwar backwoods town teeming with corruption and brutality.</Describe>
+  </Movie>
+  <Movie MovieId="f52e9663-ec1f-42fd-973d-610f2137aedd" MovieName="Everest" Year="2015" Rating="7.1" Time="2h 1m" Image="pack://application:,,,/Resources/Everest.jpg">
+    <Genre>Action Drama Thriller Adventure Biographical</Genre>
+    <Describe>The story of New Zealand's Robert "Rob" Edwin Hall, who on May 10, 1996, together with Scott Fischer, teamed up on a joint expedition to ascend Mount Everest.</Describe>
+  </Movie>
+  <Movie MovieId="01d995a2-c737-4b71-bcca-370baa592f0a" MovieName="1917" Year="2019" Rating="8.3" Time="1h 59m" Image="pack://application:,,,/Resources/1917.jpg">
+    <Genre>Action Drama</Genre>
+    <Describe>As an infantry battalion assembles to wage war deep in enemy territory, two soldiers are assigned to race against time and deliver a message that will stop 1,600 men from walking straight into a deadly trap.</Describe>
+  </Movie>
+  <Movie MovieId="c5fb289d-2cd7-4883-9b22-6d297cdc7d95" MovieName="Cherry" Year="2021" Rating="6.6" Time="2h 22m" Image="pack://application:,,,/Resources/Cherry.jpg">
+    <Genre>Drama Crime</Genre>
+    <Describe>Cherry drifts from college dropout to army medic. But after returning from the war with PTSD, his life spirals into drugs and crime as he struggles to find his place in the world.</Describe>
+  </Movie>
+</ArrayOfMovie>

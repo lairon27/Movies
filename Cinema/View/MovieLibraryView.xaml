@@ -101,6 +101,16 @@
                                   CommandParameter="{Binding SelectedMovie}" />
                 </Grid.InputBindings>
 
+                <Grid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Edit movie" Command="{x:Static vm:Commands.EditMovieDialogCmd}">
+                            <MenuItem.Icon>
+                                <Image Source="../Resources/icons/pen.png"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </ContextMenu>
+                </Grid.ContextMenu>
+                
                 <Grid.ToolTip>
                     <ToolTip>
                         <TextBlock Width="100" Text="Click - see more 

@@ -2,9 +2,9 @@
 {
     public static class ConstClass
     {
-        public const string moviesPath = "..\\files\\moviesFileAttribute16q.xml";
-        public const string userPath = "..\\files\\usersFileAttribute41.xml";
-        public const string ratingPath = "..\\files\\rating9.xml";
+        public const string moviesPath = @"files1/moviesFileAttribute16h.xml";
+        public const string userPath = @"files1/usersFileAttribute41.xml";
+        public const string ratingPath = @"files1/rating9.xml";
         public const string saveChanges = "Do you want to save all changes?";
         public const string changesSaved = "Changes saved successfully";
         public const string close = "Close app";
