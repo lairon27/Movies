@@ -8,7 +8,7 @@
         xmlns:local="clr-namespace:Cinema.View"
         d:DataContext="{d:DesignInstance Type=cinema:MovieLibraryVM}"
         mc:Ignorable="d"
-        Title="Main Window" Height="450" Width="800" WindowState="Maximized">
+        Title="Main Window" Height="450" Width="800" WindowState="Maximized" Icon="../Resources/icons/video-playlist.png">
 
     <RibbonWindow.Resources>
         <Style TargetType="{x:Type TabItem}">

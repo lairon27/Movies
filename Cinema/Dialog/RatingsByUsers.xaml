@@ -8,12 +8,13 @@
         xmlns:cef1="clr-namespace:Cinema.Converters" 
         d:DataContext="{d:DesignInstance Type=cinema:MovieLibraryVM}"
         mc:Ignorable="d"
-        Title="RatingsByUsers" Height="450" Width="300" x:Name="this_" >
+        Title="RatingsByUsers" Height="450" Width="300" x:Name="this_" Icon="../Resources/icons/info.png">
     <Window.Resources>
         <cef1:UseridToNameConverter x:Key="UserIdConv"></cef1:UseridToNameConverter>
     </Window.Resources>
     <Grid>
-        <DataGrid ItemsSource="{Binding Ratings}" VirtualizingPanel.IsVirtualizingWhenGrouping="True" AutoGenerateColumns="False" HeadersVisibility="Column" ColumnWidth="*" CanUserAddRows="False" IsReadOnly="True" >
+        <DataGrid ItemsSource="{Binding Ratings}" VirtualizingPanel.IsVirtualizingWhenGrouping="True" AutoGenerateColumns="False" 
+                  HeadersVisibility="Column" ColumnWidth="*" CanUserAddRows="False" IsReadOnly="True" HorizontalGridLinesBrush="#83c7b5" GridLinesVisibility="Horizontal">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="User">
                     <DataGridTextColumn.Binding>

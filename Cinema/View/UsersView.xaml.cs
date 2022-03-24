@@ -1,6 +1,7 @@
 ﻿using Cinema.Dialog;
 using Cinema.Utils;
 using Cinema.VM;
+using System;
 using System.Windows;
 using System.Windows.Input;
 

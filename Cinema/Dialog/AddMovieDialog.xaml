@@ -7,15 +7,15 @@
         xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
         d:DataContext="{d:DesignInstance Type=cinema:MovieLibraryVM}"
         mc:Ignorable="d"
-        Title="Add Movie" Height="400" Width="300">
+        Title="Add Movie" Height="400" Width="300" Icon="../Resources/icons/video.png">
 
     <Window.Resources>
         <Style TargetType="Button">
-            <Setter Property="Foreground" Value="#F2F2F2"/>
+            <Setter Property="Foreground" Value="#444"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border CornerRadius="2" Background="#444">
+                        <Border CornerRadius="2" Background="#BFD2D0">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
                     </ControlTemplate>
@@ -42,12 +42,12 @@
             <RowDefinition Height="30" />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Margin="5">
-            <TextBlock Grid.Row="0" Grid.ColumnSpan="3" Text="Movie Poster" FontWeight="Bold" />
-            <TextBox Grid.Row="0" x:Name="txb_ImageFileName" Text="{Binding Image, UpdateSourceTrigger=PropertyChanged}"  />
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="3" Margin="5">
+            <TextBlock Text="Movie Poster" FontWeight="Bold" />
+            <TextBox x:Name="txb_ImageFileName" Text="{Binding Image, UpdateSourceTrigger=PropertyChanged}"  />
         </StackPanel>
 
-        <Button Grid.Column="2" Content="..." Click="DowloadImage" Height="18" Margin="0, 15, 5, 0" Cursor="Hand"/>
+        <Button Grid.Column="2" Content="..." Click="DowloadImage" Height="18" Width="20" Margin="0, 15, 5, 0" Cursor="Hand" HorizontalAlignment="Right"/>
 
         <StackPanel Margin="5" Grid.ColumnSpan="3" Grid.Row="1">
             <TextBlock Text="Movie Title"/>

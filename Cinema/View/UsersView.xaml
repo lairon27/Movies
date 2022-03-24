@@ -74,7 +74,7 @@
 
     <Grid Background="#F2F2F2">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition MinWidth="300" MaxWidth="600"/>
+            <ColumnDefinition MaxWidth="800" MinWidth="300"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
@@ -84,12 +84,12 @@
             <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Users" Grid.Row="0" FontSize="22" HorizontalAlignment="Center"/>
-        <TextBlock Text="Rated films" Grid.Row="0" Grid.Column="1" FontSize="22" HorizontalAlignment="Center"/>
+        <TextBlock Text="Users" Grid.Row="0" FontSize="22" Margin="0,10,0,0" HorizontalAlignment="Center" Foreground="#436b4c" FontWeight="DemiBold"/>
+        <TextBlock Text="Rated films" Grid.Row="0" Grid.Column="1" FontSize="22" HorizontalAlignment="Center" Margin="0,10,0,0" Foreground="#436b4c" FontWeight="DemiBold"/>
 
-        <DataGrid x:Name="usersList" ItemsSource="{Binding Users, Mode=TwoWay}" SelectedItem="{Binding SelectedUser}" 
+        <DataGrid x:Name="usersList" ItemsSource="{Binding Users, Mode=TwoWay}" SelectedItem="{Binding SelectedUser}"
                   AutoGenerateColumns="False" Grid.Column="0" CanUserAddRows="False" Grid.Row="1" LoadingRow="usersList_LoadingRow"
-                  Background="White" Margin="30, 0, 10, 0" HorizontalAlignment="Center" VirtualizingPanel.IsVirtualizingWhenGrouping="True"
+                  Margin="30, 0, 10, 0" HorizontalAlignment="Center" VirtualizingPanel.IsVirtualizingWhenGrouping="True"
                   BorderThickness="0" HorizontalGridLinesBrush="#83c7b5" GridLinesVisibility="Horizontal">
             <DataGrid.ContextMenu>
                 <ContextMenu>
@@ -114,8 +114,9 @@
 
         <GridSplitter Grid.Column="0" Grid.Row="1" ShowsPreview="False" Width="3" VerticalAlignment="Stretch" Background="#e0e0e0" Margin="0, 0, 10, 0"/>
 
-        <DataGrid x:Name="grid" DataContext="{Binding SelectedUser}" ItemsSource="{Binding Ratings, Mode=TwoWay}" SelectedItem="{Binding SelectedRating}" AutoGenerateColumns="False" ColumnWidth="*" CanUserAddRows="False"
-                       IsReadOnly="True" MaxWidth="540" HorizontalAlignment="Right" Margin="10, 0, 30, 0" LoadingRow="usersList_LoadingRow" Grid.Column="1" Grid.Row="1"
+        <DataGrid x:Name="grid" DataContext="{Binding SelectedUser}" ItemsSource="{Binding Ratings, Mode=TwoWay}" SelectedItem="{Binding SelectedRating}"
+                  AutoGenerateColumns="False" ColumnWidth="*" CanUserAddRows="False"
+                  HorizontalAlignment="Right" Margin="0, 0, 30, 0" LoadingRow="usersList_LoadingRow" Grid.Column="1" Grid.Row="1"
                   BorderThickness="0" HorizontalGridLinesBrush="#83c7b5" GridLinesVisibility="Horizontal"> 
             <DataGrid.ContextMenu>
                 <ContextMenu>
@@ -132,7 +133,7 @@
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Movie Title" ScrollViewer.CanContentScroll="True">
+                <DataGridTextColumn Header="Movie Title" ScrollViewer.CanContentScroll="True" IsReadOnly="True">
                     <DataGridTextColumn.Binding>
                         <MultiBinding Converter="{StaticResource idConv}">
                             <Binding Path="MovieId"/>
@@ -146,6 +147,11 @@
                             <Setter Property="HorizontalAlignment" Value="Center" />
                         </Style>
                     </DataGridTextColumn.ElementStyle>
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="ToolTip" Value="Double click to edit" />
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
                 </DataGridTextColumn>
                 <DataGridTemplateColumn MaxWidth="50">
                     <DataGridTemplateColumn.CellTemplate>

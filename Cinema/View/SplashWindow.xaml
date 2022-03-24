@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="SplashScreen" Height="450" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" Topmost="True" AllowsTransparency="True" Background="#f5ece9">
+        Title="SplashScreen" Icon="../Resources/icons/video-playlist.png" Height="450" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" Topmost="True" AllowsTransparency="True" Background="#f5ece9">
     <Grid>
         <Image Source="pack://application:,,,/Resources/splash.jpg">
             <Image.Triggers>

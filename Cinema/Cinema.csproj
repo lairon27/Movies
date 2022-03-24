@@ -243,6 +243,8 @@
     <Content Include="files1\usersFileAttribute41.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\icons\info.png" />
+    <Resource Include="Resources\icons\video-playlist.png" />
     <Resource Include="Resources\ds.jpg" />
     <Resource Include="Resources\1917.jpg" />
     <Resource Include="Resources\Cherry.jpg" />

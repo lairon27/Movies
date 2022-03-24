@@ -10,12 +10,12 @@
 
     <Window.Resources>
         <Style TargetType="Button">
-            <Setter Property="Foreground" Value="#F2F2F2"/>
+            <Setter Property="Foreground" Value="#444"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border CornerRadius="2" Background="#444" Width="50" Height="20">
+                        <Border CornerRadius="2" Background="#BFD2D0" Width="50" Height="20">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
                     </ControlTemplate>

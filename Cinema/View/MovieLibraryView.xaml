@@ -49,6 +49,7 @@
         <Style TargetType="TextBlock">
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="Foreground" Value="#444444"/>
+            <Setter Property="FontFamily" Value="Montserrat"/>
         </Style>
 
         <Style TargetType="ListBoxItem" x:Key="ListBoxItemStyle">
@@ -120,7 +121,7 @@
                 <Image x:Name="images" Source="{Binding Path=Image}" Grid.Row="0" HorizontalAlignment="Left"/>
 
                 <StackPanel Grid.Row="1" HorizontalAlignment="Left">
-                    <TextBlock Foreground="{Binding Path=Rating, Converter={StaticResource rangeConv}}" Text="{Binding Path=MovieName}" FontSize="18" TextWrapping="Wrap"/>
+                    <TextBlock Foreground="{Binding Path=Rating, Converter={StaticResource rangeConv}}" Text="{Binding Path=MovieName}" FontWeight="SemiBold" FontSize="16" TextWrapping="Wrap"/>
                     <TextBlock Text="{Binding Path=Year}"/>
                     <TextBlock Text="{Binding Path=Rating}"/>
                 </StackPanel>
@@ -179,7 +180,7 @@
                         <Setter Property="Width" Value="270"/>
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}, Path=IsSelected}" Value="True">
-                                <Setter Property="Width" Value="570"/>
+                                <Setter Property="Width" Value="490"/>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
@@ -202,12 +203,28 @@
 
                 <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
                     <StackPanel Width="135">
-                        <TextBlock Foreground="{Binding Path=Rating, Converter={StaticResource rangeConv}}" Text="{Binding Path=MovieName}" FontSize="18" TextWrapping="Wrap"/>
-                        <TextBlock Text="{Binding Path=Year}" />
-                        <TextBlock Text="{Binding Path=Rating}" />
+                        <TextBlock Foreground="{Binding Path=Rating, Converter={StaticResource rangeConv}}" Text="{Binding Path=MovieName}" FontWeight="SemiBold" FontSize="16" TextWrapping="Wrap"/>
+                        <TextBlock Text="Year" Foreground="#00B6BC" FontSize="15"/>
+                        <TextBlock Text="{Binding Path=Year, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock Text="Rating" Foreground="#00B6BC" FontSize="15"/>
+                        <TextBlock Text="{Binding Path=Rating, UpdateSourceTrigger=PropertyChanged}" />
+                        <syncfusion:SfRating ItemsCount="5" Value="{Binding Path=Rating, Converter={StaticResource amountConv}}" IsEnabled="False" HorizontalAlignment="Left">
+                            <syncfusion:SfRating.ItemContainerStyle>
+                                <Style TargetType="syncfusion:SfRatingItem">
+                                    <Setter Property="Height" Value="20"/>
+                                    <Setter Property="Width" Value="20"/>
+                                    <Setter Property="RatedFill" Value="#FFD700"/>
+                                    <Setter Property="UnratedFill" Value="#C0C0C0"/>
+                                </Style>
+                            </syncfusion:SfRating.ItemContainerStyle>
+                        </syncfusion:SfRating>
+                        <TextBlock Text="Avarage Rating" Foreground="#00B6BC" FontSize="15"/>
+                        <TextBlock Text="{Binding AvgRatingByUsers, UpdateSourceTrigger=PropertyChanged}" FontSize="13"/>
+                        <TextBlock Text="Time" Foreground="#00B6BC" FontSize="15"/>
+                        <TextBlock Text="{Binding Time, UpdateSourceTrigger=PropertyChanged}" FontSize="13"/>
                     </StackPanel>
 
-                    <StackPanel x:Name="selectedMovieInfo" Orientation="Horizontal" Width="435">
+                    <StackPanel x:Name="selectedMovieInfo" Orientation="Horizontal" >
                         <StackPanel.Style>
                             <Style TargetType="{x:Type StackPanel}">
                                 <Setter Property="Visibility" Value="Hidden"/>
@@ -220,27 +237,13 @@
                         </StackPanel.Style>
 
                         <StackPanel Width="150">
-                            <TextBlock Text="Genre" FontWeight="Bold" FontSize="15" Foreground="#00B6BC"/>
+                            <TextBlock Text="Genre" FontSize="15" Foreground="#00B6BC"/>
                             <TextBlock Text="{Binding Genre, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" FontSize="13"/>
-                            <TextBlock Text="Describe" FontWeight="Bold" FontSize="15" Foreground="#00B6BC"/>
+                            <TextBlock Text="Describe" FontSize="15" Foreground="#00B6BC"/>
                             <TextBlock Text="{Binding Describe, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" FontSize="13"/>
                         </StackPanel>
-                        <StackPanel Margin="5, 0, 0, 0">
-                            <TextBlock Text="Rating" FontWeight="Bold" FontSize="15" Foreground="#00B6BC"/>
-                            <syncfusion:SfRating ItemsCount="5" Value="{Binding Path=Rating, Converter={StaticResource amountConv}}" IsEnabled="False" HorizontalAlignment="Left">
-                                <syncfusion:SfRating.ItemContainerStyle>
-                                    <Style TargetType="syncfusion:SfRatingItem">
-                                        <Setter Property="Height" Value="20"/>
-                                        <Setter Property="RatedFill" Value="#FFD700"/>
-                                        <Setter Property="UnratedFill" Value="#C0C0C0"/>
-                                    </Style>
-                                </syncfusion:SfRating.ItemContainerStyle>
-                            </syncfusion:SfRating>
-                            <TextBlock Text="Time" FontWeight="Bold" FontSize="15" Foreground="#00B6BC"/>
-                            <TextBlock Text="{Binding Time, UpdateSourceTrigger=PropertyChanged}" FontSize="13"/>
-                            <TextBlock Text="Avarage Rating" FontWeight="Bold" FontSize="15" Foreground="#00B6BC"/>
-                            <TextBlock Text="{Binding AvgRatingByUsers, UpdateSourceTrigger=PropertyChanged}" FontSize="13"/>
-                            <Button Content="more" Margin="80, 0, 0, 20" Cursor="Hand">
+                        <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                            <Button Content="more"  Cursor="Hand">
                                 <Button.InputBindings>
                                     <MouseBinding MouseAction="LeftClick"
                                   Command="{x:Static vm:Commands.ShowRatingInfoCmd}"
@@ -248,7 +251,6 @@
                                 </Button.InputBindings>
                             </Button>
                         </StackPanel>
-                        
                     </StackPanel>
                 </StackPanel>
             </Grid>

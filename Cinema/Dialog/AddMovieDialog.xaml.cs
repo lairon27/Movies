@@ -3,6 +3,7 @@ using Microsoft.Win32;
 using System;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace Cinema.View
 {
@@ -23,6 +24,7 @@ namespace Cinema.View
             {
                 addBtn.Content = ConstClass.saveBtn;
                 Title = ConstClass.editTitile;
+                Icon = new BitmapImage(new Uri("pack://application:,,,/Resources/icons/pen.png"));
             }
 
         }
